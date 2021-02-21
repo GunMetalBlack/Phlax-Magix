@@ -1,0 +1,16 @@
+#Anything that is optional which you are not using, just delete that line. You can also delete any of the '#comments'
+ 
+modLoader="javafml" #mandatory
+loaderVersion="[35,)" #mandatory
+license="All rights reserved" #mandatory https://choosealicense.com/
+
+ 
+[[mods]] #mandatory
+modId="firstmod_123" #mandatory
+version="0.1" #mandatory
+displayName="Juice" #mandatory
+credits="Me of course" #optional
+authors="wow look at those credits" #optional
+description='''
+I have no idea what I'm doing 
+''' #mandatory
