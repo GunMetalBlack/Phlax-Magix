@@ -28,7 +28,7 @@ public class Firstmod
     public Firstmod() {
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-      
+      //Rats are cool
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
