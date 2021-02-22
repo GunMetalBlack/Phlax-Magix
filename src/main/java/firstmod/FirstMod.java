@@ -38,9 +38,9 @@ public class FirstMod {
 
 	@SubscribeEvent
     public static void onLoadEvent(FMLLoadCompleteEvent event) {
-            OreFeatureConfig feature = new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, DifReg.phlaxOre.getDefaultState(), 8);
+            OreFeatureConfig feature = new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, DifReg.phlaxOre.getDefaultState(), 11);
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, DifReg.phlaxOre.getRegistryName(),
-                    Feature.ORE.withConfiguration(feature).range(8).func_242731_b(2).square());
+                    Feature.ORE.withConfiguration(feature).range(33).func_242731_b(4).square());
         setupGen();
     }
 
