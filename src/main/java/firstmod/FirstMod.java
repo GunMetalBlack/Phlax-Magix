@@ -8,6 +8,8 @@ import java.util.function.Supplier;
 import com.google.common.collect.Lists;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
@@ -29,12 +31,28 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod(value = "firstmod_123")
 @EventBusSubscriber(modid = "firstmod_123",bus = Bus.MOD)
 public class FirstMod {
+	
+	public static final ItemGroup PhlaxFixins_Group  = new PhlaxFixinsGroup("firstmod_123");
 
 	public FirstMod() {
+		
 		IEventBus Ebus = FMLJavaModLoadingContext.get().getModEventBus();
 		DifReg.ITEMS.register(Ebus);
 		DifReg.BLOCKS.register(Ebus);
 	}
+	
+	public static class PhlaxFixinsGroup extends ItemGroup {
+
+		public PhlaxFixinsGroup(String label) {
+			super(label);
+			
+		}
+
+		@Override
+		public ItemStack createIcon() {
+			
+			return DifReg.phlaxsword.getDefaultInstance();
+		}}
 
 	@SubscribeEvent
     public static void onLoadEvent(FMLLoadCompleteEvent event) {
