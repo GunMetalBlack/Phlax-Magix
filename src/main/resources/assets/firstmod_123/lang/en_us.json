@@ -1,3 +1,7 @@
 {
- "item.firstmod_123.cherry": "ChimpsCherry"
+ "item.firstmod_123.cherry": "Chimps Cherry",
+ "item.firstmod_123.phlax": "Phlax",
+ "block.firstmod_123.phlaxore": "Phlax Ore",
+ "item.firstmod_123.condensedphlax":"Condensed Phlax",
+ "item.firstmod_123.phlax_sword":"Phlax Sword"
 }
