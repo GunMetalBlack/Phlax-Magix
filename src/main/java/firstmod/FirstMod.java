@@ -7,7 +7,10 @@ import java.util.function.Supplier;
 
 import com.google.common.collect.Lists;
 
+import firstmod.common.entities.PhlaxWandEntitie;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.RegistryKey;
@@ -21,10 +24,12 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
@@ -39,6 +44,7 @@ public class FirstMod {
 		IEventBus Ebus = FMLJavaModLoadingContext.get().getModEventBus();
 		DifReg.ITEMS.register(Ebus);
 		DifReg.BLOCKS.register(Ebus);
+		DifReg.ENTITIES.register(Ebus);
 	}
 	
 	public static class PhlaxFixinsGroup extends ItemGroup {
@@ -53,7 +59,18 @@ public class FirstMod {
 			
 			return DifReg.phlaxsword.getDefaultInstance();
 		}}
-
+	@SubscribeEvent
+	public static void clientSetup(final FMLClientSetupEvent event) {
+		
+		registerEntityModels(event.getMinecraftSupplier());
+	}
+	
+	private static void registerEntityModels(Supplier<Minecraft> minecraft) {
+		net.minecraft.client.renderer.ItemRenderer renderer = minecraft.get().getItemRenderer();
+		
+		RenderingRegistry.registerEntityRenderingHandler(DifReg.Phlax_Projectile.get(), (rendermanager) -> new SpriteRenderer<PhlaxWandEntitie>(rendermanager,renderer));
+	}
+	
 	@SubscribeEvent
     public static void onLoadEvent(FMLLoadCompleteEvent event) {
             OreFeatureConfig feature = new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, DifReg.phlaxOre.getDefaultState(), 11);
