@@ -30,6 +30,7 @@ public class DifReg {
 	public static Item phlaxpickaxe; 
 	public static Item phlaxaxe; 
 	public static Item phlaxshovel; 
+	public static Item phlaxwand;
 	static {
 		
 		//Items
@@ -39,9 +40,10 @@ public class DifReg {
 		
 		//Item Tools
 		ITEMS.register("phlax_axe",() -> phlaxaxe = new AxeItem(ModItemTeir.PHLAX, 1, 1f, new Item.Properties().group(FirstMod.PhlaxFixins_Group)));
-		ITEMS.register("phlax_shovel",() -> phlaxshovel = new ShovelItem(ModItemTeir.PHLAX, -3, -3f, new Item.Properties().group(FirstMod.PhlaxFixins_Group)));
-		ITEMS.register("phlax_sword",() -> phlaxsword = new SwordItem(ModItemTeir.PHLAX, 3, -3f, new Item.Properties().group(FirstMod.PhlaxFixins_Group)));
+		ITEMS.register("phlax_shovel",() -> phlaxshovel = new ShovelItem(ModItemTeir.PHLAX, -3, 1f, new Item.Properties().group(FirstMod.PhlaxFixins_Group)));
+		ITEMS.register("phlax_sword",() -> phlaxsword = new SwordItem(ModItemTeir.PHLAX, 3, 5f, new Item.Properties().group(FirstMod.PhlaxFixins_Group)));
 		ITEMS.register("phlax_pickaxe",() -> phlaxpickaxe = new PickaxeItem(ModItemTeir.PHLAX, -1, 3f, new Item.Properties().group(FirstMod.PhlaxFixins_Group)));
+		ITEMS.register("phlax_wand",() -> phlaxwand = new Item( new Item.Properties()));
 		//Blocks
 		BLOCKS.register("phlaxore",() -> phlaxOre = new PhlaxOre(AbstractBlock.Properties.create(Material.ROCK,MaterialColor.BLACK).hardnessAndResistance(5.0f,3.0f).sound(SoundType.STONE).setRequiresTool().harvestTool(ToolType.PICKAXE).harvestLevel(3)));
 		

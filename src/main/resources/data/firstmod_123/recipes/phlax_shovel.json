@@ -1,0 +1,19 @@
+  "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "pp ",
+        "p/ ",
+        " / "
+    ],
+    "key": {
+        "p": {
+            "item": "firstmod_123:condensedphlax"
+        },
+        "/": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "firstmod_123:phlax_axe",
+        "count": 1
+    }
+}
