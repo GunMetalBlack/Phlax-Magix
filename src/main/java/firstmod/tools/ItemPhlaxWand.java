@@ -12,8 +12,9 @@ import net.minecraft.world.World;
 public class ItemPhlaxWand extends Item {
 	
 	public ItemPhlaxWand(Properties properties) {
+		
 		super(properties);
-		properties.group(FirstMod.PhlaxFixins_Group);
+		
 		
 	}
 
