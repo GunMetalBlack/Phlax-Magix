@@ -7,7 +7,8 @@ import java.util.function.Supplier;
 
 import com.google.common.collect.Lists;
 
-import firstmod.common.entities.PhlaxWandEntitie;
+import firstmod.common.MagicManager;
+import firstmod.common.entities.spells.PhlaxWandEntitie;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
@@ -45,6 +46,7 @@ public class FirstMod {
 		DifReg.ITEMS.register(Ebus);
 		DifReg.BLOCKS.register(Ebus);
 		DifReg.ENTITIES.register(Ebus);
+		 
 	}
 	
 	public static class PhlaxFixinsGroup extends ItemGroup {

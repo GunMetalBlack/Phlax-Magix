@@ -1,4 +1,4 @@
-package firstmod.common.entities;
+package firstmod.common.entities.spells;
 
 import firstmod.DifReg;
 import net.minecraft.entity.EntityType;

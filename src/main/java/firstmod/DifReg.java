@@ -1,7 +1,7 @@
 package firstmod;
 
 import firstmod.common.block.PhlaxOre;
-import firstmod.common.entities.PhlaxWandEntitie;
+import firstmod.common.entities.spells.PhlaxWandEntitie;
 import firstmod.common.item.ItemCherry;
 import firstmod.tools.ItemPhlaxWand;
 import firstmod.tools.ModItemTeir;
@@ -40,10 +40,11 @@ public class DifReg {
 	public static Item phlaxshovel; 
 	public static Item phlaxwand;
 	public static Item wand_projectile;
+	public static Item itemcherry;
 	static {
 		
 		//Items
-		ITEMS.register("cherry",() -> new ItemCherry(new Properties().group(FirstMod.PhlaxFixins_Group).food(new Food.Builder().hunger(5).build())));
+		ITEMS.register("cherry",() -> new ItemCherry(new Properties().group(FirstMod.PhlaxFixins_Group).food(new Food.Builder().setAlwaysEdible().hunger(5).build())));
 		ITEMS.register("phlax",() -> phlaxItem = new Item(new Properties().group(FirstMod.PhlaxFixins_Group)));
 		ITEMS.register("condensedphlax",() -> condensedphlaxItem = new Item(new Properties().group(FirstMod.PhlaxFixins_Group)));
 		
