@@ -7,6 +7,7 @@ import firstmod.DifReg;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.loot.LootContext.Builder;
 import net.minecraftforge.common.ToolType;
 
@@ -24,6 +25,6 @@ public class PhlaxOre extends Block {
 	public PhlaxOre(Properties properties) {
 		super(properties);
 	
-	}
+		}
 
 }

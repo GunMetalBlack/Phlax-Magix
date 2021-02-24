@@ -11,6 +11,8 @@ import firstmod.common.MagicManager;
 import firstmod.common.entities.spells.PhlaxWandEntitie;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -64,6 +66,7 @@ public class FirstMod {
 	@SubscribeEvent
 	public static void clientSetup(final FMLClientSetupEvent event) {
 		
+		RenderTypeLookup.setRenderLayer(DifReg.phlax_fluxcrop, RenderType.getCutout());
 		registerEntityModels(event.getMinecraftSupplier());
 	}
 	

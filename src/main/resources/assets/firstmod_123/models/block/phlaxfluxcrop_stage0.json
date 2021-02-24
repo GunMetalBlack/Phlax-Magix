@@ -1,0 +1,6 @@
+{
+"parent": "block/crop",
+	"textures":{
+	"crop": "firstmod_123:block/phlaxfluxcrop_stage0"
+	}
+}

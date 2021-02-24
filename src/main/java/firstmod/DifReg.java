@@ -1,5 +1,6 @@
 package firstmod;
 
+import firstmod.common.block.FlaxCropBlock;
 import firstmod.common.block.PhlaxOre;
 import firstmod.common.entities.spells.PhlaxWandEntitie;
 import firstmod.common.item.ItemCherry;
@@ -41,10 +42,10 @@ public class DifReg {
 	public static Item phlaxwand;
 	public static Item wand_projectile;
 	public static Item itemcherry;
+	public static FlaxCropBlock phlax_fluxcrop;
 	static {
 		
 		//Items
-		ITEMS.register("cherry",() -> new ItemCherry(new Properties().group(FirstMod.PhlaxFixins_Group).food(new Food.Builder().setAlwaysEdible().hunger(5).build())));
 		ITEMS.register("phlax",() -> phlaxItem = new Item(new Properties().group(FirstMod.PhlaxFixins_Group)));
 		ITEMS.register("condensedphlax",() -> condensedphlaxItem = new Item(new Properties().group(FirstMod.PhlaxFixins_Group)));
 		
@@ -59,11 +60,12 @@ public class DifReg {
 		ITEMS.register("phlax_wand",() -> phlaxwand = new ItemPhlaxWand( new Item.Properties().group(FirstMod.PhlaxFixins_Group)));
 		//Blocks
 		BLOCKS.register("phlaxore",() -> phlaxOre = new PhlaxOre(AbstractBlock.Properties.create(Material.ROCK,MaterialColor.BLACK).hardnessAndResistance(5.0f,3.0f).sound(SoundType.STONE).setRequiresTool().harvestTool(ToolType.PICKAXE).harvestLevel(3)));
-		
+		BLOCKS.register("phlax_fluxcrop",() -> phlax_fluxcrop = new  FlaxCropBlock(Block.Properties.create(Material.PLANTS).hardnessAndResistance(0f).doesNotBlockMovement().tickRandomly().sound(SoundType.PLANT)));
 		//Entities
 	
 		
 		//Block Items
+		ITEMS.register("phlax_fluxcrop",() -> itemcherry =  new ItemCherry(phlax_fluxcrop, new Properties().group(FirstMod.PhlaxFixins_Group).food(new Food.Builder().setAlwaysEdible().hunger(5).build())));
 		ITEMS.register("phlaxore",() -> new BlockItem(phlaxOre, new Properties().group(FirstMod.PhlaxFixins_Group)));
 	}
 }
