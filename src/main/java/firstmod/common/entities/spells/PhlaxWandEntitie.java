@@ -3,6 +3,7 @@ package firstmod.common.entities.spells;
 import firstmod.DifReg;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.IPacket;
@@ -14,6 +15,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 public class PhlaxWandEntitie extends ThrowableEntity implements IRendersAsItem{
 	
+	public PlayerEntity player;
 	@Override
 		public void tick() {
 			world.addParticle(ParticleTypes.DRIPPING_OBSIDIAN_TEAR	, getPosX(), getPosY(), getPosZ(), 0, 0, 0);
@@ -46,11 +48,11 @@ public class PhlaxWandEntitie extends ThrowableEntity implements IRendersAsItem{
 	public void onImpact(RayTraceResult result) 
 	{
 	if(!world.isRemote) {
-		world.createExplosion(this, getPosX(), getPosY(), getPosZ(), 10, Mode.DESTROY);
+		world.createExplosion(player, getPosX(), getPosY(), getPosZ(), 5, Mode.DESTROY);
 	}
-		if(ticksExisted>20) {
+		
 		this.remove();	
-	}
+	
 	
 	}
 	@Override

@@ -29,43 +29,58 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class DifReg {
 	public static DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, "firstmod_123");
 	public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, "firstmod_123");
-	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, "firstmod_123");
-	public static final RegistryObject<EntityType<PhlaxWandEntitie>> Phlax_Projectile = ENTITIES.register("phlax_projectile", () -> EntityType.Builder.<PhlaxWandEntitie>create(PhlaxWandEntitie::new, EntityClassification.MISC).size(0.25f,0.25f).build("phlax_projectile"));
-	
-	public static Item phlaxItem; 
+	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES,
+			"firstmod_123");
+	public static final RegistryObject<EntityType<PhlaxWandEntitie>> Phlax_Projectile = ENTITIES.register(
+			"phlax_projectile",
+			() -> EntityType.Builder.<PhlaxWandEntitie>create(PhlaxWandEntitie::new, EntityClassification.MISC)
+					.size(0.25f, 0.25f).build("phlax_projectile"));
+
+	public static Item phlaxItem;
 	public static Item condensedphlaxItem;
-	public static PhlaxOre phlaxOre; 
-	public static Item phlaxsword; 
-	public static Item phlaxpickaxe; 
-	public static Item phlaxaxe; 
-	public static Item phlaxshovel; 
+	public static PhlaxOre phlaxOre;
+	public static Item phlaxsword;
+	public static Item phlaxpickaxe;
+	public static Item phlaxaxe;
+	public static Item phlaxshovel;
 	public static Item phlaxwand;
 	public static Item wand_projectile;
 	public static Item itemcherry;
 	public static FlaxCropBlock phlax_fluxcrop;
 	static {
-		
-		//Items
-		ITEMS.register("phlax",() -> phlaxItem = new Item(new Properties().group(FirstMod.PhlaxFixins_Group)));
-		ITEMS.register("condensedphlax",() -> condensedphlaxItem = new Item(new Properties().group(FirstMod.PhlaxFixins_Group)));
-		
-		//Spells
-		ITEMS.register("wand_projectile",() ->wand_projectile = new Item(new Properties()));
-		
-		//Item Tools
-		ITEMS.register("phlax_axe",() -> phlaxaxe = new AxeItem(ModItemTeir.PHLAX, 1, 1f, new Item.Properties().group(FirstMod.PhlaxFixins_Group)));
-		ITEMS.register("phlax_shovel",() -> phlaxshovel = new ShovelItem(ModItemTeir.PHLAX, -3, 1f, new Item.Properties().group(FirstMod.PhlaxFixins_Group)));
-		ITEMS.register("phlax_sword",() -> phlaxsword = new SwordItem(ModItemTeir.PHLAX, 3, 5f, new Item.Properties().group(FirstMod.PhlaxFixins_Group)));
-		ITEMS.register("phlax_pickaxe",() -> phlaxpickaxe = new PickaxeItem(ModItemTeir.PHLAX, -1, 3f, new Item.Properties().group(FirstMod.PhlaxFixins_Group)));
-		ITEMS.register("phlax_wand",() -> phlaxwand = new ItemPhlaxWand( new Item.Properties().group(FirstMod.PhlaxFixins_Group)));
-		//Blocks
-		BLOCKS.register("phlaxore",() -> phlaxOre = new PhlaxOre(AbstractBlock.Properties.create(Material.ROCK,MaterialColor.BLACK).hardnessAndResistance(5.0f,3.0f).sound(SoundType.STONE).setRequiresTool().harvestTool(ToolType.PICKAXE).harvestLevel(3)));
-		BLOCKS.register("phlax_fluxcrop",() -> phlax_fluxcrop = new  FlaxCropBlock(Block.Properties.create(Material.PLANTS).hardnessAndResistance(0f).doesNotBlockMovement().tickRandomly().sound(SoundType.PLANT)));
-		//Entities
-	
-		
-		//Block Items
-		ITEMS.register("phlax_fluxcrop",() -> itemcherry =  new ItemCherry(phlax_fluxcrop, new Properties().group(FirstMod.PhlaxFixins_Group).food(new Food.Builder().setAlwaysEdible().hunger(5).build())));
-		ITEMS.register("phlaxore",() -> new BlockItem(phlaxOre, new Properties().group(FirstMod.PhlaxFixins_Group)));
+
+		// Items
+		ITEMS.register("phlax", () -> phlaxItem = new Item(new Properties().group(FirstMod.PhlaxFixins_Group)));
+		ITEMS.register("condensedphlax",
+				() -> condensedphlaxItem = new Item(new Properties().group(FirstMod.PhlaxFixins_Group)));
+
+		// Spells
+		ITEMS.register("wand_projectile", () -> wand_projectile = new Item(new Properties()));
+
+		// Item Tools
+		ITEMS.register("phlax_axe", () -> phlaxaxe = new AxeItem(ModItemTeir.PHLAX, 1, 1f,
+				new Item.Properties().group(FirstMod.PhlaxFixins_Group)));
+		ITEMS.register("phlax_shovel", () -> phlaxshovel = new ShovelItem(ModItemTeir.PHLAX, -3, 1f,
+				new Item.Properties().group(FirstMod.PhlaxFixins_Group)));
+		ITEMS.register("phlax_sword", () -> phlaxsword = new SwordItem(ModItemTeir.PHLAX, 3, 5f,
+				new Item.Properties().group(FirstMod.PhlaxFixins_Group)));
+		ITEMS.register("phlax_pickaxe", () -> phlaxpickaxe = new PickaxeItem(ModItemTeir.PHLAX, -1, 3f,
+				new Item.Properties().group(FirstMod.PhlaxFixins_Group)));
+		ITEMS.register("phlax_wand",
+				() -> phlaxwand = new ItemPhlaxWand(new Item.Properties().group(FirstMod.PhlaxFixins_Group)));
+		// Blocks
+		BLOCKS.register("phlaxore",
+				() -> phlaxOre = new PhlaxOre(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BLACK)
+						.hardnessAndResistance(5.0f, 3.0f).sound(SoundType.STONE).setRequiresTool()
+						.harvestTool(ToolType.PICKAXE).harvestLevel(3)));
+		BLOCKS.register("phlax_fluxcrop",
+				() -> phlax_fluxcrop = new FlaxCropBlock(Block.Properties.create(Material.PLANTS)
+						.hardnessAndResistance(0f).doesNotBlockMovement().tickRandomly().sound(SoundType.PLANT)));
+		// Entities
+
+		// Block Items
+		ITEMS.register("phlax_fluxcrop", () -> itemcherry = new ItemCherry(phlax_fluxcrop, new Properties()
+				.group(FirstMod.PhlaxFixins_Group).food(new Food.Builder().setAlwaysEdible().hunger(5).build())));
+		ITEMS.register("phlaxore", () -> new BlockItem(phlaxOre, new Properties().group(FirstMod.PhlaxFixins_Group)));
 	}
 }

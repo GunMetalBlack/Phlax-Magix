@@ -6,8 +6,9 @@ import java.util.Map.Entry;
 import java.util.function.Supplier;
 
 import com.google.common.collect.Lists;
+import com.google.common.eventbus.Subscribe;
 
-import firstmod.common.MagicManager;
+import firstmod.UI.RenderGuiHandler;
 import firstmod.common.entities.spells.PhlaxWandEntitie;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -25,6 +26,7 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -61,14 +63,17 @@ public class FirstMod {
 		@Override
 		public ItemStack createIcon() {
 			
-			return DifReg.phlaxsword.getDefaultInstance();
+			return DifReg.itemcherry.getDefaultInstance();
 		}}
 	@SubscribeEvent
 	public static void clientSetup(final FMLClientSetupEvent event) {
 		
 		RenderTypeLookup.setRenderLayer(DifReg.phlax_fluxcrop, RenderType.getCutout());
 		registerEntityModels(event.getMinecraftSupplier());
+		
 	}
+	
+
 	
 	private static void registerEntityModels(Supplier<Minecraft> minecraft) {
 		net.minecraft.client.renderer.ItemRenderer renderer = minecraft.get().getItemRenderer();

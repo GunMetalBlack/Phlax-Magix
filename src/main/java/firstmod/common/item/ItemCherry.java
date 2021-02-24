@@ -27,8 +27,8 @@ public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantmen
 	
 	@Override
 		public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {
-		
-			MagicManager.Mana += 5f;
+			MagicManager.MagicController();
+			MagicManager.RegenMana = true;
 			return super.onItemUseFinish(stack, worldIn, entityLiving);
 		}
 

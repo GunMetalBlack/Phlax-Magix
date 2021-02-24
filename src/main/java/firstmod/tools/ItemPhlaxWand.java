@@ -11,28 +11,28 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.ModLoader;
 
 public class ItemPhlaxWand extends Item {
-	 
+
 	public ItemPhlaxWand(Properties properties) {
-		
+
 		super(properties);
-		
-		
+
 	}
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-		ItemStack stack = PhlaxWandEntitie.nstack;
-		if(!worldIn.isRemote && MagicManager.Mana > 10) 
-		{
+		
+		MagicManager.MagicController();
+		if (!worldIn.isRemote && MagicManager.Mana > 10) {
 			PhlaxWandEntitie phlaxen = new PhlaxWandEntitie(worldIn);
-			MagicManager.MagicController();
-			phlaxen.setLocationAndAngles(playerIn.getPosX(), playerIn.getPosY() + playerIn.getEyeHeight() * 0.8, playerIn.getPosZ(), playerIn.rotationYaw, playerIn.rotationPitch);
+			phlaxen.setLocationAndAngles(playerIn.getPosX(), playerIn.getPosY() + playerIn.getEyeHeight() * 0.8,
+					playerIn.getPosZ(), playerIn.rotationYaw, playerIn.rotationPitch);
 			phlaxen.func_234612_a_(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0, 1, 1);
 			worldIn.addEntity(phlaxen);
+			phlaxen.player = playerIn;
 			MagicManager.Mana -= 10f;
 		}
 		return super.onItemRightClick(worldIn, playerIn, handIn);
-		
+
 	}
-	
+
 }
