@@ -29,7 +29,7 @@ public class MagicManager {
 	
 	public static void MagicController() 
 	{
-		Mana = Mana > 100 ? 100 : Mana
+		Mana = Mana > 100 ? 100 : Mana;
 	}
 	
 }
