@@ -14,12 +14,7 @@ import net.minecraftforge.common.ToolType;
 public class CrimsonRock extends Block {
 	@Override
 	public List<ItemStack> getDrops(BlockState state, Builder builder) {
-		
-		ArrayList<ItemStack>list = new ArrayList<ItemStack>();
-		
-		list.add(new ItemStack(DifReg.crimson_rock,1));
-	
-		return list;
+		return Arrays.<ItemStack>asList(new ItemStack(DifReg.crimson_rock, 1));
 	}
 
 	public CrimsonRock(Properties properties) {
