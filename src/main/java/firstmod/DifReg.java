@@ -1,5 +1,7 @@
 package firstmod;
 
+import firstmod.common.block.CrimsonRock;
+import firstmod.common.block.CrimsonStone;
 import firstmod.common.block.FlaxCropBlock;
 import firstmod.common.block.PhlaxOre;
 import firstmod.common.entities.spells.PhlaxWandEntitie;
@@ -8,6 +10,7 @@ import firstmod.tools.ItemPhlaxWand;
 import firstmod.tools.ModItemTeir;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -47,6 +50,8 @@ public class DifReg {
 	public static Item wand_projectile;
 	public static Item itemcherry;
 	public static FlaxCropBlock phlax_fluxcrop;
+	public static CrimsonStone crimson_stone;
+	public static CrimsonRock crimson_rock;
 	static {
 
 		// Items
@@ -76,11 +81,21 @@ public class DifReg {
 		BLOCKS.register("phlax_fluxcrop",
 				() -> phlax_fluxcrop = new FlaxCropBlock(Block.Properties.create(Material.PLANTS)
 						.hardnessAndResistance(0f).doesNotBlockMovement().tickRandomly().sound(SoundType.PLANT)));
+		BLOCKS.register("crimson_stone",
+				() -> crimson_stone = new CrimsonStone(AbstractBlock.Properties.create(Material.CLAY, MaterialColor.ADOBE)
+						.hardnessAndResistance(5.0f, 3.0f).sound(SoundType.STONE).setRequiresTool()
+						.harvestTool(ToolType.PICKAXE).harvestLevel(0)));
+		BLOCKS.register("crimson_rock",
+				() -> crimson_rock = new CrimsonRock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BLACK)
+						.hardnessAndResistance(5.0f, 3.0f).sound(SoundType.STONE).setRequiresTool()
+						.harvestTool(ToolType.PICKAXE).harvestLevel(0)));
 		// Entities
 
 		// Block Items
 		ITEMS.register("phlax_fluxcrop", () -> itemcherry = new ItemCherry(phlax_fluxcrop, new Properties()
 				.group(FirstMod.PhlaxFixins_Group).food(new Food.Builder().setAlwaysEdible().hunger(5).build())));
 		ITEMS.register("phlaxore", () -> new BlockItem(phlaxOre, new Properties().group(FirstMod.PhlaxFixins_Group)));
+		ITEMS.register("crimson_stone", () -> new BlockItem(crimson_stone, new Properties().group(FirstMod.PhlaxFixins_Group)));
+		ITEMS.register("crimson_rock", () -> new BlockItem(crimson_rock, new Properties().group(FirstMod.PhlaxFixins_Group)));
 	}
 }

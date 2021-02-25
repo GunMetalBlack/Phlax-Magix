@@ -8,5 +8,7 @@
  "itemGroup.firstmod_123": "Phlax Fixins",
   "item.firstmod_123.phlax_shovel":"Phlax Shovel",
   "item.firstmod_123.phlax_axe":"Phlax Axe",
-  "item.firstmod_123.phlax_wand":"Phlax Wand"
+  "item.firstmod_123.phlax_wand":"Phlax Wand",
+  "block.firstmod_123.crimson_stone":"Crimson Stone",
+   "block.firstmod_123.crimson_rock":"Crimson Rock"
 }

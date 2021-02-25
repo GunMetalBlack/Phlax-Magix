@@ -1,4 +1,4 @@
-package firstmod.UI;
+package firstmod.client.UI;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
@@ -17,13 +17,20 @@ public class RenderGuiHandler {
 		@SubscribeEvent
 		public static void textRenderGui(RenderGameOverlayEvent.Post event) 
 		{
-			 
+			 int Colors;
+			if(MagicManager.Mana <= 10)
+			{
+				Colors = 16321548;
+			}else {
+				Colors = 799993;
+			}
+			
 			 if(event.getType() == RenderGameOverlayEvent.ElementType.TEXT)
 		     {
 				 
 				    MatrixStack stack = event.getMatrixStack();
 				    FontRenderer font = Minecraft.getInstance().fontRenderer;
-				    font.func_243248_b(stack, new StringTextComponent("Mana: "+MagicManager.Mana), 12, 12,200);
+				    font.func_243248_b(stack, new StringTextComponent("Mana: "+MagicManager.Mana), 12, 12,Colors);
 				 
 		     }
 		}
