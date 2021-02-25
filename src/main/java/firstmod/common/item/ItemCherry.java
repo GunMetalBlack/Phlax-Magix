@@ -14,15 +14,6 @@ public class ItemCherry extends BlockItem{
 		super(blockIn, builder);
 		
 	}
-
-
-
-@Override
-public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-	
-	return super.canApplyAtEnchantingTable(stack, enchantment);
-}
-	
 	
 	
 	@Override
