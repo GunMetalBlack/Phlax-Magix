@@ -10,9 +10,11 @@ public class MagicManager {
 	public static int count = 20;
 	public static float Mana = 100f;
 	public static boolean RegenMana = false;
+	public static boolean CanUseUnstable = false;
 	@SubscribeEvent
 	public static void playerTick(PlayerTickEvent event) {
-   MagicManager.MagicController();
+  
+	MagicManager.MagicController();
 	if(RegenMana == true &&  count > 0 )
 	{
 		count--;

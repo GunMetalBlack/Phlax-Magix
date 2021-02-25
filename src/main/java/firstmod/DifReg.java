@@ -6,6 +6,7 @@ import firstmod.common.block.FlaxCropBlock;
 import firstmod.common.block.PhlaxOre;
 import firstmod.common.entities.spells.PhlaxWandEntitie;
 import firstmod.common.item.ItemCherry;
+import firstmod.common.item.UnstableFluxFood;
 import firstmod.tools.ItemPhlaxWand;
 import firstmod.tools.ModItemTeir;
 import net.minecraft.block.AbstractBlock;
@@ -52,6 +53,7 @@ public class DifReg {
 	public static FlaxCropBlock phlax_fluxcrop;
 	public static CrimsonStone crimson_stone;
 	public static CrimsonRock crimson_rock;
+	public static UnstableFluxFood unstablefluxfood;
 	static {
 
 		// Items
@@ -90,7 +92,10 @@ public class DifReg {
 						.hardnessAndResistance(5.0f, 3.0f).sound(SoundType.STONE).setRequiresTool()
 						.harvestTool(ToolType.PICKAXE).harvestLevel(0)));
 		// Entities
-
+		
+		//FoodItems
+		ITEMS.register("unstable_fluxfood", () -> unstablefluxfood = new UnstableFluxFood( new Properties()
+				.group(FirstMod.PhlaxFixins_Group).food(new Food.Builder().setAlwaysEdible().hunger(1).build())));
 		// Block Items
 		ITEMS.register("phlax_fluxcrop", () -> itemcherry = new ItemCherry(phlax_fluxcrop, new Properties()
 				.group(FirstMod.PhlaxFixins_Group).food(new Food.Builder().setAlwaysEdible().hunger(5).build())));

@@ -1,6 +1,7 @@
 package firstmod.common.block;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import firstmod.DifReg;
@@ -9,7 +10,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootContext.Builder;
-import net.minecraftforge.common.ToolType;
 
 public class CrimsonRock extends Block {
 	@Override
