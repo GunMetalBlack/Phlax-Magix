@@ -29,12 +29,7 @@ public class MagicManager {
 	
 	public static void MagicController() 
 	{
-		
-		if(Mana > 100f)
-		{
-			
-			Mana = 100f;
-		}
+		Mana = Mana > 100 ? 100 : Mana
 	}
 	
 }
