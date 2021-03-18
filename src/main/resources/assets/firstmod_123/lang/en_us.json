@@ -10,5 +10,9 @@
   "item.firstmod_123.phlax_axe":"Phlax Axe",
   "item.firstmod_123.phlax_wand":"Phlax Wand",
   "block.firstmod_123.crimson_stone":"Crimson Stone",
-   "block.firstmod_123.crimson_rock":"Crimson Rock"
+   "block.firstmod_123.crimson_rock":"Crimson Rock",
+	"item.firstmod_123.test_textures":"TestItem",
+	"block.firstmod_123.ruby_ore":"Ruby Ore",
+	"item.firstmod_123.ruby_item":"Ruby",
+	"block.firstmod_123.nickle_ore":"Nickel Ore"
 }

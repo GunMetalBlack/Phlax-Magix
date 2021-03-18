@@ -22,7 +22,7 @@ public class ItemPhlaxWand extends Item {
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
 		
 		MagicManager.MagicController();
-		if (!worldIn.isRemote && MagicManager.Mana > 10) {
+		if (!worldIn.isRemote && MagicManager.Mana > 10 &&  MagicManager.CanUseUnstable == true) {
 			PhlaxWandEntitie phlaxen = new PhlaxWandEntitie(worldIn);
 			phlaxen.setLocationAndAngles(playerIn.getPosX(), playerIn.getPosY() + playerIn.getEyeHeight() * 0.8,
 					playerIn.getPosZ(), playerIn.rotationYaw, playerIn.rotationPitch);

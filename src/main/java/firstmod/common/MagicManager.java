@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 public class MagicManager {
 	
 	public static int count = 20;
+	public static int count1 = 2000;
 	public static float Mana = 100f;
 	public static boolean RegenMana = false;
 	public static boolean CanUseUnstable = false;
@@ -24,7 +25,15 @@ public class MagicManager {
 			RegenMana = false;
 		}
 	}
-   
+	if(CanUseUnstable == true &&  count1 > 0 )
+	{
+		count1--;
+		
+		if(CanUseUnstable == true && count1 <= 0 ) {
+			count1 += 2000;
+			CanUseUnstable = false;
+		}
+	}
 }
 	
 	

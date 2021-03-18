@@ -1,10 +1,7 @@
 package firstmod.client.UI;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-
 import firstmod.common.MagicManager;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

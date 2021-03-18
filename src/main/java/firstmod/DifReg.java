@@ -4,6 +4,7 @@ import firstmod.common.block.CrimsonRock;
 import firstmod.common.block.CrimsonStone;
 import firstmod.common.block.FlaxCropBlock;
 import firstmod.common.block.PhlaxOre;
+import firstmod.common.block.RubyOre;
 import firstmod.common.entities.spells.PhlaxWandEntitie;
 import firstmod.common.item.ItemCherry;
 import firstmod.common.item.UnstableFluxFood;
@@ -25,6 +26,8 @@ import net.minecraft.item.Item.Properties;
 import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.ShovelItem;
 import net.minecraft.item.SwordItem;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -35,6 +38,8 @@ public class DifReg {
 	public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, "firstmod_123");
 	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES,
 			"firstmod_123");
+	public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister
+			.create(ForgeRegistries.TILE_ENTITIES, "firstmod_123");
 	public static final RegistryObject<EntityType<PhlaxWandEntitie>> Phlax_Projectile = ENTITIES.register(
 			"phlax_projectile",
 			() -> EntityType.Builder.<PhlaxWandEntitie>create(PhlaxWandEntitie::new, EntityClassification.MISC)
@@ -44,6 +49,7 @@ public class DifReg {
 	public static Item condensedphlaxItem;
 	public static PhlaxOre phlaxOre;
 	public static Item phlaxsword;
+	public static Item ruby_item;
 	public static Item phlaxpickaxe;
 	public static Item phlaxaxe;
 	public static Item phlaxshovel;
@@ -54,13 +60,21 @@ public class DifReg {
 	public static CrimsonStone crimson_stone;
 	public static CrimsonRock crimson_rock;
 	public static UnstableFluxFood unstablefluxfood;
+	public static RubyOre rubyOre;
+	public static Item[] Oreitems;
+	public static Block[] Oreblock;
+	public static BlockItem[] Oreblockitems;
 	static {
-
+		Oreblock = new Block[1];
+		Oreblockitems = new BlockItem[1];
+		Oreitems = new Item[1];
+		// [0] is nickel
 		// Items
 		ITEMS.register("phlax", () -> phlaxItem = new Item(new Properties().group(FirstMod.PhlaxFixins_Group)));
 		ITEMS.register("condensedphlax",
 				() -> condensedphlaxItem = new Item(new Properties().group(FirstMod.PhlaxFixins_Group)));
-
+		ITEMS.register("test_textures", () -> new Item(new Properties().group(FirstMod.PhlaxFixins_Group)));
+		ITEMS.register("ruby_item", () -> ruby_item = new Item(new Properties().group(FirstMod.PhlaxFixins_Group)));
 		// Spells
 		ITEMS.register("wand_projectile", () -> wand_projectile = new Item(new Properties()));
 
@@ -80,27 +94,38 @@ public class DifReg {
 				() -> phlaxOre = new PhlaxOre(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BLACK)
 						.hardnessAndResistance(5.0f, 3.0f).sound(SoundType.STONE).setRequiresTool()
 						.harvestTool(ToolType.PICKAXE).harvestLevel(3)));
+		BLOCKS.register("ruby_ore", () -> rubyOre = new RubyOre());
+		BLOCKS.register("nickle_ore",
+				() -> Oreblock[0] = new Block(
+						AbstractBlock.Properties.create(Material.IRON, MaterialColor.GRAY).hardnessAndResistance(5)
+								.sound(SoundType.NETHER_BRICK).harvestTool(ToolType.PICKAXE).harvestLevel(2)));
 		BLOCKS.register("phlax_fluxcrop",
 				() -> phlax_fluxcrop = new FlaxCropBlock(Block.Properties.create(Material.PLANTS)
 						.hardnessAndResistance(0f).doesNotBlockMovement().tickRandomly().sound(SoundType.PLANT)));
 		BLOCKS.register("crimson_stone",
-				() -> crimson_stone = new CrimsonStone(AbstractBlock.Properties.create(Material.CLAY, MaterialColor.ADOBE)
-						.hardnessAndResistance(5.0f, 3.0f).sound(SoundType.STONE).setRequiresTool()
-						.harvestTool(ToolType.PICKAXE).harvestLevel(0)));
+				() -> crimson_stone = new CrimsonStone(AbstractBlock.Properties
+						.create(Material.CLAY, MaterialColor.ADOBE).hardnessAndResistance(5.0f, 3.0f)
+						.sound(SoundType.STONE).setRequiresTool().harvestTool(ToolType.PICKAXE).harvestLevel(0)));
 		BLOCKS.register("crimson_rock",
 				() -> crimson_rock = new CrimsonRock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BLACK)
 						.hardnessAndResistance(5.0f, 3.0f).sound(SoundType.STONE).setRequiresTool()
 						.harvestTool(ToolType.PICKAXE).harvestLevel(0)));
 		// Entities
-		
-		//FoodItems
-		ITEMS.register("unstable_fluxfood", () -> unstablefluxfood = new UnstableFluxFood( new Properties()
+
+		// FoodItems
+		ITEMS.register("unstable_fluxfood", () -> unstablefluxfood = new UnstableFluxFood(new Properties()
 				.group(FirstMod.PhlaxFixins_Group).food(new Food.Builder().setAlwaysEdible().hunger(1).build())));
 		// Block Items
 		ITEMS.register("phlax_fluxcrop", () -> itemcherry = new ItemCherry(phlax_fluxcrop, new Properties()
 				.group(FirstMod.PhlaxFixins_Group).food(new Food.Builder().setAlwaysEdible().hunger(5).build())));
+		ITEMS.register("crimson_stone",
+				() -> new BlockItem(crimson_stone, new Properties().group(FirstMod.PhlaxFixins_Group)));
+		ITEMS.register("crimson_rock",
+				() -> new BlockItem(crimson_rock, new Properties().group(FirstMod.PhlaxFixins_Group)));
+		// Ore Items
 		ITEMS.register("phlaxore", () -> new BlockItem(phlaxOre, new Properties().group(FirstMod.PhlaxFixins_Group)));
-		ITEMS.register("crimson_stone", () -> new BlockItem(crimson_stone, new Properties().group(FirstMod.PhlaxFixins_Group)));
-		ITEMS.register("crimson_rock", () -> new BlockItem(crimson_rock, new Properties().group(FirstMod.PhlaxFixins_Group)));
+		ITEMS.register("ruby_ore", () -> new BlockItem(rubyOre, new Properties().group(FirstMod.PhlaxFixins_Group)));
+		ITEMS.register("nickle_ore", () -> new BlockItem(Oreblock[0],
+				new Properties().group(FirstMod.PhlaxFixins_Group)));
 	}
 }

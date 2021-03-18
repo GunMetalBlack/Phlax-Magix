@@ -83,6 +83,12 @@ public class FirstMod {
             OreFeatureConfig feature = new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, DifReg.phlaxOre.getDefaultState(), 11);
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, DifReg.phlaxOre.getRegistryName(),
                     Feature.ORE.withConfiguration(feature).range(33).func_242731_b(4).square());
+            OreFeatureConfig feature2 = new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, DifReg.rubyOre.getDefaultState(), 40);
+            Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, DifReg.rubyOre.getRegistryName(),
+                    Feature.ORE.withConfiguration(feature2).range(4).func_242731_b(3).square());
+            OreFeatureConfig feature3 = new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,DifReg.Oreblock[0].getDefaultState(), 30);
+            Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, DifReg.Oreblock[0].getRegistryName(),
+                    Feature.ORE.withConfiguration(feature3).range(20).func_242731_b(4).square());
         setupGen();
     }
 
@@ -91,7 +97,9 @@ public class FirstMod {
         ArrayList<Block> blocks = new ArrayList<Block>();
         // add blocks to list here. SHOULD CONTAIN ALL BLOCKS REGISTERED BEFORE
        blocks.add(DifReg.phlaxOre);
-        for (Block block : blocks) {
+       blocks.add(DifReg.rubyOre);
+       blocks.add(DifReg.Oreblock[0]);
+       for (Block block : blocks) {
             for (Entry<RegistryKey<Biome>, Biome> biome : WorldGenRegistries.BIOME.getEntries()) {
                 if (!biome.getValue().getCategory().equals(Biome.Category.NETHER) && !biome.getValue().getCategory().equals(Biome.Category.THEEND)) {
                     addFeatureToBiome(biome.getValue(), GenerationStage.Decoration.UNDERGROUND_ORES, WorldGenRegistries.CONFIGURED_FEATURE.getOrDefault(block.getRegistryName()));
