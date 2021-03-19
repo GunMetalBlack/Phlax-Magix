@@ -26,7 +26,7 @@ public List<ItemStack> getDrops(BlockState state, Builder builder) {
 		return list;
 	}
 	public RubyOre() {
-		super(AbstractBlock.Properties.create(Material.IRON,MaterialColor.GRAY).hardnessAndResistance(5).sound(SoundType.NETHER_GOLD).harvestTool(ToolType.PICKAXE).harvestLevel(2));
+		super(AbstractBlock.Properties.create(Material.IRON,MaterialColor.GRAY).hardnessAndResistance(5).sound(SoundType.NETHER_GOLD).setRequiresTool().harvestTool(ToolType.PICKAXE).harvestLevel(2));
 		
 	}
 

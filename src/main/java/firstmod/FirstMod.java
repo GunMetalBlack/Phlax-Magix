@@ -44,9 +44,11 @@ public class FirstMod {
 	public FirstMod() {
 		
 		IEventBus Ebus = FMLJavaModLoadingContext.get().getModEventBus();
+		DifReg.FLUIDS.register(Ebus);
 		DifReg.ITEMS.register(Ebus);
 		DifReg.BLOCKS.register(Ebus);
 		DifReg.ENTITIES.register(Ebus);
+		DifReg.TILE_ENTITIES.register(Ebus);
 		 
 	}
 	
@@ -89,6 +91,9 @@ public class FirstMod {
             OreFeatureConfig feature3 = new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,DifReg.Oreblock[0].getDefaultState(), 30);
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, DifReg.Oreblock[0].getRegistryName(),
                     Feature.ORE.withConfiguration(feature3).range(20).func_242731_b(4).square());
+            OreFeatureConfig feature4 = new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,DifReg.Oreblock[1].getDefaultState(), 20);
+            Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, DifReg.Oreblock[1].getRegistryName(),
+                    Feature.ORE.withConfiguration(feature4).range(10).func_242731_b(2).square());
         setupGen();
     }
 
@@ -99,6 +104,7 @@ public class FirstMod {
        blocks.add(DifReg.phlaxOre);
        blocks.add(DifReg.rubyOre);
        blocks.add(DifReg.Oreblock[0]);
+       blocks.add(DifReg.Oreblock[1]);
        for (Block block : blocks) {
             for (Entry<RegistryKey<Biome>, Biome> biome : WorldGenRegistries.BIOME.getEntries()) {
                 if (!biome.getValue().getCategory().equals(Biome.Category.NETHER) && !biome.getValue().getCategory().equals(Biome.Category.THEEND)) {

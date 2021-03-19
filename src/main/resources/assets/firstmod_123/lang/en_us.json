@@ -14,5 +14,10 @@
 	"item.firstmod_123.test_textures":"TestItem",
 	"block.firstmod_123.ruby_ore":"Ruby Ore",
 	"item.firstmod_123.ruby_item":"Ruby",
-	"block.firstmod_123.nickle_ore":"Nickel Ore"
+	"block.firstmod_123.nickle_ore":"Nickel Ore",
+	"block.firstmod_123.mithral_ore":"Mithral Ore",
+	"item.firstmod_123.mithral_ingot":"Refined Mithral Crystal",
+	"item.firstmod_123.nickle_ingot":"Nickel Ingot",
+	"item.firstmod_123.oil_drop":"Oil Drop",
+	"block.firstmod_123.oil_ore":"Oil Shell"
 }
