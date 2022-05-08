@@ -1,12 +1,6 @@
 package firstmod;
 
-import firstmod.common.block.CrimsonRock;
-import firstmod.common.block.CrimsonStone;
-import firstmod.common.block.FlaxCropBlock;
-import firstmod.common.block.FluidOil;
-import firstmod.common.block.GenericOreDrops;
-import firstmod.common.block.PhlaxOre;
-import firstmod.common.block.RubyOre;
+import firstmod.common.block.*;
 import firstmod.common.entities.spells.PhlaxWandEntitie;
 import firstmod.common.item.ItemCherry;
 import firstmod.common.item.OilDrop;
@@ -21,18 +15,15 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.BucketItem;
-import net.minecraft.item.Food;
-import net.minecraft.item.Item;
+import net.minecraft.item.*;
 import net.minecraft.item.Item.Properties;
-import net.minecraft.item.PickaxeItem;
-import net.minecraft.item.ShovelItem;
-import net.minecraft.item.SwordItem;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -70,11 +61,22 @@ public class DifReg {
 	public static Item[] Oreitems;
 	public static Block[] Oreblock;
 	public static BlockItem[] Oreblockitems;
-	public static FluidOil oil;
-	public static FluidOil flowing_oil;
-	public static Block oil_block;
-	public static BucketItem oilBucket;
+
+	public static final ResourceLocation WATER_STILL_RL = new ResourceLocation("block/water_still");
+	public static final ResourceLocation WATER_FLOWING_RL = new ResourceLocation("block/water_flow");
+	public static final ResourceLocation WATER_OVERLAY_RL = new ResourceLocation("block/water_overlay");
+	public static final RegistryObject<FlowingFluid> OIL = FLUIDS.register("oil", () -> new ForgeFlowingFluid.Source(DifReg.OIL_PROPERTIES));
+	public static final RegistryObject<FlowingFluid> OIL_FLOWING = FLUIDS.register("flowing_oil", () -> new ForgeFlowingFluid.Flowing(DifReg.OIL_PROPERTIES));
+	public static final ForgeFlowingFluid.Properties OIL_PROPERTIES = new ForgeFlowingFluid.Properties(
+			() -> OIL.get(), () -> OIL_FLOWING.get(), FluidAttributes.builder(WATER_STILL_RL, WATER_FLOWING_RL)
+			.density(3000).viscosity(6000).overlay(WATER_OVERLAY_RL)
+			.color(0xFF111111)).slopeFindDistance(2).levelDecreasePerBlock(2)
+			.block(() -> DifReg.OIL_BLOCK.get()).bucket(() -> DifReg.OIL_BUCKET.get());
+	public static final RegistryObject<FlowingFluidBlock> OIL_BLOCK = BLOCKS.register(OIL.getId().getPath(), () -> new FlowingFluidBlock(() -> DifReg.OIL.get(), AbstractBlock.Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0F).noDrops()));
+	public static final RegistryObject<BucketItem> OIL_BUCKET = ITEMS.register("oil_bucket", () -> new BucketItem(() -> DifReg.OIL.get(), new Item.Properties().group(FirstMod.PhlaxFixins_Group).maxStackSize(1)));
+
 	static {
+
 		Oreblock = new Block[3];
 		Oreblockitems = new BlockItem[3];
 		Oreitems = new Item[3];
@@ -91,12 +93,7 @@ public class DifReg {
 				() -> Oreitems[1] = new Item(new Properties().group(FirstMod.PhlaxFixins_Group)));
 		ITEMS.register("nickle_ingot",
 				() -> Oreitems[0] = new Item(new Properties().group(FirstMod.PhlaxFixins_Group)));
-		
-		// fluids
-		oil =  new FluidOil.Source();
-		FLUIDS.register("oil", () -> oil);
-		FLUIDS.register("flowing_oil", () -> (flowing_oil = new FluidOil.Flowing()));
-		BLOCKS.register("oil_block", ()-> oil_block = new FlowingFluidBlock(DifReg.oil, AbstractBlock.Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0F).noDrops()));
+
 		// Spells
 		ITEMS.register("wand_projectile", () -> wand_projectile = new Item(new Properties()));
 
@@ -151,8 +148,6 @@ public class DifReg {
 				() -> new BlockItem(crimson_stone, new Properties().group(FirstMod.PhlaxFixins_Group)));
 		ITEMS.register("crimson_rock",
 				() -> new BlockItem(crimson_rock, new Properties().group(FirstMod.PhlaxFixins_Group)));
-		ITEMS.register("oil_bucket", () -> oilBucket = new BucketItem(() -> DifReg.oil,
-				new Item.Properties().group(FirstMod.PhlaxFixins_Group).maxStackSize(1)));
 		// Ore BlockItems
 		ITEMS.register("phlaxore", () -> new BlockItem(phlaxOre, new Properties().group(FirstMod.PhlaxFixins_Group)));
 		ITEMS.register("ruby_ore", () -> new BlockItem(rubyOre, new Properties().group(FirstMod.PhlaxFixins_Group)));
@@ -162,6 +157,7 @@ public class DifReg {
 				new Properties().group(FirstMod.PhlaxFixins_Group)));
 		ITEMS.register("oil_ore", () -> Oreblockitems[2] = new BlockItem(Oreblock[2],
 				new Properties().group(FirstMod.PhlaxFixins_Group)));
+
 	}
 
 }
