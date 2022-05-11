@@ -16,15 +16,6 @@ import net.minecraftforge.common.ToolType;
 
 public class RubyOre extends Block{
 
-	@Override 
-public List<ItemStack> getDrops(BlockState state, Builder builder) {
-		
-		ArrayList<ItemStack>list = new ArrayList<ItemStack>();
-		
-		list.add(new ItemStack(DifReg.ruby_item,4));
-	
-		return list;
-	}
 	public RubyOre() {
 		super(AbstractBlock.Properties.create(Material.IRON,MaterialColor.GRAY).hardnessAndResistance(5).sound(SoundType.NETHER_GOLD).setRequiresTool().harvestTool(ToolType.PICKAXE).harvestLevel(2));
 		
