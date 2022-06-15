@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "phlaxmod:block/nickel_ore"
+  }
+}

@@ -6,7 +6,7 @@ license="All rights reserved" #mandatory https://choosealicense.com/
 
  
 [[mods]] #mandatory
-modId="firstmod_123" #mandatory
+modId="phlaxmod" #mandatory
 version="0.1" #mandatory
 displayName="Juice" #mandatory
 credits="Me of course" #optional

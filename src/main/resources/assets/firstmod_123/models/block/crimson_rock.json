@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "firstmod_123:block/crimson_rock"
-  }
-}

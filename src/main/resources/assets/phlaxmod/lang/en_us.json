@@ -1,0 +1,29 @@
+{
+  "item.phlaxmod.phlax": "Phlax",
+  "item.phlaxmod.mithral_ingot": "Refined Mithral Crystal",
+  "item.phlaxmod.nickle_ingot": "Nickel Ingot",
+  "item.phlaxmod.oil_drop": "Oil Shale",
+  "item.phlaxmod.oil_bucket": "Oil Bucket",
+  "item.phlaxmod.test_textures": "Heliotrope Steel",
+  "item.phlaxmod.condensedphlax": "Condensed Phlax",
+  "item.phlaxmod.phlax_sword": "Ruby Sword",
+  "item.phlaxmod.phlax_pickaxe": "Ruby Pickaxe",
+  "item.phlaxmod.unstable_fluxfood": "Explosive Flux",
+  "itemGroup.phlaxmod": "Phlax Fixins",
+  "item.phlaxmod.ruby_item": "Ruby",
+  "item.phlaxmod.phlax_shovel": "Ruby Shovel",
+  "item.phlaxmod.phlax_axe": "Ruby Axe",
+  "item.phlaxmod.phlax_wand": "Phlax Wand",
+  "block.phlaxmod.crimson_stone": "Crimson Stone",
+  "block.phlaxmod.crimson_rock": "Crimson Rock",
+  "block.phlaxmod.ruby_ore": "Citrine Crystal",
+  "block.phlaxmod.phlaxore": "Phlax Ore",
+  "block.phlaxmod.nickel_ore": "Nickel Ore",
+  "block.phlaxmod.mithral_ore": "Mithral Ore",
+  "block.phlaxmod.oil_ore": "Oil Shell",
+  "block.phlaxmod.phlax_fluxcrop": "Phlax Flux",
+  "fluid.phlaxmod.oil": "Oil",
+  "entity.phlaxmod.phlax_projectile": "Explosive Spell Entity"
+
+
+}

@@ -1,0 +1,12 @@
+{
+	"variants":{
+	"age=0":{"model":"phlaxmod:block/phlaxfluxcrop_stage0"},
+	"age=1":{"model":"phlaxmod:block/phlaxfluxcrop_stage0"},
+	"age=2":{"model":"phlaxmod:block/phlaxfluxcrop_stage1"},
+	"age=3":{"model":"phlaxmod:block/phlaxfluxcrop_stage1"},
+	"age=4":{"model":"phlaxmod:block/phlaxfluxcrop_stage1"},
+	"age=5":{"model":"phlaxmod:block/phlaxfluxcrop_stage2"},
+	"age=6":{"model":"phlaxmod:block/phlaxfluxcrop_stage2"},
+	"age=7":{"model":"phlaxmod:block/phlaxfluxcrop_stage3"}
+	}
+}

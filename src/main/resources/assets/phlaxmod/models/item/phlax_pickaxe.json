@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "phlaxmod:item/phlax_pickaxe"
+  }
+}

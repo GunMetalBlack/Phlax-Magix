@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#D#",
+        " / ",
+        " / "
+    ],
+    "key": {
+        "#": {
+            "item": "phlaxmod:condensedphlax"
+        },
+        "D": {
+            "item": "minecraft:diamond"
+        },
+        "/": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "phlaxmod:phlax_wand",
+        "count": 1
+    }
+}

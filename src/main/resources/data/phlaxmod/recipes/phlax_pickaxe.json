@@ -1,0 +1,19 @@
+{  "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "ppp",
+        " / ",
+        " / "
+    ],
+    "key": {
+        "p": {
+            "item": "phlaxmod:ruby_item"
+        },
+        "/": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "phlaxmod:phlax_pickaxe",
+        "count": 1
+    }
+}
