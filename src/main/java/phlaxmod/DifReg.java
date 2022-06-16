@@ -3,8 +3,7 @@ package phlaxmod;
 import net.minecraft.block.*;
 import phlaxmod.common.block.*;
 import phlaxmod.common.entities.PhlaxWandEntity;
-import phlaxmod.common.item.ItemCherry;
-import phlaxmod.common.item.OilDrop;
+import phlaxmod.common.item.ItemPhlaxFlux;
 import phlaxmod.common.item.UnstableFluxFood;
 import phlaxmod.tools.ItemPhlaxWand;
 import phlaxmod.tools.ModItemTeir;
@@ -38,22 +37,6 @@ public class DifReg {
                     .size(0.25f, 0.25f).build("phlax_projectile"));
     public static DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, "phlaxmod");
 
-    public static Item phlaxItem;
-    public static Item condensedphlaxItem;
-    public static Item phlaxsword;
-    public static Item ruby_item;
-    public static Item phlaxpickaxe;
-    public static Item phlaxaxe;
-    public static Item phlaxshovel;
-    public static Item phlaxwand;
-    public static Item wand_projectile;
-    public static Item itemcherry;
-    public static FlaxCropBlock phlax_fluxcrop;
-    public static CrimsonStone crimson_stone;
-    public static CrimsonRock crimson_rock;
-    public static UnstableFluxFood unstablefluxfood;
-    public static Item[] Oreitems;
-    public static BlockItem[] Oreblockitems;
     //FLUIDS-------------------------------------------------------------------------------------------------------------------------------------
     public static final ResourceLocation WATER_STILL_RL = new ResourceLocation("block/water_still");
     public static final ResourceLocation WATER_FLOWING_RL = new ResourceLocation("block/water_flow");
@@ -68,105 +51,101 @@ public class DifReg {
     public static final RegistryObject<FlowingFluidBlock> OIL_BLOCK = BLOCKS.register(OIL.getId().getPath(), () -> new FlowingFluidBlock(() -> DifReg.OIL.get(), AbstractBlock.Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0F).noDrops()));
     public static final RegistryObject<BucketItem> OIL_BUCKET = ITEMS.register("oil_bucket", () -> new BucketItem(() -> DifReg.OIL.get(), new Item.Properties().group(PhlaxMod.PHLAX_ITEM_GROUP).maxStackSize(1)));
 
-    //ORES---------------------------------------------------------------------------------------------------------------------------------------------
-    public static final RegistryObject<PhlaxOre> PHLAX_ORE = BLOCKS.register("phlaxore",
+    //BLOCKS--------------------------------------------------------------------------------------------------------
+    public static final RegistryObject<PhlaxCropBlock> PHLAX_FLUXCROP = BLOCKS.register("raw_phlax_flux",
+            () -> new PhlaxCropBlock(Block.Properties.create(Material.PLANTS)
+                    .hardnessAndResistance(0f).doesNotBlockMovement().tickRandomly().sound(SoundType.PLANT)));
+
+    public static final RegistryObject<CrimsonStone> CRIMSON_STONE = BLOCKS.register("crimson_stone",
+            () -> new CrimsonStone(AbstractBlock.Properties
+                    .create(Material.CLAY, MaterialColor.ADOBE).hardnessAndResistance(5.0f, 3.0f)
+                    .sound(SoundType.STONE).setRequiresTool().harvestTool(ToolType.PICKAXE).harvestLevel(0)));
+
+    public static final RegistryObject<CrimsonRock> CRIMSON_ROCK = BLOCKS.register("crimson_rock",
+            () -> new CrimsonRock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BLACK)
+                    .hardnessAndResistance(5.0f, 3.0f).sound(SoundType.STONE).setRequiresTool()
+                    .harvestTool(ToolType.PICKAXE).harvestLevel(0)));
+
+    // BLOCK ITEMS------------------------------------------------------------------------------------------------
+
+    public static final RegistryObject<Item> CRIMSON_STONE_ITEM = ITEMS.register("crimson_stone",
+            () -> new BlockItem(CRIMSON_STONE.get(), new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> CRIMSON_ROCK_ITEM = ITEMS.register("crimson_rock",
+            () -> new BlockItem(CRIMSON_ROCK.get(), new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+
+    //ORES BLOCKS---------------------------------------------------------------------------------------------------------------------------------------------
+    public static final RegistryObject<PhlaxOre> PHLAX_ORE = BLOCKS.register("phlax_ore",
             () -> new PhlaxOre(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BLACK)
                     .hardnessAndResistance(5.0f, 3.0f).sound(SoundType.STONE).setRequiresTool()
                     .harvestTool(ToolType.PICKAXE).harvestLevel(3)));
-    public static final RegistryObject<RubyOre> RUBY_ORE = BLOCKS.register("ruby_ore", RubyOre::new);
+    public static final RegistryObject<CitrineOre> CITRINE_CRYSTAL = BLOCKS.register("citrine_ore", CitrineOre::new);
     public static final RegistryObject<Block> NICKEL_ORE = BLOCKS.register("nickel_ore", () -> new Block(AbstractBlock.Properties.create(Material.IRON, MaterialColor.GRAY).hardnessAndResistance(5).sound(SoundType.NETHER_BRICK).setRequiresTool().harvestTool(ToolType.PICKAXE).harvestLevel(2)));
 
     public static final RegistryObject<Block> OIL_ORE = BLOCKS.register("oil_ore",
             () -> new Block(AbstractBlock.Properties
                     .create(Material.IRON, MaterialColor.GRAY).hardnessAndResistance(1).sound(SoundType.SLIME)
                     .setRequiresTool().harvestTool(ToolType.PICKAXE).harvestLevel(2)));
-    public static final RegistryObject<Block> MITHRAL_ORE = BLOCKS.register("mithral_ore", () -> new Block(AbstractBlock.Properties.create(Material.IRON, MaterialColor.BLACK).hardnessAndResistance(12).sound(SoundType.ANCIENT_DEBRIS).setRequiresTool().harvestTool(ToolType.PICKAXE).harvestLevel(3)));
+    public static final RegistryObject<Block> MITHRIL_ORE = BLOCKS.register("mithril_ore", () -> new Block(AbstractBlock.Properties.create(Material.IRON, MaterialColor.BLACK).hardnessAndResistance(12).sound(SoundType.ANCIENT_DEBRIS).setRequiresTool().harvestTool(ToolType.PICKAXE).harvestLevel(3)));
     //ORE BLOCKS ITEMS------------------------------------------------------------------------------------------------------------------------------------------
+    public static RegistryObject<BlockItem> PHLAX_ORE_ITEM = ITEMS.register("phlax_ore", () -> new BlockItem(PHLAX_ORE.get(), new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+    public static RegistryObject<BlockItem> CITRINE_CRYSTAL_ITEM = ITEMS.register("citrine_ore", () -> new BlockItem(CITRINE_CRYSTAL.get(), new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+    public static RegistryObject<BlockItem> NICKEL_ORE_ITEM = ITEMS.register("nickel_ore", () -> new BlockItem(NICKEL_ORE.get(), new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+    public static RegistryObject<BlockItem> MITHRIL_ORE_ITEM = ITEMS.register("mithril_ore", () -> new BlockItem(MITHRIL_ORE.get(), new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+    public static RegistryObject<BlockItem> OIL_ORE_ITEM = ITEMS.register("oil_ore", () -> new BlockItem(OIL_ORE.get(), new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
 
     //ITEMS-------------------------------------------------------------------------------------------------------------------------------------------------
     public static final RegistryObject<Item> OIL_DROP = ITEMS.register("oil_drop",
             () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
 
-    public static final RegistryObject<Item> MITHRAL_INGOT = ITEMS.register("mithral_ingot",
+    public static final RegistryObject<Item> MITHRAL_INGOT = ITEMS.register("mithril_ingot",
             () ->new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
 
-    public static final RegistryObject<Item> NICKLE_INGOT = ITEMS.register("nickle_ingot",
+    public static final RegistryObject<Item> NICKLE_INGOT = ITEMS.register("nickel_ingot",
             () ->new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
 
     public static final RegistryObject<Item> PHLAX = ITEMS.register("phlax",
-            () -> phlaxItem = new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
-
-    public static final RegistryObject<Item> PHLAX_CONDENSED = ITEMS.register("condensedphlax",
-            () -> condensedphlaxItem =  new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
-
-    public static final RegistryObject<Item> RUBY = ITEMS.register("ruby_item",
-            () -> ruby_item = new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
-
-    public static final RegistryObject<Item> HELIOTROPE_STEEL = ITEMS.register("test_textures",
             () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> PHLAX_CONDENSED = ITEMS.register("condensed_phlax",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> CITRINE_ITEM = ITEMS.register("citrine_crystal",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> HELIOTROPE_STEEL = ITEMS.register("heliotrope_steel",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<UnstableFluxFood> RAW_PHLAX_FLUX = ITEMS.register("raw_phlax_flux", () -> new UnstableFluxFood(PHLAX_FLUXCROP.get(), new Properties()
+            .group(PhlaxMod.PHLAX_ITEM_GROUP).food(new Food.Builder().setAlwaysEdible().hunger(1).build())));
+
+    public static final RegistryObject<ItemPhlaxFlux> PHLAX_FLUXCROP_ITEM = ITEMS.register("refined_phlax_flux",
+            () -> new ItemPhlaxFlux(new Properties()
+                    .group(PhlaxMod.PHLAX_ITEM_GROUP).food(new Food.Builder().setAlwaysEdible().hunger(5).build())));
    //Tools--------------------------------------------------------------------------------------------------
 
-    public static final RegistryObject<Item> PHLAX_WAND = ITEMS.register("phlax_wand",
-           () -> phlaxwand = new ItemPhlaxWand(new Item.Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+    public static final RegistryObject<ItemPhlaxWand> PHLAX_WAND = ITEMS.register("phlax_wand",
+           () -> new ItemPhlaxWand(new Item.Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
 
-    public static final RegistryObject<Item> PHLAX_AXE = ITEMS.register("phlax_axe",
-            () -> phlaxaxe = new AxeItem(ModItemTeir.PHLAX, 1, 1f,
+    public static final RegistryObject<AxeItem> PHLAX_AXE = ITEMS.register("phlax_axe",
+            () -> new AxeItem(ModItemTeir.PHLAX, 1, 1f,
                     new Item.Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
 
-    public static final RegistryObject<Item> PHLAX_SHOVEL = ITEMS.register("phlax_shovel",
-            () -> phlaxshovel = new ShovelItem(ModItemTeir.PHLAX, -3, 1f,
+    public static final RegistryObject<ShovelItem> PHLAX_SHOVEL = ITEMS.register("phlax_shovel",
+            () -> new ShovelItem(ModItemTeir.PHLAX, -3, 1f,
                     new Item.Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
 
-    public static final RegistryObject<Item> PHLAX_SWORD = ITEMS.register("phlax_sword",
-            () -> phlaxsword = new SwordItem(ModItemTeir.PHLAX, 8, 5f,
+    public static final RegistryObject<SwordItem> PHLAX_SWORD = ITEMS.register("phlax_sword",
+            () -> new SwordItem(ModItemTeir.PHLAX, 8, 5f,
                     new Item.Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
 
-    public static final RegistryObject<Item> PHLAX_PICKAXE = ITEMS.register("phlax_pickaxe",
-            () -> phlaxpickaxe = new PickaxeItem(ModItemTeir.PHLAX, -1, 3f,
+    public static final RegistryObject<PickaxeItem> PHLAX_PICKAXE = ITEMS.register("phlax_pickaxe",
+            () -> new PickaxeItem(ModItemTeir.PHLAX, -1, 3f,
                     new Item.Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
-   //Spells
 
+    //Spells
     public static final RegistryObject<Item> WAND_PROJECTILE = ITEMS.register("wand_projectile",
-           () -> wand_projectile = new Item(new Properties()));
-    static {
-        Oreitems = new Item[3];
-        Oreblockitems = new BlockItem[3];
-        // Blocks
-
-        BLOCKS.register("phlax_fluxcrop",
-                () -> phlax_fluxcrop = new FlaxCropBlock(Block.Properties.create(Material.PLANTS)
-                        .hardnessAndResistance(0f).doesNotBlockMovement().tickRandomly().sound(SoundType.PLANT)));
-        BLOCKS.register("crimson_stone",
-                () -> crimson_stone = new CrimsonStone(AbstractBlock.Properties
-                        .create(Material.CLAY, MaterialColor.ADOBE).hardnessAndResistance(5.0f, 3.0f)
-                        .sound(SoundType.STONE).setRequiresTool().harvestTool(ToolType.PICKAXE).harvestLevel(0)));
-        BLOCKS.register("crimson_rock",
-                () -> crimson_rock = new CrimsonRock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BLACK)
-                        .hardnessAndResistance(5.0f, 3.0f).sound(SoundType.STONE).setRequiresTool()
-                        .harvestTool(ToolType.PICKAXE).harvestLevel(0)));
-
-        // Entities
-
-        // Spells
-        ITEMS.register("unstable_fluxfood", () -> unstablefluxfood = new UnstableFluxFood(new Properties()
-                .group(PhlaxMod.PHLAX_ITEM_GROUP).food(new Food.Builder().setAlwaysEdible().hunger(1).build())));
-        // Block Items
-        ITEMS.register("phlax_fluxcrop", () -> itemcherry = new ItemCherry(phlax_fluxcrop, new Properties()
-                .group(PhlaxMod.PHLAX_ITEM_GROUP).food(new Food.Builder().setAlwaysEdible().hunger(5).build())));
-        ITEMS.register("crimson_stone",
-                () -> new BlockItem(crimson_stone, new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
-        ITEMS.register("crimson_rock",
-                () -> new BlockItem(crimson_rock, new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
-        // Ore BlockItems
-        ITEMS.register("phlaxore", () -> new BlockItem(PHLAX_ORE.get(), new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
-        ITEMS.register("ruby_ore", () -> new BlockItem(RUBY_ORE.get(), new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
-        ITEMS.register("nickel_ore", () -> Oreblockitems[0] = new BlockItem(NICKEL_ORE.get(),
-                new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
-        ITEMS.register("mithral_ore", () -> Oreblockitems[1] = new BlockItem(MITHRAL_ORE.get(),
-                new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
-        ITEMS.register("oil_ore", () -> Oreblockitems[2] = new BlockItem(OIL_ORE.get(),
-                new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
-
-    }
+           () -> new Item(new Properties()));
 
 }

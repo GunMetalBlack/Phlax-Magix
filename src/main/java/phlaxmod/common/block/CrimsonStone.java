@@ -15,7 +15,7 @@ public class CrimsonStone extends Block {
 		
 		ArrayList<ItemStack>list = new ArrayList<ItemStack>();
 		
-		list.add(new ItemStack(DifReg.crimson_stone,1));
+		list.add(new ItemStack(DifReg.CRIMSON_STONE_ITEM.get(),1));
 	
 		return list;
 	}

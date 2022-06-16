@@ -1,5 +1,6 @@
 package phlaxmod.common.capability.phlaxplayerdataholder;
 
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import phlaxmod.common.spells.Spell;
 
 import java.util.ArrayList;
@@ -80,6 +81,10 @@ public class PhlaxPlayerDataHolderCapability implements IPhlaxPlayerDataHolderCa
     @Override
     public float getMaxMana() {
         return maxMana;
+    }
+
+    public static void register() {
+        CapabilityManager.INSTANCE.register(IPhlaxPlayerDataHolderCapability.class, new PhlaxPlayerDataHolderCapabilityStorage(), PhlaxPlayerDataHolderCapability::new);
     }
 
 }

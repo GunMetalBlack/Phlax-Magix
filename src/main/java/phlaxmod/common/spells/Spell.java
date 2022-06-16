@@ -12,9 +12,9 @@ public class Spell {
         spells.put("strike", () -> new Spell("Strike", 69, SpellTypes.ATTACK));
     }
 
-    String name;
-    int manaCost;
-    SpellTypes spellType;
+    public String name;
+    public int manaCost;
+    public SpellTypes spellType;
 
     public Spell(String name, int manaCost, SpellTypes spellType) {
         this.name = name;

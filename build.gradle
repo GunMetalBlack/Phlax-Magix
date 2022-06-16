@@ -16,6 +16,12 @@ apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
+repositories {
+    maven { // CurseForge, currently using for JEI, The One Probe, and WorldEdit
+        url "https://www.cursemaven.com"
+    }
+}
+
 version = '1.0'
 group = 'com.yourname.modid' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'modid'
@@ -116,6 +122,9 @@ dependencies {
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
+    runtimeOnly fg.deobf("curse.maven:jei-238222:3681294")
+    runtimeOnly fg.deobf("curse.maven:hwyla-253449:3033593")
+    runtimeOnly fg.deobf("curse.maven:worldedit-225608:3283693")
 
 }
 

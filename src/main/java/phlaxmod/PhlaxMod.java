@@ -1,7 +1,14 @@
 package phlaxmod;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import phlaxmod.client.ClientProxy;
 import phlaxmod.common.CommonProxy;
 import net.minecraft.item.ItemGroup;
@@ -15,15 +22,19 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import phlaxmod.common.item.ItemPhlaxFlux;
 
 @Mod(value = "phlaxmod")
 @EventBusSubscriber(modid = "phlaxmod", bus = Bus.MOD)
 public class PhlaxMod {
 
-    public static final ItemGroup PHLAX_ITEM_GROUP = new ItemGroup("phlaxmod") {
+    public static final String MODID = "phlaxmod";
+    public static Logger logger = LogManager.getLogger(MODID);
+
+    public static final ItemGroup PHLAX_ITEM_GROUP = new ItemGroup(MODID) {
         @Override
         public ItemStack createIcon() {
-            return DifReg.itemcherry.getDefaultInstance();
+            return DifReg.PHLAX_FLUXCROP_ITEM.get().getDefaultInstance();
         }
     };
 
@@ -40,6 +51,8 @@ public class PhlaxMod {
 
         MinecraftForge.EVENT_BUS.addListener(PhlaxMod::onBiomeLoadingEvent);
         MinecraftForge.EVENT_BUS.addListener(PhlaxMod::onRenderGameOverlayEvent);
+        MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, PhlaxMod::onAttachCapabilitiesEventEntity);
+        MinecraftForge.EVENT_BUS.addListener(PhlaxMod::onPlayerEventClone);
 
     }
 
@@ -52,8 +65,21 @@ public class PhlaxMod {
         proxy.onRenderGameOverlayEvent(event);
     }
 
+    public static void onAttachCapabilitiesEventEntity(final AttachCapabilitiesEvent<Entity> event) {
+        proxy.onAttachCapabilitiesEventEntity(event);
+    }
+
+    @SubscribeEvent
+    public static void onCommonSetupEvent(final FMLCommonSetupEvent event) {
+        proxy.onCommonSetupEvent(event);
+    }
+
     public static void onBiomeLoadingEvent(final BiomeLoadingEvent event) {
         proxy.onBiomeLoadingEvent(event);
+    }
+
+    public static void onPlayerEventClone(final PlayerEvent.Clone event) {
+        proxy.onPlayerEventClone(event);
     }
 
 }

@@ -1,0 +1,20 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		" # ",
+		"#W#",
+		" # "
+	],
+	"key": {
+		"#": {
+			"item": "phlaxmod:condensedphlux"
+		},
+		"W": {
+			"item": "minecraft:wheat_seeds"
+		}
+	},
+	"result": {
+		"item": "phlaxmod:raw_phlax_flux",
+		"count": 1
+	}
+}

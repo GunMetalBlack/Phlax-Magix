@@ -9,7 +9,7 @@ import net.minecraft.item.crafting.Ingredient;
 public enum ModItemTeir implements IItemTier{
 	PHLAX(3, 450, 7.0F, 3.0f, 12, () -> {
 		
-		return Ingredient.fromItems(DifReg.phlaxsword);
+		return Ingredient.fromItems(DifReg.PHLAX_SWORD.get());
 	});
 
 	private final int harvestLevel;

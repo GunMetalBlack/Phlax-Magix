@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "phlaxmod:block/mithral_ore"
-  }
-}

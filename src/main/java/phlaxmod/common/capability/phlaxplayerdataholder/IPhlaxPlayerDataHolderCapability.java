@@ -4,7 +4,7 @@ import phlaxmod.common.spells.Spell;
 
 import java.util.ArrayList;
 
-interface IPhlaxPlayerDataHolderCapability {
+public interface IPhlaxPlayerDataHolderCapability {
     void tick();
     void learnSpell(Spell spell);
     void unlearnSpell(Spell spell);

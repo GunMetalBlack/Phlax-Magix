@@ -12,7 +12,7 @@ import net.minecraft.loot.LootContext.Builder;
 public class CrimsonRock extends Block {
 	@Override
 	public List<ItemStack> getDrops(BlockState state, Builder builder) {
-		return Arrays.<ItemStack>asList(new ItemStack(DifReg.crimson_rock, 1));
+		return Arrays.<ItemStack>asList(new ItemStack(DifReg.CRIMSON_ROCK_ITEM.get(), 1));
 	}
 
 	public CrimsonRock(Properties properties) {

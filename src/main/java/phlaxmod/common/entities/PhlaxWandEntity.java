@@ -49,7 +49,7 @@ public class PhlaxWandEntity extends ThrowableEntity implements IRendersAsItem {
 
     @Override
     public ItemStack getItem() {
-        return DifReg.wand_projectile.getDefaultInstance();
+        return DifReg.WAND_PROJECTILE.get().getDefaultInstance();
     }
 
 }

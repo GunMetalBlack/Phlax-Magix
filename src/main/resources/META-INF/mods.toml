@@ -2,15 +2,16 @@
  
 modLoader="javafml" #mandatory
 loaderVersion="[35,)" #mandatory
-license="All rights reserved" #mandatory https://choosealicense.com/
+license="MIT License" #mandatory https://choosealicense.com/
 
  
 [[mods]] #mandatory
 modId="phlaxmod" #mandatory
-version="0.1" #mandatory
-displayName="Juice" #mandatory
+version="0.001" #mandatory
+displayName="PHLAX MOD" #mandatory
 credits="Me of course" #optional
-authors="wow look at those credits" #optional
+authors="GunMetalBlack" #optional
 description='''
+It's a magic + tech mod.
 I have no idea what I'm doing 
 ''' #mandatory

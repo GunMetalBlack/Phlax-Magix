@@ -18,7 +18,8 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void onClientSetupEvent(final FMLClientSetupEvent event) {
-        RenderTypeLookup.setRenderLayer(DifReg.phlax_fluxcrop, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(DifReg.PHLAX_FLUXCROP.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(DifReg.CITRINE_CRYSTAL.get(), RenderType.getTranslucent());
         RenderingRegistry.registerEntityRenderingHandler(DifReg.Phlax_Projectile.get(), (rendererManager) -> new SpriteRenderer<PhlaxWandEntity>(rendererManager, event.getMinecraftSupplier().get().getItemRenderer()));
     }
 
