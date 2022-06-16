@@ -1,9 +1,11 @@
 package phlaxmod.common.capability.phlaxplayerdataholder;
 
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import phlaxmod.common.networking.SPacketPhlaxPlayerDataUpdate;
 import phlaxmod.common.spells.Spell;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 public class PhlaxPlayerDataHolderCapability implements IPhlaxPlayerDataHolderCapability {
 
@@ -13,14 +15,21 @@ public class PhlaxPlayerDataHolderCapability implements IPhlaxPlayerDataHolderCa
     public float manaRegenRate = 5;
     public boolean shouldRegenMana = false;
 
+    private boolean isDirty = false;
+
     @Override
-    public void tick() {
+    public void tick(Consumer<SPacketPhlaxPlayerDataUpdate> packetSendFunction) {
         addMana(getManaRegenRate());
+        if(isDirty) {
+            isDirty = false;
+            packetSendFunction.accept(new SPacketPhlaxPlayerDataUpdate(this));
+        }
     }
 
     @Override
     public void learnSpell(Spell spell) {
         learnedSpells.add(spell);
+        this.isDirty = true;
     }
 
     @Override
@@ -36,6 +45,7 @@ public class PhlaxPlayerDataHolderCapability implements IPhlaxPlayerDataHolderCa
     @Override
     public void setMana(float mana) {
         this.mana = Math.max(Math.min(mana, maxMana), 0);
+        this.isDirty = true;
     }
 
     @Override
@@ -56,6 +66,7 @@ public class PhlaxPlayerDataHolderCapability implements IPhlaxPlayerDataHolderCa
     @Override
     public void setManaRegenRate(float manaRegenRate) {
         this.manaRegenRate = manaRegenRate;
+        this.isDirty = true;
     }
 
     @Override
@@ -66,6 +77,7 @@ public class PhlaxPlayerDataHolderCapability implements IPhlaxPlayerDataHolderCa
     @Override
     public void setShouldRegenMana(boolean shouldRegenMana) {
         this.shouldRegenMana = shouldRegenMana;
+        this.isDirty = true;
     }
 
     @Override
@@ -76,6 +88,7 @@ public class PhlaxPlayerDataHolderCapability implements IPhlaxPlayerDataHolderCa
     @Override
     public void setMaxMana(float maxMana) {
         this.maxMana = maxMana;
+        this.isDirty = true;
     }
 
     @Override

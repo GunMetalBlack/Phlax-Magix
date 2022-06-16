@@ -48,7 +48,8 @@ public class PhlaxMod {
         DifReg.BLOCKS.register(Ebus);
         DifReg.ENTITIES.register(Ebus);
         DifReg.TILE_ENTITIES.register(Ebus);
-
+        DifReg.BIOMES.register(Ebus);
+        DifReg.registeredBiomes();
         MinecraftForge.EVENT_BUS.addListener(PhlaxMod::onBiomeLoadingEvent);
         MinecraftForge.EVENT_BUS.addListener(PhlaxMod::onRenderGameOverlayEvent);
         MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, PhlaxMod::onAttachCapabilitiesEventEntity);

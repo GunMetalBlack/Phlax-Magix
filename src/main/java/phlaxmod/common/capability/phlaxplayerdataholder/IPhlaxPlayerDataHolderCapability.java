@@ -1,11 +1,14 @@
 package phlaxmod.common.capability.phlaxplayerdataholder;
 
+import phlaxmod.common.networking.SPacketPhlaxPlayerDataUpdate;
 import phlaxmod.common.spells.Spell;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 public interface IPhlaxPlayerDataHolderCapability {
-    void tick();
+    // TODO: Call tick from server tick!
+    void tick(Consumer<SPacketPhlaxPlayerDataUpdate> packetSendFunction);
     void learnSpell(Spell spell);
     void unlearnSpell(Spell spell);
     ArrayList<Spell> getLearnedSpells();

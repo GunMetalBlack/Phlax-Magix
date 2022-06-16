@@ -22,6 +22,7 @@ import phlaxmod.PhlaxMod;
 import phlaxmod.common.capability.PhlaxModCapabilities;
 import phlaxmod.common.capability.phlaxplayerdataholder.IPhlaxPlayerDataHolderCapability;
 import phlaxmod.common.capability.phlaxplayerdataholder.PhlaxPlayerDataHolderCapabilityProvider;
+import phlaxmod.common.networking.PhlaxModNetworking;
 
 public class CommonProxy {
 
@@ -37,6 +38,7 @@ public class CommonProxy {
 
     public void onCommonSetupEvent(final FMLCommonSetupEvent event) {
         PhlaxModCapabilities.register();
+        PhlaxModNetworking.init();
     }
 
     public static void registerOreGenFeature(BiomeGenerationSettingsBuilder builder, BlockState oreBlockState, int size, int range, int count) {
@@ -64,6 +66,10 @@ public class CommonProxy {
             INBT originalNBT = PhlaxModCapabilities.PLAYER_DATA_HOLDER_CAPABILITY.getStorage().writeNBT(PhlaxModCapabilities.PLAYER_DATA_HOLDER_CAPABILITY, original, null);
             PhlaxModCapabilities.PLAYER_DATA_HOLDER_CAPABILITY.getStorage().readNBT(PhlaxModCapabilities.PLAYER_DATA_HOLDER_CAPABILITY, target, null, originalNBT);
         }
+    }
+
+    public void sendPacketIfOnPhysicalSide() {
+        PhlaxModNetworking.INSTANCE.sendToServer();
     }
 
 }

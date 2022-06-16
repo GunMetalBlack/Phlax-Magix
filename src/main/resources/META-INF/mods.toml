@@ -9,7 +9,7 @@ license="MIT License" #mandatory https://choosealicense.com/
 modId="phlaxmod" #mandatory
 version="0.001" #mandatory
 displayName="PHLAX MOD" #mandatory
-credits="Me of course" #optional
+credits="Me of course. Also I owe my life to jdawg3636." #optional
 authors="GunMetalBlack" #optional
 description='''
 It's a magic + tech mod.

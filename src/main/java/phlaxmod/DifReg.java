@@ -1,6 +1,7 @@
 package phlaxmod;
 
 import net.minecraft.block.*;
+import net.minecraft.world.biome.BiomeMaker;
 import phlaxmod.common.block.*;
 import phlaxmod.common.entities.PhlaxWandEntity;
 import phlaxmod.common.item.ItemPhlaxFlux;
@@ -23,10 +24,18 @@ import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeManager;
+
+import java.util.function.Supplier;
 
 public class DifReg {
     public static DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, "phlaxmod");
     public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, "phlaxmod");
+    public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES,PhlaxMod.MODID);
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES,
             "phlaxmod");
     public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister
@@ -50,7 +59,22 @@ public class DifReg {
             .block(() -> DifReg.OIL_BLOCK.get()).bucket(() -> DifReg.OIL_BUCKET.get());
     public static final RegistryObject<FlowingFluidBlock> OIL_BLOCK = BLOCKS.register(OIL.getId().getPath(), () -> new FlowingFluidBlock(() -> DifReg.OIL.get(), AbstractBlock.Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0F).noDrops()));
     public static final RegistryObject<BucketItem> OIL_BUCKET = ITEMS.register("oil_bucket", () -> new BucketItem(() -> DifReg.OIL.get(), new Item.Properties().group(PhlaxMod.PHLAX_ITEM_GROUP).maxStackSize(1)));
+    //BIOMES----------------------------------------------------------------------------------------------------
 
+    static {
+        createBiome("phlax_biome",BiomeMaker::makeVoidBiome);
+    }
+    public static RegistryKey<Biome> PHLAX_BIOME = registerBiome("Phlax Biome");
+
+    public static RegistryKey<Biome> registerBiome(String biomeName){
+        return RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(PhlaxMod.MODID,biomeName));
+    }
+    public static RegistryObject<Biome> createBiome(String biomeName, Supplier<Biome> biome){
+        return BIOMES.register(biomeName,biome);
+    }
+    public static void registeredBiomes(){
+        BiomeManager.addBiome(BiomeManager.BiomeType.DESERT, new BiomeManager.BiomeEntry(PHLAX_BIOME,10));
+    }
     //BLOCKS--------------------------------------------------------------------------------------------------------
     public static final RegistryObject<PhlaxCropBlock> PHLAX_FLUXCROP = BLOCKS.register("raw_phlax_flux",
             () -> new PhlaxCropBlock(Block.Properties.create(Material.PLANTS)

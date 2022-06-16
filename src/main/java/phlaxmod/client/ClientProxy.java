@@ -10,6 +10,8 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import phlaxmod.DifReg;
 import phlaxmod.common.CommonProxy;
+import phlaxmod.common.capability.PhlaxModCapabilities;
+import phlaxmod.common.capability.phlaxplayerdataholder.IPhlaxPlayerDataHolderCapability;
 import phlaxmod.common.entities.PhlaxWandEntity;
 
 import java.util.function.Supplier;
@@ -26,7 +28,8 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void onRenderGameOverlayEvent(RenderGameOverlayEvent.Post event) {
         if(event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
-            Minecraft.getInstance().fontRenderer.func_243248_b(event.getMatrixStack(), new StringTextComponent("Mana: " + /*MagicManager.Mana*/"TODO!" ), 12, 12, /*MagicManager.Mana <=10*//*todo*/ false ? 16321548 : 799993);
+            IPhlaxPlayerDataHolderCapability playerData = Minecraft.getInstance().player.getCapability(PhlaxModCapabilities.PLAYER_DATA_HOLDER_CAPABILITY).orElse(null);
+            Minecraft.getInstance().fontRenderer.func_243248_b(event.getMatrixStack(), new StringTextComponent("Mana: " + playerData.getMana()), 12, 12, playerData.getMana() <= 10 ? 16321548 : 799993);
         }
     }
 

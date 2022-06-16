@@ -24,6 +24,7 @@
   "block.phlaxmod.raw_phlax_flux": "Phlax Flux Crop",
   "item.phlaxmod.refined_phlax_flux": "Refined Phlax Flux",
   "fluid.phlaxmod.oil": "Oil",
+  "biome.phlaxmod.phlax_biome": "Phlax Biome",
   "entity.phlaxmod.phlax_projectile": "Explosive Spell Entity"
 
 
