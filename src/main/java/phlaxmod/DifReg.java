@@ -201,7 +201,7 @@ public class DifReg {
     public static final RegistryObject<Item> MYSTICAL_MECHANISM = ITEMS.register("mystical_mechanism",
             () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
 
-    public static final RegistryObject<Item> INFUSED_MYSTICAL_MECHANISM = ITEMS.register("infused_mystical_mechansim",
+    public static final RegistryObject<Item> INFUSED_MYSTICAL_MECHANISM = ITEMS.register("infused_mystical_mechanism",
             () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
 
     public static final RegistryObject<Item> COMPRESSED_PHLAX_FLUX = ITEMS.register("compressed_phlax_flux",
