@@ -73,7 +73,7 @@ public class DifReg {
         return BIOMES.register(biomeName,biome);
     }
     public static void registeredBiomes(){
-        BiomeManager.addBiome(BiomeManager.BiomeType.DESERT, new BiomeManager.BiomeEntry(PHLAX_BIOME,10));
+        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(PHLAX_BIOME,10));
     }
     //BLOCKS--------------------------------------------------------------------------------------------------------
     public static final RegistryObject<PhlaxCropBlock> PHLAX_FLUXCROP = BLOCKS.register("raw_phlax_flux",
