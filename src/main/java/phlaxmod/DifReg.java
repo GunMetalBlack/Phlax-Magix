@@ -64,7 +64,7 @@ public class DifReg {
     static {
         createBiome("phlax_biome",BiomeMaker::makeVoidBiome);
     }
-    public static RegistryKey<Biome> PHLAX_BIOME = registerBiome("Phlax Biome");
+    public static RegistryKey<Biome> PHLAX_BIOME = registerBiome("phlax_biome");
 
     public static RegistryKey<Biome> registerBiome(String biomeName){
         return RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(PhlaxMod.MODID,biomeName));

@@ -69,7 +69,7 @@ public class CommonProxy {
     }
 
     public void sendPacketIfOnPhysicalSide() {
-        PhlaxModNetworking.INSTANCE.sendToServer();
+        //PhlaxModNetworking.INSTANCE.sendToServer();
     }
 
 }
