@@ -1,6 +1,6 @@
 {
   "surface_builder": "minecraft:grass",
-  "depth": 1,
+  "depth": 0.25,
   "scale": 0.05,
   "temperature": 0.8,
   "downfall": 0.4,
@@ -86,7 +86,6 @@
     [],
     [],
     [
-      "phlaxmod:block/phlax_ore",
       "minecraft:ore_dirt",
       "minecraft:ore_gravel",
       "minecraft:ore_granite",
