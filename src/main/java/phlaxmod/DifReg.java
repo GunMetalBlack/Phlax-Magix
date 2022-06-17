@@ -210,8 +210,6 @@ public class DifReg {
     public static final RegistryObject<Item> MANA_INJECTOR = ITEMS.register("mana_injector",
             () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
 
-    public static final RegistryObject<Item> INFUSED_MITHRIL = ITEMS.register("infused_mithril",
-            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
 
     public static final RegistryObject<Item> CHARGED_CITRINE = ITEMS.register("charged_citrine",
             () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
