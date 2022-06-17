@@ -139,16 +139,94 @@ public class DifReg {
 
     public static final RegistryObject<Item> CITRINE_ITEM = ITEMS.register("citrine_crystal",
             () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
-
-    public static final RegistryObject<Item> HELIOTROPE_STEEL = ITEMS.register("heliotrope_steel",
-            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
-
     public static final RegistryObject<UnstableFluxFood> RAW_PHLAX_FLUX = ITEMS.register("raw_phlax_flux", () -> new UnstableFluxFood(PHLAX_FLUXCROP.get(), new Properties()
             .group(PhlaxMod.PHLAX_ITEM_GROUP).food(new Food.Builder().setAlwaysEdible().hunger(1).build())));
 
     public static final RegistryObject<ItemPhlaxFlux> PHLAX_FLUXCROP_ITEM = ITEMS.register("refined_phlax_flux",
             () -> new ItemPhlaxFlux(new Properties()
                     .group(PhlaxMod.PHLAX_ITEM_GROUP).food(new Food.Builder().setAlwaysEdible().hunger(5).build())));
+    //Components_items--------------------------------------------------------------------------------------------
+    public static final RegistryObject<Item> HELIOTROPE_STEEL = ITEMS.register("heliotrope_steel",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> VACUUM_TUBE = ITEMS.register("vacuum_tube",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> HELIOTROPE_LOGIC_CHIP = ITEMS.register("heliotrope_logic_chip",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> IRON_CONDENSED = ITEMS.register("iron_condensed",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> GOLD_CONDENSED = ITEMS.register("gold_condensed",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> NICKEL_CONDENSED = ITEMS.register("nickel_condensed",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> REDSTONE_CONDENSED = ITEMS.register("redstone_condensed",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> MITHRIL_CONDENSED = ITEMS.register("mithril_condensed",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> CITRINE_CONDENSED = ITEMS.register("citrine_condensed",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> INFUSED_IRON_CONDENSED = ITEMS.register("infused_iron_condensed",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> INFUSED_GOLD_CONDENSED = ITEMS.register("infused_gold_condensed",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> INFUSED_NICKEL_CONDENSED = ITEMS.register("infused_nickel_condensed",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> INFUSED_REDSTONE_CONDENSED = ITEMS.register("infused_redstone_condensed",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> INFUSED_MITHRIL_CONDENSED = ITEMS.register("infused_mithril_condensed",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> INFUSED_CITRINE_CONDENSED = ITEMS.register("infused_citrine_condensed",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+
+    public static final RegistryObject<Item> RUBBER = ITEMS.register("rubber",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> MANA_CRYSTAL = ITEMS.register("mana_crystal",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> MYSTICAL_MECHANISM = ITEMS.register("mystical_mechanism",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> INFUSED_MYSTICAL_MECHANISM = ITEMS.register("infused_mystical_mechansim",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> COMPRESSED_PHLAX_FLUX = ITEMS.register("compressed_phlax_flux",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> MANA_INJECTOR = ITEMS.register("mana_injector",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> INFUSED_MITHRIL = ITEMS.register("infused_mithril",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> CHARGED_CITRINE = ITEMS.register("charged_citrine",
+            () -> new Item(new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    /*
+    SUB: ITEMS***********************************************
+    Components(Vacuum Tube, Heliotrope logic chip,Heliotrope Steel, Material Plates(Like ingots getting turned into a plate)
+    ,Arcane Machine Chassis
+    ,Machine Chassis
+    , rubber(Made from oil drop and charcoal),
+    Mana Crystals,Mystical Mechanism, Infused Mystical Mechanism, Compressed Phlax Flux,
+     (Phlax Bulb aka Mana Injector), Compressed Mithril, Infused Mithril,Charged Citrine);
+    CAN BE INFUSED(All Material Plates, Mithril)
+
+    */
    //Tools--------------------------------------------------------------------------------------------------
 
     public static final RegistryObject<ItemPhlaxWand> PHLAX_WAND = ITEMS.register("phlax_wand",
