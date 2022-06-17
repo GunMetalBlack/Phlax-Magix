@@ -29,7 +29,7 @@ public class ClientProxy extends CommonProxy {
     public void onRenderGameOverlayEvent(RenderGameOverlayEvent.Post event) {
         if(event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
             IPhlaxPlayerDataHolderCapability playerData = Minecraft.getInstance().player.getCapability(PhlaxModCapabilities.PLAYER_DATA_HOLDER_CAPABILITY).orElse(null);
-            Minecraft.getInstance().fontRenderer.func_243248_b(event.getMatrixStack(), new StringTextComponent("Mana: " + playerData.getMana()), 12, 12, playerData.getMana() <= 10 ? 16321548 : 799993);
+            Minecraft.getInstance().fontRenderer.func_243248_b(event.getMatrixStack(), new StringTextComponent("Mana: " + playerData.getMana()), 12, 12, playerData.getMana() <= 10 ? 16321548 : 14467071);
         }
     }
 

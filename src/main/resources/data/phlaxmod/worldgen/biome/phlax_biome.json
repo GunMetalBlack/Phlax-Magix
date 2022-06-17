@@ -1,14 +1,14 @@
 {
   "surface_builder": "minecraft:grass",
   "depth": 1,
-  "scale": 0.05,
+  "scale": 0.5,
   "temperature": 0.8,
   "downfall": 0.4,
   "precipitation": "rain",
-  "category": "plains",
+  "category": "forest",
   "player_spawn_friendly": true,
   "effects": {
-    "sky_color": 3814541,
+    "sky_color": 4994189,
     "fog_color": 2959718,
     "water_color": 8412349,
     "water_fog_color": 1705267,
@@ -86,6 +86,7 @@
     [],
     [],
     [
+      "phlaxmod:block/phlax_ore",
       "minecraft:ore_dirt",
       "minecraft:ore_gravel",
       "minecraft:ore_granite",
@@ -103,6 +104,7 @@
     ],
     [],
     [
+      "minecraft:patch_large_fern",
       "minecraft:patch_tall_grass_2",
       "minecraft:plain_vegetation",
       "minecraft:flower_plain_decorated",

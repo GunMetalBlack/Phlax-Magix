@@ -42,7 +42,7 @@ public class PhlaxWandEntity extends ThrowableEntity implements IRendersAsItem {
     @Override
     public void onImpact(RayTraceResult result) {
         if (!world.isRemote) {
-            world.createExplosion(player, getPosX(), getPosY(), getPosZ(), 5, Mode.DESTROY);
+            world.createExplosion(player, getPosX(), getPosY(), getPosZ(), 20, Mode.DESTROY);
         }
         this.remove();
     }
