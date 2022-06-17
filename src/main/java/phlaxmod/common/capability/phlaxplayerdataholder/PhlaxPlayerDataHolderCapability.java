@@ -19,7 +19,10 @@ public class PhlaxPlayerDataHolderCapability implements IPhlaxPlayerDataHolderCa
 
     @Override
     public void tick(Consumer<SPacketPhlaxPlayerDataUpdate> packetSendFunction) {
-        addMana(getManaRegenRate());
+        if(shouldRegenMana()) {
+            addMana(getManaRegenRate());
+            setShouldRegenMana(false);
+        }
         if(isDirty) {
             isDirty = false;
             packetSendFunction.accept(new SPacketPhlaxPlayerDataUpdate(this));

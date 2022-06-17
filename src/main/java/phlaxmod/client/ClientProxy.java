@@ -14,8 +14,6 @@ import phlaxmod.common.capability.PhlaxModCapabilities;
 import phlaxmod.common.capability.phlaxplayerdataholder.IPhlaxPlayerDataHolderCapability;
 import phlaxmod.common.entities.PhlaxWandEntity;
 
-import java.util.function.Supplier;
-
 public class ClientProxy extends CommonProxy {
 
     @Override

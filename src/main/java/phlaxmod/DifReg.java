@@ -1,13 +1,9 @@
 package phlaxmod;
 
-import net.minecraft.block.*;
-import net.minecraft.world.biome.BiomeMaker;
-import phlaxmod.common.block.*;
-import phlaxmod.common.entities.PhlaxWandEntity;
-import phlaxmod.common.item.ItemPhlaxFlux;
-import phlaxmod.common.item.UnstableFluxFood;
-import phlaxmod.tools.ItemPhlaxWand;
-import phlaxmod.tools.ModItemTeir;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.FlowingFluidBlock;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.EntityClassification;
@@ -17,18 +13,24 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.item.*;
 import net.minecraft.item.Item.Properties;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeMaker;
+import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.biome.Biome;
-import net.minecraftforge.common.BiomeManager;
+import phlaxmod.common.block.*;
+import phlaxmod.common.entities.PhlaxWandEntity;
+import phlaxmod.common.item.ItemPhlaxFlux;
+import phlaxmod.common.item.UnstableFluxFood;
+import phlaxmod.tools.ItemPhlaxWand;
+import phlaxmod.tools.ModItemTeir;
 
 import java.util.function.Supplier;
 

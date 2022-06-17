@@ -2,11 +2,7 @@ package phlaxmod.common.item;
 
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 
 public class UnstableFluxFood extends BlockItem {
 

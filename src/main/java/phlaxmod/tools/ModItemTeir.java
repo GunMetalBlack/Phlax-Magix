@@ -1,10 +1,10 @@
 package phlaxmod.tools;
 
-import java.util.function.Supplier;
-
-import phlaxmod.DifReg;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.crafting.Ingredient;
+import phlaxmod.DifReg;
+
+import java.util.function.Supplier;
 
 public enum ModItemTeir implements IItemTier{
 	PHLAX(3, 450, 7.0F, 3.0f, 12, () -> {

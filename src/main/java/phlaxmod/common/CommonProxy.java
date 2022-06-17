@@ -3,8 +3,8 @@ package phlaxmod.common;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.INBT;
-import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
@@ -12,10 +12,12 @@ import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.network.NetworkDirection;
 import org.apache.logging.log4j.Level;
 import phlaxmod.DifReg;
 import phlaxmod.PhlaxMod;
@@ -68,8 +70,20 @@ public class CommonProxy {
         }
     }
 
-    public void sendPacketIfOnPhysicalSide() {
-        //PhlaxModNetworking.INSTANCE.sendToServer();
+    public void onPlayerTickEvent(final TickEvent.PlayerTickEvent event) {
+        if(!event.player.world.isRemote()) {
+            IPhlaxPlayerDataHolderCapability playerData = event.player.getCapability(PhlaxModCapabilities.PLAYER_DATA_HOLDER_CAPABILITY).orElse(null);
+            if(playerData != null) {
+                playerData.tick((packet) -> {
+                    if (event.player instanceof ServerPlayerEntity) {
+                        PhlaxModNetworking.INSTANCE.sendTo(packet, ((ServerPlayerEntity) event.player).connection.getNetworkManager(), NetworkDirection.PLAY_TO_CLIENT);
+                    }
+                });
+            }
+            else {
+                PhlaxMod.logger.warn("Ticking Player with null Phlax Player Data!");
+            }
+        }
     }
 
 }

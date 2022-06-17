@@ -1,16 +1,15 @@
 package phlaxmod.tools;
 
 
-import net.minecraft.client.Minecraft;
-import phlaxmod.common.capability.PhlaxModCapabilities;
-import phlaxmod.common.capability.phlaxplayerdataholder.IPhlaxPlayerDataHolderCapability;
-import phlaxmod.common.entities.PhlaxWandEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import phlaxmod.common.capability.PhlaxModCapabilities;
+import phlaxmod.common.capability.phlaxplayerdataholder.IPhlaxPlayerDataHolderCapability;
+import phlaxmod.common.entities.PhlaxWandEntity;
 
 public class ItemPhlaxWand extends Item {
 

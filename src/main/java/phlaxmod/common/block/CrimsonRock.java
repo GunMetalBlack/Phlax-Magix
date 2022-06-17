@@ -1,13 +1,13 @@
 package phlaxmod.common.block;
 
-import java.util.Arrays;
-import java.util.List;
-
-import phlaxmod.DifReg;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext.Builder;
+import phlaxmod.DifReg;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class CrimsonRock extends Block {
 	@Override

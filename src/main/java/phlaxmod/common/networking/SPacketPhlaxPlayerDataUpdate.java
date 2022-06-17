@@ -1,7 +1,6 @@
 package phlaxmod.common.networking;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.PacketDirection;
 import net.minecraftforge.fml.network.NetworkDirection;
@@ -14,7 +13,6 @@ import phlaxmod.common.capability.phlaxplayerdataholder.PhlaxPlayerDataHolderCap
 import phlaxmod.common.spells.Spell;
 
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 public class SPacketPhlaxPlayerDataUpdate {
@@ -73,7 +71,7 @@ public class SPacketPhlaxPlayerDataUpdate {
 
         contextSupplier.get().enqueueWork(() -> {
 
-            if(contextSupplier.get().getDirection() != NetworkDirection.PLAY_TO_CLIENT || contextSupplier.get().getNetworkManager().getDirection() != PacketDirection.SERVERBOUND) {
+            if(contextSupplier.get().getDirection() != NetworkDirection.PLAY_TO_CLIENT || contextSupplier.get().getNetworkManager().getDirection() != PacketDirection.CLIENTBOUND) {
                 try {
                     PhlaxMod.logger.log(Level.WARN, "Received packet intended for client on the server - this is most likely the result of a player using a modified client to attempt to exploit the game! Source IP Address:" + contextSupplier.get().getSender().getPlayerIP());
                 } catch (Throwable ignored) {}

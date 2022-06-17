@@ -1,9 +1,5 @@
 package phlaxmod.common.block;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import phlaxmod.DifReg;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CropsBlock;
@@ -13,6 +9,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
+import phlaxmod.DifReg;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PhlaxCropBlock extends CropsBlock {
 

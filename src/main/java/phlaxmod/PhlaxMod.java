@@ -1,28 +1,27 @@
 package phlaxmod;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import phlaxmod.client.ClientProxy;
-import phlaxmod.common.CommonProxy;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import phlaxmod.common.item.ItemPhlaxFlux;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import phlaxmod.client.ClientProxy;
+import phlaxmod.common.CommonProxy;
 
 @Mod(value = "phlaxmod")
 @EventBusSubscriber(modid = "phlaxmod", bus = Bus.MOD)
@@ -54,6 +53,7 @@ public class PhlaxMod {
         MinecraftForge.EVENT_BUS.addListener(PhlaxMod::onRenderGameOverlayEvent);
         MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, PhlaxMod::onAttachCapabilitiesEventEntity);
         MinecraftForge.EVENT_BUS.addListener(PhlaxMod::onPlayerEventClone);
+        MinecraftForge.EVENT_BUS.addListener(PhlaxMod::onPlayerTickEvent);
 
     }
 
@@ -81,6 +81,10 @@ public class PhlaxMod {
 
     public static void onPlayerEventClone(final PlayerEvent.Clone event) {
         proxy.onPlayerEventClone(event);
+    }
+
+    public static void onPlayerTickEvent(final TickEvent.PlayerTickEvent event) {
+        proxy.onPlayerTickEvent(event);
     }
 
 }
