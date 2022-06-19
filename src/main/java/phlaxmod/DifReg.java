@@ -1,9 +1,6 @@
 package phlaxmod;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.FlowingFluidBlock;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.EntityClassification;
@@ -91,7 +88,8 @@ public class DifReg {
             () -> new CrimsonRock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.BLACK)
                     .hardnessAndResistance(5.0f, 3.0f).sound(SoundType.STONE).setRequiresTool()
                     .harvestTool(ToolType.PICKAXE).harvestLevel(0)));
-
+    //Machine BLOCKS-----------------------------------------------------------------------------------------
+    public static  final RegistryObject<Block> CRYSTALLIZER = BLOCKS.register("crystallizer", BlockMachine::new);
     // BLOCK ITEMS------------------------------------------------------------------------------------------------
 
     public static final RegistryObject<Item> CRIMSON_STONE_ITEM = ITEMS.register("crimson_stone",
@@ -99,6 +97,8 @@ public class DifReg {
 
     public static final RegistryObject<Item> CRIMSON_ROCK_ITEM = ITEMS.register("crimson_rock",
             () -> new BlockItem(CRIMSON_ROCK.get(), new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
+    public static final RegistryObject<Item>  CRYSTALIZER_ITEM = ITEMS.register("crystallizer",
+            () -> new BlockItem(CRYSTALLIZER.get(), new Properties().group(PhlaxMod.PHLAX_ITEM_GROUP)));
 
 
     //ORES BLOCKS---------------------------------------------------------------------------------------------------------------------------------------------
