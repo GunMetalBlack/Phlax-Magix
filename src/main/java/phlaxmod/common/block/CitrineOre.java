@@ -16,19 +16,19 @@ import net.minecraftforge.common.ToolType;
 public class CitrineOre extends Block {
 
 	public CitrineOre() {
-		super(AbstractBlock.Properties.create(Material.IRON,MaterialColor.GRAY)
-				.hardnessAndResistance(5)
-				.notSolid()
-				.setBlocksVision((BlockState state, IBlockReader level, BlockPos pos)->false)
+		super(AbstractBlock.Properties.of(Material.METAL,MaterialColor.COLOR_GRAY)
+				.strength(5)
+				.noOcclusion()
+				.isViewBlocking((BlockState state, IBlockReader level, BlockPos pos)->false)
 				.sound(SoundType.GLASS)
-				.setRequiresTool()
+				.requiresCorrectToolForDrops()
 				.harvestTool(ToolType.PICKAXE)
 				.harvestLevel(2));
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public float getAmbientOcclusionLightValue(BlockState state, IBlockReader level, BlockPos blockPos) {
+	public float getShadeBrightness(BlockState state, IBlockReader level, BlockPos blockPos) {
 		return 1.0F;
 	}
 
@@ -37,8 +37,8 @@ public class CitrineOre extends Block {
 	 */
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side) {
-		return state.getBlock() == adjacentBlockState.getBlock() || super.isSideInvisible(state, adjacentBlockState, side);
+	public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
+		return state.getBlock() == adjacentBlockState.getBlock() || super.skipRendering(state, adjacentBlockState, side);
 	}
 
 	/**

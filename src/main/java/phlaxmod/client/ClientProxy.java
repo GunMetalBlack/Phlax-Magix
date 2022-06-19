@@ -18,8 +18,8 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void onClientSetupEvent(final FMLClientSetupEvent event) {
-        RenderTypeLookup.setRenderLayer(DifReg.PHLAX_FLUXCROP.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(DifReg.CITRINE_CRYSTAL.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(DifReg.PHLAX_FLUXCROP.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(DifReg.CITRINE_CRYSTAL.get(), RenderType.translucent());
         RenderingRegistry.registerEntityRenderingHandler(DifReg.Phlax_Projectile.get(), (rendererManager) -> new SpriteRenderer<PhlaxWandEntity>(rendererManager, event.getMinecraftSupplier().get().getItemRenderer()));
     }
 
@@ -27,7 +27,7 @@ public class ClientProxy extends CommonProxy {
     public void onRenderGameOverlayEvent(RenderGameOverlayEvent.Post event) {
         if(event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
             IPhlaxPlayerDataHolderCapability playerData = Minecraft.getInstance().player.getCapability(PhlaxModCapabilities.PLAYER_DATA_HOLDER_CAPABILITY).orElse(null);
-            Minecraft.getInstance().fontRenderer.func_243248_b(event.getMatrixStack(), new StringTextComponent("Mana: " + playerData.getMana()), 12, 12, playerData.getMana() <= 10 ? 16321548 : 14467071);
+            Minecraft.getInstance().font.draw(event.getMatrixStack(), new StringTextComponent("Mana: " + playerData.getMana()), 12, 12, playerData.getMana() <= 10 ? 16321548 : 14467071);
         }
     }
 

@@ -32,7 +32,7 @@ public class PhlaxMod {
 
     public static final ItemGroup PHLAX_ITEM_GROUP = new ItemGroup(MODID) {
         @Override
-        public ItemStack createIcon() {
+        public ItemStack makeIcon() {
             return DifReg.PHLAX_FLUXCROP_ITEM.get().getDefaultInstance();
         }
     };

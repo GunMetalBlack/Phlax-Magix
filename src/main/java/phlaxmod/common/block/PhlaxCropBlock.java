@@ -16,14 +16,14 @@ import java.util.List;
 
 public class PhlaxCropBlock extends CropsBlock {
 
-	public static VoxelShape[] SHAPES = new VoxelShape[] { Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D),
-			Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 3.0D, 16.0D),
-			Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D),
-			Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 5.0D, 16.0D),
-			Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 6.0D, 16.0D),
-			Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 7.0D, 16.0D),
-			Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D),
-			Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 9.0D, 16.0D) };
+	public static VoxelShape[] SHAPES = new VoxelShape[] { Block.box(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D),
+			Block.box(0.0D, 0.0D, 0.0D, 16.0D, 3.0D, 16.0D),
+			Block.box(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D),
+			Block.box(0.0D, 0.0D, 0.0D, 16.0D, 5.0D, 16.0D),
+			Block.box(0.0D, 0.0D, 0.0D, 16.0D, 6.0D, 16.0D),
+			Block.box(0.0D, 0.0D, 0.0D, 16.0D, 7.0D, 16.0D),
+			Block.box(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D),
+			Block.box(0.0D, 0.0D, 0.0D, 16.0D, 9.0D, 16.0D) };
 
 	public PhlaxCropBlock(Properties builder) {
 		super(builder);
@@ -48,7 +48,7 @@ public class PhlaxCropBlock extends CropsBlock {
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
 
-		return SHAPES[state.get(this.getAgeProperty())];
+		return SHAPES[state.getValue(this.getAgeProperty())];
 	}
 
 }

@@ -18,18 +18,18 @@ public class ItemPhlaxWand extends Item {
 	}
 
 
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+	public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
 		IPhlaxPlayerDataHolderCapability playerData = playerIn.getCapability(PhlaxModCapabilities.PLAYER_DATA_HOLDER_CAPABILITY).orElse(null);
-		if (!worldIn.isRemote && playerData.getMana() > 0) {
+		if (!worldIn.isClientSide && playerData.getMana() > 0) {
 			PhlaxWandEntity phlaxen = new PhlaxWandEntity(worldIn);
-			phlaxen.setLocationAndAngles(playerIn.getPosX(), playerIn.getPosY() + playerIn.getEyeHeight() * 0.8,
-					playerIn.getPosZ(), playerIn.rotationYaw, playerIn.rotationPitch);
-			phlaxen.func_234612_a_(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0, 1, 1);
-			worldIn.addEntity(phlaxen);
+			phlaxen.moveTo(playerIn.getX(), playerIn.getY() + playerIn.getEyeHeight() * 0.8,
+					playerIn.getZ(), playerIn.yRot, playerIn.xRot);
+			phlaxen.shootFromRotation(playerIn, playerIn.xRot, playerIn.yRot, 0, 1, 1);
+			worldIn.addFreshEntity(phlaxen);
 			phlaxen.player = playerIn;
 			playerData.removeMana(10f);
 		}
-		return super.onItemRightClick(worldIn, playerIn, handIn);
+		return super.use(worldIn, playerIn, handIn);
 
 	}
 

@@ -44,7 +44,7 @@ public class SPacketPhlaxPlayerDataUpdate {
     public static void write(SPacketPhlaxPlayerDataUpdate packet, PacketBuffer buffer) {
         buffer.writeInt(packet.learnedSpells.size());
         for(Spell spell : packet.learnedSpells) {
-            buffer.writeString(spell.name);
+            buffer.writeUtf(spell.name);
         }
         buffer.writeFloat(packet.mana);
         buffer.writeFloat(packet.maxMana);
@@ -56,7 +56,7 @@ public class SPacketPhlaxPlayerDataUpdate {
         int spellCount = buffer.readInt();
         ArrayList<Spell> spells = new ArrayList<>(spellCount);
         for(int i = 0; i < spellCount; ++i) {
-            spells.add(Spell.spells.get(buffer.readString()).get());
+            spells.add(Spell.spells.get(buffer.readUtf()).get());
         }
         return new SPacketPhlaxPlayerDataUpdate(
                 spells,
@@ -73,7 +73,7 @@ public class SPacketPhlaxPlayerDataUpdate {
 
             if(contextSupplier.get().getDirection() != NetworkDirection.PLAY_TO_CLIENT || contextSupplier.get().getNetworkManager().getDirection() != PacketDirection.CLIENTBOUND) {
                 try {
-                    PhlaxMod.logger.log(Level.WARN, "Received packet intended for client on the server - this is most likely the result of a player using a modified client to attempt to exploit the game! Source IP Address:" + contextSupplier.get().getSender().getPlayerIP());
+                    PhlaxMod.logger.log(Level.WARN, "Received packet intended for client on the server - this is most likely the result of a player using a modified client to attempt to exploit the game! Source IP Address:" + contextSupplier.get().getSender().getIpAddress());
                 } catch (Throwable ignored) {}
                 return;
             }

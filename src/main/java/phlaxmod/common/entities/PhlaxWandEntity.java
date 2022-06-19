@@ -27,22 +27,22 @@ public class PhlaxWandEntity extends ThrowableEntity implements IRendersAsItem {
 
     @Override
     public void tick() {
-        world.addParticle(ParticleTypes.DRIPPING_OBSIDIAN_TEAR, getPosX(), getPosY(), getPosZ(), 0, 0, 0);
+        level.addParticle(ParticleTypes.DRIPPING_OBSIDIAN_TEAR, getX(), getY(), getZ(), 0, 0, 0);
         super.tick();
     }
 
     @Override
-    protected void registerData() {}
+    protected void defineSynchedData() {}
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public IPacket<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     @Override
-    public void onImpact(RayTraceResult result) {
-        if (!world.isRemote) {
-            world.createExplosion(player, getPosX(), getPosY(), getPosZ(), 20, Mode.DESTROY);
+    public void onHit(RayTraceResult result) {
+        if (!level.isClientSide) {
+            level.explode(player, getX(), getY(), getZ(), 20, Mode.DESTROY);
         }
         this.remove();
     }

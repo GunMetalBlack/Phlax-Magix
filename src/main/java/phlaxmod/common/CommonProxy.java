@@ -45,16 +45,16 @@ public class CommonProxy {
 
     public static void registerOreGenFeature(BiomeGenerationSettingsBuilder builder, BlockState oreBlockState, int size, int range, int count) {
         builder.getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(
-                () -> Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, oreBlockState, size)).range(range).square().func_242731_b(count)
+                () -> Feature.ORE.configured(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, oreBlockState, size)).range(range).squared().count(count)
         );
     }
 
     public void onBiomeLoadingEvent(final BiomeLoadingEvent event) {
-        registerOreGenFeature(event.getGeneration(), DifReg.PHLAX_ORE.get().getDefaultState(), 4, 44, 22);
-        registerOreGenFeature(event.getGeneration(), DifReg.NICKEL_ORE.get().getDefaultState(), 8, 50, 20);
-        registerOreGenFeature(event.getGeneration(), DifReg.OIL_ORE.get().getDefaultState(), 12, 25, 12);
-        registerOreGenFeature(event.getGeneration(), DifReg.MITHRIL_ORE.get().getDefaultState(), 2, 15, 3);
-        registerOreGenFeature(event.getGeneration(), DifReg.CITRINE_CRYSTAL.get().getDefaultState(), 3, 10, 3);
+        registerOreGenFeature(event.getGeneration(), DifReg.PHLAX_ORE.get().defaultBlockState(), 4, 44, 22);
+        registerOreGenFeature(event.getGeneration(), DifReg.NICKEL_ORE.get().defaultBlockState(), 8, 50, 20);
+        registerOreGenFeature(event.getGeneration(), DifReg.OIL_ORE.get().defaultBlockState(), 12, 25, 12);
+        registerOreGenFeature(event.getGeneration(), DifReg.MITHRIL_ORE.get().defaultBlockState(), 2, 15, 3);
+        registerOreGenFeature(event.getGeneration(), DifReg.CITRINE_CRYSTAL.get().defaultBlockState(), 3, 10, 3);
     }
 
     public void onPlayerEventClone(final PlayerEvent.Clone event) {
@@ -71,12 +71,12 @@ public class CommonProxy {
     }
 
     public void onPlayerTickEvent(final TickEvent.PlayerTickEvent event) {
-        if(!event.player.world.isRemote()) {
+        if(!event.player.level.isClientSide()) {
             IPhlaxPlayerDataHolderCapability playerData = event.player.getCapability(PhlaxModCapabilities.PLAYER_DATA_HOLDER_CAPABILITY).orElse(null);
             if(playerData != null) {
                 playerData.tick((packet) -> {
                     if (event.player instanceof ServerPlayerEntity) {
-                        PhlaxModNetworking.INSTANCE.sendTo(packet, ((ServerPlayerEntity) event.player).connection.getNetworkManager(), NetworkDirection.PLAY_TO_CLIENT);
+                        PhlaxModNetworking.INSTANCE.sendTo(packet, ((ServerPlayerEntity) event.player).connection.getConnection(), NetworkDirection.PLAY_TO_CLIENT);
                     }
                 });
             }

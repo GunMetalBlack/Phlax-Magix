@@ -15,13 +15,13 @@ public class ItemPhlaxFlux extends Item {
 	
 
 	@Override
-		public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {
+		public ItemStack finishUsingItem(ItemStack stack, World worldIn, LivingEntity entityLiving) {
 			IPhlaxPlayerDataHolderCapability playerData = entityLiving.getCapability(PhlaxModCapabilities.PLAYER_DATA_HOLDER_CAPABILITY).orElse(null);
 			if(playerData != null){
 				playerData.setShouldRegenMana(true);
 				playerData.setManaRegenRate(10);
 			}
-			return super.onItemUseFinish(stack, worldIn, entityLiving);
+			return super.finishUsingItem(stack, worldIn, entityLiving);
 		}
 
 }

@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 public enum ModItemTeir implements IItemTier{
 	PHLAX(3, 450, 7.0F, 3.0f, 12, () -> {
 		
-		return Ingredient.fromItems(DifReg.PHLAX_SWORD.get());
+		return Ingredient.of(DifReg.PHLAX_SWORD.get());
 	});
 
 	private final int harvestLevel;
@@ -29,37 +29,37 @@ public enum ModItemTeir implements IItemTier{
 	}
 	
 	@Override
-	public int getMaxUses() {
+	public int getUses() {
 		// TODO Auto-generated method stub
 		return maxUses;
 	}
 
 	@Override
-	public float getEfficiency() {
+	public float getSpeed() {
 		// TODO Auto-generated method stub
 		return efficency;
 	}
 
 	@Override
-	public float getAttackDamage() {
+	public float getAttackDamageBonus() {
 		// TODO Auto-generated method stub
 		return attackDammage;
 	}
 
 	@Override
-	public int getHarvestLevel() {
+	public int getLevel() {
 		// TODO Auto-generated method stub
 		return	harvestLevel;
 	}
 
 	@Override
-	public int getEnchantability() {
+	public int getEnchantmentValue() {
 		// TODO Auto-generated method stub
 		return enchantability;
 	}
 
 	@Override
-	public Ingredient getRepairMaterial() {
+	public Ingredient getRepairIngredient() {
 		// TODO Auto-generated method stub
 		return  reapairMat.get();
 	}
