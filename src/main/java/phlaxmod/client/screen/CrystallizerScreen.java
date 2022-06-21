@@ -9,8 +9,6 @@ import net.minecraft.util.text.ITextComponent;
 import phlaxmod.PhlaxMod;
 import phlaxmod.container.CrystalizerContainer;
 
-import java.awt.*;
-
 public class CrystallizerScreen extends ContainerScreen<CrystalizerContainer> {
     private final ResourceLocation GUI = new ResourceLocation(PhlaxMod.MODID,
             "textures/gui/crystallizer_gui.png");

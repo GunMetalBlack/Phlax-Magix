@@ -2,7 +2,6 @@ package phlaxmod.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext.Builder;
 import phlaxmod.DifReg;
