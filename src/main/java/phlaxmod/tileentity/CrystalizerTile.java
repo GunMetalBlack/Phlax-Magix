@@ -80,13 +80,14 @@ public class CrystalizerTile extends TileEntity {
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
 
-        if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY){
+        if(cap.equals(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)) {
             return handler.cast();
         }
         return super.getCapability(cap, side);
     }
+
     //Checks If an Item is in the first slot and that item is a mana crystal
-    public void OnPlayerManaDrain(){
+    public void createOutputFromInput() {
         boolean hasManaCrystal = this.itemHandler.getStackInSlot(0).getCount() > 0
                 && this.itemHandler.getStackInSlot(0).getItem() ==  DifReg.MANA_CRYSTAL.get();
         boolean hasCitrineCrystal = this.itemHandler.getStackInSlot(0).getCount() > 0

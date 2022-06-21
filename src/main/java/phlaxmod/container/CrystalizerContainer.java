@@ -22,8 +22,7 @@ public class CrystalizerContainer extends Container{
     private final PlayerEntity playerEntity;
     private final IItemHandler playerInventory;
 
-    public CrystalizerContainer(int windowID, World world, BlockPos pos, PlayerInventory playerInventory,
-                                                                         PlayerEntity player) {
+    public CrystalizerContainer(int windowID, World world, BlockPos pos, PlayerInventory playerInventory, PlayerEntity player) {
         super(ModContainers.CRYSTALIZER_CONTAINER.get(), windowID);
         this.tileEntity = world.getBlockEntity(pos);
         playerEntity = player;
