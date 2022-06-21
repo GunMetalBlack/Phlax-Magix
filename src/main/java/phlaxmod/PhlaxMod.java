@@ -22,6 +22,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import phlaxmod.client.ClientProxy;
 import phlaxmod.common.CommonProxy;
+import phlaxmod.container.ModContainers;
+import phlaxmod.tileentity.ModTileEntities;
 
 @Mod(value = "phlaxmod")
 @EventBusSubscriber(modid = "phlaxmod", bus = Bus.MOD)
@@ -45,6 +47,8 @@ public class PhlaxMod {
         DifReg.FLUIDS.register(Ebus);
         DifReg.ITEMS.register(Ebus);
         DifReg.BLOCKS.register(Ebus);
+        ModTileEntities.register(Ebus);
+        ModContainers.register(Ebus);
         DifReg.ENTITIES.register(Ebus);
         DifReg.TILE_ENTITIES.register(Ebus);
         DifReg.BIOMES.register(Ebus);

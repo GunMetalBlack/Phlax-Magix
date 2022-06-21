@@ -22,6 +22,8 @@
   "block.phlaxmod.mithril_ore": "Mithral Ore",
   "block.phlaxmod.oil_ore": "Oil Shale",
   "block.phlaxmod.raw_phlax_flux": "Phlax Flux Crop",
+  "block.phlaxmod.crystallizer": "Mana Crystallizer",
+  "screen.tutorialmod.crystallizer": "Mana Crystallizer",
   "item.phlaxmod.refined_phlax_flux": "Refined Phlax Flux",
   "fluid.phlaxmod.oil": "Oil",
   "biome.phlaxmod.phlax_biome": "Phlax Biome",

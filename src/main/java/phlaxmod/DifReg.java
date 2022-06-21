@@ -92,7 +92,7 @@ public class DifReg {
                     .strength(5.0f, 3.0f).sound(SoundType.STONE).requiresCorrectToolForDrops()
                     .harvestTool(ToolType.PICKAXE).harvestLevel(0)));
     //Machine BLOCKS-----------------------------------------------------------------------------------------
-    public static  final RegistryObject<Block> CRYSTALLIZER = BLOCKS.register("crystallizer", BlockMachine::new);
+    public static final RegistryObject<Block> CRYSTALLIZER = BLOCKS.register("crystallizer", CrystallizerBlock::new);
     // BLOCK ITEMS------------------------------------------------------------------------------------------------
 
     public static final RegistryObject<Item> CRIMSON_STONE_ITEM = ITEMS.register("crimson_stone",
