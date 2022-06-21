@@ -93,7 +93,6 @@ public class CrystalizerTile extends TileEntity {
                 && this.itemHandler.getStackInSlot(0).getItem() ==  DifReg.CITRINE_CRYSTAL_ITEM.get();
         //TODO ADD CHARGED MANA CRYSTAL HERE
         if(hasCitrineCrystal){
-
             this.itemHandler.getStackInSlot(0).shrink(1);
             this.itemHandler.insertItem(1, new ItemStack(DifReg.CHARGED_CITRINE.get()),false);
         }

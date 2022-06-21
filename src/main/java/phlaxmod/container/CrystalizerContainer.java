@@ -36,9 +36,8 @@ public class CrystalizerContainer extends Container{
 
         if(tileEntity != null){
             tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
-                //TODO Reposition Slots to match UI
                 addSlot(new SlotItemHandler(h, 0, 54, 31));
-                addSlot(new SlotItemHandler(h, 1, 103, 53));
+                addSlot(new SlotItemHandler(h, 1, 103, 31));
             });
         }
     }
