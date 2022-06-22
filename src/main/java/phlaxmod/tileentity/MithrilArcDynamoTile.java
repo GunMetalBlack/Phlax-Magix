@@ -3,13 +3,11 @@ package phlaxmod.tileentity;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
-import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -47,9 +45,7 @@ public class MithrilArcDynamoTile extends TileEntity implements ITickableTileEnt
         super.invalidateCaps();
         this.energy.invalidate();
     }
-    public int getEnergyForStack(ItemStack stack) {
-        return ForgeHooks.getBurnTime(stack, IRecipeType.SMELTING);
-    }
+
     public int getMaxProgress() {
         return this.maxProgress;
     }
@@ -97,17 +93,16 @@ public class MithrilArcDynamoTile extends TileEntity implements ITickableTileEnt
 
 
         if (this.energyStorage.getEnergyStored() <= this.energyStorage.getMaxEnergyStored() - 100) {
-            if (!this.itemHandler.getStackInSlot(0).isEmpty() && (this.progress <= this.maxProgress )) {
-                this.maxProgress = getEnergyForStack(this.itemHandler.getStackInSlot(0));
+            if (!this.itemHandler.getStackInSlot(0).isEmpty() && (getProgress() <= getMaxProgress())) {
                 this.progress++;
-                this.energyStorage.setEnergy(this.energyStorage.getEnergyStored() + this.maxProgress);
-            }if(this.maxProgress <= this.progress ){
+                this.energyStorage.setEnergy(this.energyStorage.getEnergyStored() + getMaxProgress());
+            }if(getMaxProgress() <= getProgress()){
                 this.itemHandler.getStackInSlot(0).shrink(1);
                 this.progress = 0;
             }
 
         }
-        PhlaxMod.logger.info("TickProgress{}{}", this.progress,this.level.isClientSide);
+        PhlaxMod.logger.info("TickProgress:{} IsClient:{} TickMax:{}", this.progress,this.level.isClientSide,createOutputFromInput());
         outputEnergy();
     }
 
@@ -129,7 +124,7 @@ public class MithrilArcDynamoTile extends TileEntity implements ITickableTileEnt
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
                 switch (slot){
-                    case 0: return stack.getItem() == DifReg.OIL_BUCKET.get() || stack.getItem() == DifReg.OIL_DROP.get() || stack.getItem() == Items.COAL;
+                    case 0: return stack.getItem() == DifReg.OIL_BUCKET.get() || stack.getItem() == DifReg.OIL_ORE_ITEM.get() || stack.getItem() == Items.COAL;
                     default:
                         return false;
                 }
@@ -162,12 +157,23 @@ public class MithrilArcDynamoTile extends TileEntity implements ITickableTileEnt
     }
 
     //Checks If an Item is in the first slot and that item is a mana crystal
-    public void createOutputFromInput() {
-        boolean hasFuel = this.itemHandler.getStackInSlot(0).getCount() > 0
-                && this.itemHandler.getStackInSlot(0).getItem() == DifReg.OIL_BUCKET.get() || this.itemHandler.getStackInSlot(0).getItem() == DifReg.OIL_DROP.get() || this.itemHandler.getStackInSlot(0).getItem() == Items.COAL;
-        if(hasFuel){
-            this.itemHandler.getStackInSlot(0).shrink(1);
+    public int createOutputFromInput() {
+        String itemToBurn = "";
+           if(this.itemHandler.getStackInSlot(0).getItem() == DifReg.OIL_BUCKET.get()){itemToBurn = "oil_bucket";
+           }else if(this.itemHandler.getStackInSlot(0).getItem() == DifReg.OIL_ORE_ITEM.get()){itemToBurn = "oil_ore";
+           }else if(this.itemHandler.getStackInSlot(0).getItem() == Items.COAL){itemToBurn = "coal";
+           }else{
+               itemToBurn = "other";
+           }
+           switch (itemToBurn){
+               case "oil_bucket": return this.maxProgress = 2000;
+               case "oil_ore": return this.maxProgress = 500;
+               case "coal": return this.maxProgress = 200;
+               case "other": return this.maxProgress = 0;
+               default:
+                   return  this.maxProgress = -1;
+           }
         }
     }
 
-}
+
