@@ -100,10 +100,10 @@ public class MithrilArcDynamoTile extends TileEntity implements ITickableTileEnt
             if (!this.itemHandler.getStackInSlot(0).isEmpty() && (this.progress <= this.maxProgress )) {
                 this.maxProgress = getEnergyForStack(this.itemHandler.getStackInSlot(0));
                 this.progress++;
+                this.energyStorage.setEnergy(this.energyStorage.getEnergyStored() + this.maxProgress);
             }if(this.maxProgress <= this.progress ){
                 this.itemHandler.getStackInSlot(0).shrink(1);
                 this.progress = 0;
-                this.energyStorage.setEnergy(this.energyStorage.getEnergyStored() + this.maxProgress);
             }
 
         }
