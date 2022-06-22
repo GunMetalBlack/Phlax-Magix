@@ -93,6 +93,7 @@ public class DifReg {
                     .harvestTool(ToolType.PICKAXE).harvestLevel(0)));
     //Machine BLOCKS-----------------------------------------------------------------------------------------
     public static final RegistryObject<Block> CRYSTALLIZER = BLOCKS.register("crystallizer", CrystallizerBlock::new);
+    public static final RegistryObject<Block> MITHRIL_ARC_DYNAMO = BLOCKS.register("mithril_arc_dynamo", MithrilArcDynamo::new);
     // BLOCK ITEMS------------------------------------------------------------------------------------------------
 
     public static final RegistryObject<Item> CRIMSON_STONE_ITEM = ITEMS.register("crimson_stone",
@@ -102,6 +103,10 @@ public class DifReg {
             () -> new BlockItem(CRIMSON_ROCK.get(), new Properties().tab(PhlaxMod.PHLAX_ITEM_GROUP)));
     public static final RegistryObject<Item>  CRYSTALIZER_ITEM = ITEMS.register("crystallizer",
             () -> new BlockItem(CRYSTALLIZER.get(), new Properties().tab(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item>  MITHRIL_ARC_DYNAMO_ITEM = ITEMS.register("mithril_arc_dynamo",
+            () -> new BlockItem(MITHRIL_ARC_DYNAMO.get(), new Properties().tab(PhlaxMod.PHLAX_ITEM_GROUP)));
+
 
 
     //ORES BLOCKS---------------------------------------------------------------------------------------------------------------------------------------------

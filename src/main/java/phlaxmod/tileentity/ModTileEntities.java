@@ -17,6 +17,9 @@ public class ModTileEntities {
     public static RegistryObject<TileEntityType<CrystalizerTile>> CRYSTALIZER_TILE =
             TILE_ENTITES.register("crystallizer_tile", () -> TileEntityType.Builder.of( CrystalizerTile::new, DifReg.CRYSTALLIZER.get()).build(null));
 
+    public static RegistryObject<TileEntityType<MithrilArcDynamoTile>> MITHRIL_ARC_DYNAMO_TILE =
+            TILE_ENTITES.register("mithril_arc_dynamo", () -> TileEntityType.Builder.of( MithrilArcDynamoTile::new, DifReg.MITHRIL_ARC_DYNAMO.get()).build(null));
+
     public static void register(IEventBus ebus){
         TILE_ENTITES.register(ebus);
     }

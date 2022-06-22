@@ -30,7 +30,13 @@ public class ModContainers {
                 World world = inv.player.getCommandSenderWorld();
                 return new CrystalizerContainer(windowId, world, pos, inv, inv.player);
             })));
-
+    public static final RegistryObject<ContainerType<MithrilArcDynamoContainer>> MITHRIL_ARC_DYNAMO_CONTAINER
+            = CONTAINERS.register("mithril_arc_dynamo_container",
+            () -> IForgeContainerType.create(((windowId, inv, data) -> {
+                BlockPos pos = data.readBlockPos();
+                World world = inv.player.getCommandSenderWorld();
+                return new MithrilArcDynamoContainer(windowId, world, pos, inv, inv.player);
+            })));
     public static void register(IEventBus ebus){
     CONTAINERS.register(ebus);
     }
