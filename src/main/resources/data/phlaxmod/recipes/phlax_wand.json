@@ -7,10 +7,10 @@
     ],
     "key": {
         "#": {
-            "item": "phlaxmod:condensed_phlax"
+            "item": "phlaxmod:phlax_condensed"
         },
         "D": {
-            "item": "minecraft:diamond"
+            "item": "minecraft:nether_star"
         },
         "/": {
             "item": "minecraft:stick"

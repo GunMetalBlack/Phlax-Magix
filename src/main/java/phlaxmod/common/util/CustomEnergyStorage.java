@@ -1,4 +1,4 @@
-package phlaxmod.common.block.util;
+package phlaxmod.common.util;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.energy.EnergyStorage;

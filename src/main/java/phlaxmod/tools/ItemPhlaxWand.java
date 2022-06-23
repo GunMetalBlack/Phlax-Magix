@@ -9,7 +9,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import phlaxmod.common.capability.PhlaxModCapabilities;
 import phlaxmod.common.capability.phlaxplayerdataholder.IPhlaxPlayerDataHolderCapability;
-import phlaxmod.common.entities.PhlaxWandEntity;
+import phlaxmod.common.entities.EntityPhlaxWand;
 
 public class ItemPhlaxWand extends Item {
 
@@ -21,7 +21,7 @@ public class ItemPhlaxWand extends Item {
 	public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
 		IPhlaxPlayerDataHolderCapability playerData = playerIn.getCapability(PhlaxModCapabilities.PLAYER_DATA_HOLDER_CAPABILITY).orElse(null);
 		if (!worldIn.isClientSide && playerData.getMana() > 0) {
-			PhlaxWandEntity phlaxen = new PhlaxWandEntity(worldIn);
+			EntityPhlaxWand phlaxen = new EntityPhlaxWand(worldIn);
 			phlaxen.moveTo(playerIn.getX(), playerIn.getY() + playerIn.getEyeHeight() * 0.8,
 					playerIn.getZ(), playerIn.yRot, playerIn.xRot);
 			phlaxen.shootFromRotation(playerIn, playerIn.xRot, playerIn.yRot, 0, 1, 1);

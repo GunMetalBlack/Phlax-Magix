@@ -2,14 +2,14 @@ package phlaxmod.tools;
 
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.crafting.Ingredient;
-import phlaxmod.DifReg;
+import phlaxmod.common.item.ModItems;
 
 import java.util.function.Supplier;
 
 public enum ModItemTeir implements IItemTier{
 	PHLAX(3, 450, 7.0F, 3.0f, 12, () -> {
 		
-		return Ingredient.of(DifReg.PHLAX_SWORD.get());
+		return Ingredient.of(ModItems.PHLAX_SWORD.get());
 	});
 
 	private final int harvestLevel;

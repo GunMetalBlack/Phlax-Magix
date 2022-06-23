@@ -2,6 +2,6 @@
  "parent": "item/generated",
 	"textures": 
 	{
-	"layer0": "phlaxmod:item/condensed_phlax"
+	"layer0": "phlaxmod:item/phlax_condensed"
 	}
 }

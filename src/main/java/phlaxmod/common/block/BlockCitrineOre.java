@@ -13,9 +13,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
 
-public class CitrineOre extends Block {
+public class BlockCitrineOre extends Block {
 
-	public CitrineOre() {
+	public BlockCitrineOre() {
 		super(AbstractBlock.Properties.of(Material.METAL,MaterialColor.COLOR_GRAY)
 				.strength(5)
 				.noOcclusion()

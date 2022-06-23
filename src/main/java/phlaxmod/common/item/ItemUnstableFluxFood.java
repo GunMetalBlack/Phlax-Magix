@@ -4,9 +4,9 @@ package phlaxmod.common.item;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 
-public class UnstableFluxFood extends BlockItem {
+public class ItemUnstableFluxFood extends BlockItem {
 
-	public UnstableFluxFood(Block block, Properties properties) {
+	public ItemUnstableFluxFood(Block block, Properties properties) {
 		super(block, properties);
 	}
 //TODO REMOVE AT SOME POINT

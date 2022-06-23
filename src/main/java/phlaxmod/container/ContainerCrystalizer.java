@@ -14,17 +14,16 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
-import phlaxmod.DifReg;
-import phlaxmod.tileentity.MithrilArcDynamoTile;
+import phlaxmod.common.block.ModBlocks;
 
-public class MithrilArcDynamoContainer extends Container{
+public class ContainerCrystalizer extends Container{
 
     private final TileEntity tileEntity;
     private final PlayerEntity playerEntity;
     private final IItemHandler playerInventory;
 
-    public MithrilArcDynamoContainer(int windowID, World world, BlockPos pos, PlayerInventory playerInventory, PlayerEntity player) {
-        super(ModContainers.MITHRIL_ARC_DYNAMO_CONTAINER.get(), windowID);
+    public ContainerCrystalizer(int windowID, World world, BlockPos pos, PlayerInventory playerInventory, PlayerEntity player) {
+        super(ModContainers.CRYSTALIZER_CONTAINER.get(), windowID);
         this.tileEntity = world.getBlockEntity(pos);
         playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);
@@ -33,16 +32,15 @@ public class MithrilArcDynamoContainer extends Container{
         if(tileEntity != null){
             tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
                 addSlot(new SlotItemHandler(h, 0, 54, 31));
+                addSlot(new SlotItemHandler(h, 1, 103, 31));
             });
         }
     }
-    public MithrilArcDynamoTile getBlockEntity() {
-        return (MithrilArcDynamoTile)tileEntity;
-    }
+    //TODO Add Boolean To show Progress For Power And Current Mana Store Video Time 22:43
     @Override
     public boolean stillValid(PlayerEntity playerIn) {
         return stillValid(IWorldPosCallable.create(tileEntity.getLevel(), tileEntity.getBlockPos()),
-                playerIn, DifReg.MITHRIL_ARC_DYNAMO.get());
+                playerIn, ModBlocks.CRYSTALLIZER.get());
     }
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
         for (int i = 0; i < amount; i++) {
@@ -86,7 +84,7 @@ public class MithrilArcDynamoContainer extends Container{
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 1;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
+    private static final int TE_INVENTORY_SLOT_COUNT = 2;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
 
     @Override
     public ItemStack quickMoveStack(PlayerEntity playerIn, int index) {

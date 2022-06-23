@@ -3,9 +3,9 @@ package phlaxmod.common.item;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class OilDrop extends Item{
+public class ItemOilDrop extends Item{
 
-	public OilDrop(Properties properties) {
+	public ItemOilDrop(Properties properties) {
 		super(properties);
 		
 	}

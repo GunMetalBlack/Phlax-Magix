@@ -3,20 +3,20 @@ package phlaxmod.common.block;
 import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
-import phlaxmod.container.CrystalizerContainer;
+import phlaxmod.container.ContainerCrystalizer;
 import phlaxmod.container.ModContainers;
-import phlaxmod.tileentity.CrystalizerTile;
 import phlaxmod.tileentity.ModTileEntities;
+import phlaxmod.tileentity.TileCrystalizer;
 
 import javax.annotation.Nullable;
 
-public class CrystallizerBlock extends BlockMachine {
+public class BlockCrystallizer extends BlockMachine {
 
-    public CrystallizerBlock() {
-        super(CrystalizerTile.class);
+    public BlockCrystallizer() {
+        super(TileCrystalizer.class);
     }
 
-    public CrystallizerBlock(Properties properties, Class<?> tileEntityClass) {
+    public BlockCrystallizer(Properties properties, Class<?> tileEntityClass) {
         super(properties, tileEntityClass);
     }
 
@@ -27,7 +27,7 @@ public class CrystallizerBlock extends BlockMachine {
 
     @Override
     public ModContainers.IPhlaxModContainerConstructor getContainerConstructor() {
-        return CrystalizerContainer::new;
+        return ContainerCrystalizer::new;
     }
 
     @Nullable

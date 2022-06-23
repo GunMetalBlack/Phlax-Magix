@@ -23,6 +23,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import phlaxmod.client.ClientProxy;
 import phlaxmod.common.CommonProxy;
+import phlaxmod.common.block.ModBlocks;
+import phlaxmod.common.entities.ModEntities;
+import phlaxmod.common.item.ModItems;
 import phlaxmod.container.ModContainers;
 import phlaxmod.tileentity.ModTileEntities;
 
@@ -36,30 +39,30 @@ public class PhlaxMod {
     public static final ItemGroup PHLAX_ITEM_GROUP = new ItemGroup(MODID) {
         @Override
         public ItemStack makeIcon() {
-            return DifReg.PHLAX_FLUXCROP_ITEM.get().getDefaultInstance();
+            return ModItems.COMPRESSED_PHLAX_FLUX.get().getDefaultInstance();
         }
     };
 
     public static CommonProxy proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
     public PhlaxMod() {
-
-        IEventBus Ebus = FMLJavaModLoadingContext.get().getModEventBus();
-        DifReg.FLUIDS.register(Ebus);
-        DifReg.ITEMS.register(Ebus);
-        DifReg.BLOCKS.register(Ebus);
-        ModTileEntities.register(Ebus);
-        ModContainers.register(Ebus);
-        DifReg.ENTITIES.register(Ebus);
-        DifReg.TILE_ENTITIES.register(Ebus);
-        DifReg.BIOMES.register(Ebus);
-        DifReg.registeredBiomes();
+        // Add Deferred Registers to Mod Event Bus
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        ModMiscellaneousReg.BIOMES.register(modEventBus);
+        ModBlocks.BLOCKS.register(modEventBus);
+        ModContainers.CONTAINERS.register(modEventBus);
+        ModEntities.ENTITIES.register(modEventBus);
+        ModMiscellaneousReg.FLUIDS.register(modEventBus);
+        ModItems.ITEMS.register(modEventBus);
+        ModTileEntities.TILE_ENTITES.register(modEventBus);
+        // Post-Registration
+        ModMiscellaneousReg.addBiomesToBiomeManager();
+        // Add Listeners to Forge Event Bus
         MinecraftForge.EVENT_BUS.addListener(PhlaxMod::onBiomeLoadingEvent);
-        DistExecutor.runWhenOn(Dist.CLIENT, ()-> ()-> MinecraftForge.EVENT_BUS.addListener(PhlaxMod::onRenderGameOverlayEvent));
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, ()-> ()-> MinecraftForge.EVENT_BUS.addListener(PhlaxMod::onRenderGameOverlayEvent));
         MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, PhlaxMod::onAttachCapabilitiesEventEntity);
         MinecraftForge.EVENT_BUS.addListener(PhlaxMod::onPlayerEventClone);
         MinecraftForge.EVENT_BUS.addListener(PhlaxMod::onPlayerTickEvent);
-
     }
 
     @SubscribeEvent

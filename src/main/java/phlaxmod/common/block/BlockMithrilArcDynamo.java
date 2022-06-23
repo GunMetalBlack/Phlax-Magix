@@ -3,20 +3,20 @@ package phlaxmod.common.block;
 import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
-import phlaxmod.container.MithrilArcDynamoContainer;
+import phlaxmod.container.ContainerMithrilArcDynamo;
 import phlaxmod.container.ModContainers;
-import phlaxmod.tileentity.MithrilArcDynamoTile;
 import phlaxmod.tileentity.ModTileEntities;
+import phlaxmod.tileentity.TileMithrilArcDynamo;
 
 import javax.annotation.Nullable;
 
-public class MithrilArcDynamo extends BlockMachine{
+public class BlockMithrilArcDynamo extends BlockMachine{
 
-    public MithrilArcDynamo() {
-        super(MithrilArcDynamoTile.class);
+    public BlockMithrilArcDynamo() {
+        super(TileMithrilArcDynamo.class);
     }
 
-    public MithrilArcDynamo(Properties properties, Class<?> tileEntityClass) {
+    public BlockMithrilArcDynamo(Properties properties, Class<?> tileEntityClass) {
         super(properties, tileEntityClass);
     }
 
@@ -27,7 +27,7 @@ public class MithrilArcDynamo extends BlockMachine{
 
     @Override
     public ModContainers.IPhlaxModContainerConstructor getContainerConstructor() {
-        return MithrilArcDynamoContainer::new;
+        return ContainerMithrilArcDynamo::new;
     }
 
     @Nullable

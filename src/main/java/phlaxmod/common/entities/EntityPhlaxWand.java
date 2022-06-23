@@ -13,22 +13,22 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
-import phlaxmod.DifReg;
+import phlaxmod.common.item.ModItems;
 
 @OnlyIn(
         value = Dist.CLIENT,
         _interface = IRendersAsItem.class
 )
-public class PhlaxWandEntity extends ThrowableEntity implements IRendersAsItem {
+public class EntityPhlaxWand extends ThrowableEntity implements IRendersAsItem {
 
     public PlayerEntity player;
 
-    public PhlaxWandEntity(EntityType<? extends ThrowableEntity> entityType, World world) {
+    public EntityPhlaxWand(EntityType<? extends ThrowableEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    public PhlaxWandEntity(World world) {
-        this(DifReg.Phlax_Projectile.get(), world);
+    public EntityPhlaxWand(World world) {
+        this(ModEntities.PHLAX_PROJECTILE.get(), world);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class PhlaxWandEntity extends ThrowableEntity implements IRendersAsItem {
 
     @Override
     public ItemStack getItem() {
-        return DifReg.WAND_PROJECTILE.get().getDefaultInstance();
+        return ModItems.WAND_PROJECTILE.get().getDefaultInstance();
     }
 
 }

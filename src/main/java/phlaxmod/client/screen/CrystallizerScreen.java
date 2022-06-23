@@ -7,12 +7,12 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import phlaxmod.PhlaxMod;
-import phlaxmod.container.CrystalizerContainer;
+import phlaxmod.container.ContainerCrystalizer;
 
-public class CrystallizerScreen extends ContainerScreen<CrystalizerContainer> {
+public class CrystallizerScreen extends ContainerScreen<ContainerCrystalizer> {
     private final ResourceLocation GUI = new ResourceLocation(PhlaxMod.MODID,
             "textures/gui/crystallizer_gui.png");
-    public CrystallizerScreen(CrystalizerContainer pMenu, PlayerInventory pPlayerInventory, ITextComponent pTitle) {
+    public CrystallizerScreen(ContainerCrystalizer pMenu, PlayerInventory pPlayerInventory, ITextComponent pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
     }
 

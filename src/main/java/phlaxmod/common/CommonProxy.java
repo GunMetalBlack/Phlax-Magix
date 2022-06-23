@@ -19,8 +19,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.network.NetworkDirection;
 import org.apache.logging.log4j.Level;
-import phlaxmod.DifReg;
 import phlaxmod.PhlaxMod;
+import phlaxmod.common.block.ModBlocks;
 import phlaxmod.common.capability.PhlaxModCapabilities;
 import phlaxmod.common.capability.phlaxplayerdataholder.IPhlaxPlayerDataHolderCapability;
 import phlaxmod.common.capability.phlaxplayerdataholder.PhlaxPlayerDataHolderCapabilityProvider;
@@ -31,8 +31,6 @@ public class CommonProxy {
     public void onClientSetupEvent(final FMLClientSetupEvent event) {}
 
     public void onRenderGameOverlayEvent(RenderGameOverlayEvent.Post event) {}
-
-    public void updateScreenMithrilArcDynamo(){}
 
 
     public void onAttachCapabilitiesEventEntity(final AttachCapabilitiesEvent<Entity> event) {
@@ -53,11 +51,11 @@ public class CommonProxy {
     }
 
     public void onBiomeLoadingEvent(final BiomeLoadingEvent event) {
-        registerOreGenFeature(event.getGeneration(), DifReg.PHLAX_ORE.get().defaultBlockState(), 4, 44, 22);
-        registerOreGenFeature(event.getGeneration(), DifReg.NICKEL_ORE.get().defaultBlockState(), 8, 50, 20);
-        registerOreGenFeature(event.getGeneration(), DifReg.OIL_ORE.get().defaultBlockState(), 12, 25, 12);
-        registerOreGenFeature(event.getGeneration(), DifReg.MITHRIL_ORE.get().defaultBlockState(), 2, 15, 3);
-        registerOreGenFeature(event.getGeneration(), DifReg.CITRINE_CRYSTAL.get().defaultBlockState(), 3, 10, 3);
+        registerOreGenFeature(event.getGeneration(), ModBlocks.PHLAX_ORE.get().defaultBlockState(), 4, 44, 22);
+        registerOreGenFeature(event.getGeneration(), ModBlocks.NICKEL_ORE.get().defaultBlockState(), 8, 50, 20);
+        registerOreGenFeature(event.getGeneration(), ModBlocks.OIL_ORE.get().defaultBlockState(), 12, 25, 12);
+        registerOreGenFeature(event.getGeneration(), ModBlocks.MITHRIL_ORE.get().defaultBlockState(), 2, 15, 3);
+        registerOreGenFeature(event.getGeneration(), ModBlocks.CITRINE_CRYSTAL.get().defaultBlockState(), 3, 10, 3);
     }
 
     public void onPlayerEventClone(final PlayerEvent.Clone event) {

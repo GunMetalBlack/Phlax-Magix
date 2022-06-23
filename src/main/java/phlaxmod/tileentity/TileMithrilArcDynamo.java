@@ -17,37 +17,37 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import phlaxmod.DifReg;
 import phlaxmod.PhlaxMod;
-import phlaxmod.common.block.util.CustomEnergyStorage;
+import phlaxmod.common.item.ModItems;
+import phlaxmod.common.util.CustomEnergyStorage;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.HashMap;
 
-public class MithrilArcDynamoTile extends TileEntity implements ITickableTileEntity {
+public class TileMithrilArcDynamo extends TileEntity implements ITickableTileEntity {
 
-    private ItemStackHandler itemHandler = createHandler();
-    private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
+    private final ItemStackHandler itemStackHandler = createItemStackHandler();
+    private final LazyOptional<IItemHandler> optionalItemStackHandler = LazyOptional.of(() -> itemStackHandler);
     public final CustomEnergyStorage energyStorage;
+    private final LazyOptional<CustomEnergyStorage> optionalEnergyStorage;
 
     private int capacity = 500000, maxExtract = capacity;
     private int ticksRemaining = 0, peakTicksRemaining = 0;
-    private LazyOptional<CustomEnergyStorage> energy;
-    public MithrilArcDynamoTile(TileEntityType<?> p_i48289_1_) {
+    public TileMithrilArcDynamo(TileEntityType<?> p_i48289_1_) {
         super(p_i48289_1_);
         this.energyStorage = createEnergyStorage();
-        this.energy = LazyOptional.of(() -> this.energyStorage);
+        this.optionalEnergyStorage = LazyOptional.of(() -> this.energyStorage);
     }
 
-    public MithrilArcDynamoTile(){
+    public TileMithrilArcDynamo(){
         this(ModTileEntities.MITHRIL_ARC_DYNAMO_TILE.get());
     }
 
     @Override
     public void invalidateCaps() {
         super.invalidateCaps();
-        this.energy.invalidate();
+        this.optionalEnergyStorage.invalidate();
     }
     public double getBurnProgress(){
         if(peakTicksRemaining == 0)return 0;
@@ -62,7 +62,7 @@ public class MithrilArcDynamoTile extends TileEntity implements ITickableTileEnt
     @Override
     public CompoundNBT save(CompoundNBT compound) {
         super.save(compound);
-        compound.put("inv", itemHandler.serializeNBT());
+        compound.put("inv", itemStackHandler.serializeNBT());
         compound.putInt("energy",this.energyStorage.getEnergyStored());
         compound.putInt("ticks_remaining",this.ticksRemaining);
         compound.putInt("peak_ticks_remaining",this.peakTicksRemaining);
@@ -72,7 +72,7 @@ public class MithrilArcDynamoTile extends TileEntity implements ITickableTileEnt
     @Override
     public void load(BlockState state, CompoundNBT nbt) {
         super.load(state, nbt);
-        itemHandler.deserializeNBT(nbt.getCompound("inv"));
+        itemStackHandler.deserializeNBT(nbt.getCompound("inv"));
         this.energyStorage.setEnergy(nbt.getInt("energy"));
         ticksRemaining = nbt.getInt("ticks_remaining");
         peakTicksRemaining = nbt.getInt("peak_ticks_remaining");
@@ -88,14 +88,14 @@ public class MithrilArcDynamoTile extends TileEntity implements ITickableTileEnt
 
                 be.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).ifPresent(storage -> {
                     if (be != this && storage.getEnergyStored() < storage.getMaxEnergyStored()) {
-                        final int toSend = MithrilArcDynamoTile.this.energyStorage.extractEnergy(this.maxExtract,
+                        final int toSend = TileMithrilArcDynamo.this.energyStorage.extractEnergy(this.maxExtract,
                                 false);
                         PhlaxMod.logger.info("Send: {}", toSend);
                         final int received = storage.receiveEnergy(toSend, false);
                         PhlaxMod.logger.info("Final Received: {}", received);
 
-                        MithrilArcDynamoTile.this.energyStorage.setEnergy(
-                                MithrilArcDynamoTile.this.energyStorage.getEnergyStored() + toSend - received);
+                        TileMithrilArcDynamo.this.energyStorage.setEnergy(
+                                TileMithrilArcDynamo.this.energyStorage.getEnergyStored() + toSend - received);
                     }
                 });
             }
@@ -104,19 +104,16 @@ public class MithrilArcDynamoTile extends TileEntity implements ITickableTileEnt
 
     @Override
     public void tick() {
-        if(this.level.isClientSide()){
-            System.out.println("Client Dynamo Tick"+ticksRemaining);
-            return;
-        }
+        if(this.level.isClientSide()) return;
 
         if(this.ticksRemaining > 0) {
             this.ticksRemaining--;
             this.energyStorage.setEnergy(this.energyStorage.getEnergyStored() + 2000);
-        }else{
-            if (!this.itemHandler.getStackInSlot(0).isEmpty()) {
+        } else {
+            if (!this.itemStackHandler.getStackInSlot(0).isEmpty() && energyStorage.getEnergyStored() < energyStorage.getMaxEnergyStored()) {
                 this.ticksRemaining = getMaxProgressForFuelGigachadVersion();
                 this.peakTicksRemaining = ticksRemaining;
-                this.itemHandler.getStackInSlot(0).shrink(1);
+                this.itemStackHandler.getStackInSlot(0).shrink(1);
             }
         }
         outputEnergy();
@@ -143,7 +140,7 @@ public class MithrilArcDynamoTile extends TileEntity implements ITickableTileEnt
         }
     }
 
-    private ItemStackHandler createHandler(){
+    private ItemStackHandler createItemStackHandler(){
         return new ItemStackHandler(1){
             @Override
             protected void onContentsChanged(int slot) {
@@ -153,7 +150,7 @@ public class MithrilArcDynamoTile extends TileEntity implements ITickableTileEnt
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
                 switch (slot){
-                    case 0: return stack.getItem().equals(DifReg.OIL_BUCKET.get()) || stack.getItem().equals(DifReg.OIL_ORE_ITEM.get()) || stack.getItem().equals(Items.COAL);
+                    case 0: return stack.getItem().equals(ModItems.OIL_BUCKET.get()) || stack.getItem().equals(ModItems.OIL_ORE.get()) || stack.getItem().equals(Items.COAL);
                     default:
                         return false;
                 }
@@ -180,22 +177,22 @@ public class MithrilArcDynamoTile extends TileEntity implements ITickableTileEnt
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
 
         if(cap.equals(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)) {
-            return handler.cast();
+            return optionalItemStackHandler.cast();
         }
-        return cap.equals(CapabilityEnergy.ENERGY) ? this.energy.cast() : super.getCapability(cap, side);
+        return cap.equals(CapabilityEnergy.ENERGY) ? this.optionalEnergyStorage.cast() : super.getCapability(cap, side);
     }
 
     //Checks If an Item is in the first slot and that item is a mana crystal
     private static HashMap<Item, Integer> maxProgressForFuels;
     public int getMaxProgressForFuelGigachadVersion() {
-        if (this.itemHandler.getStackInSlot(0).isEmpty()) return -1;
+        if (this.itemStackHandler.getStackInSlot(0).isEmpty()) return -1;
         if (maxProgressForFuels == null) {
             maxProgressForFuels = new HashMap<>();
-            maxProgressForFuels.put(DifReg.OIL_BUCKET.get(), 5000);
-            maxProgressForFuels.put(DifReg.OIL_ORE_ITEM.get(), 1000);
+            maxProgressForFuels.put(ModItems.OIL_BUCKET.get(), 5000);
+            maxProgressForFuels.put(ModItems.OIL_ORE.get(), 1000);
             maxProgressForFuels.put(Items.COAL, 500);
         }
-        return maxProgressForFuels.get(this.itemHandler.getStackInSlot(0).getItem());
+        return maxProgressForFuels.get(this.itemStackHandler.getStackInSlot(0).getItem());
     }
 }
 
