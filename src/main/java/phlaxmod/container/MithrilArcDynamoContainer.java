@@ -15,6 +15,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import phlaxmod.DifReg;
+import phlaxmod.tileentity.MithrilArcDynamoTile;
 
 public class MithrilArcDynamoContainer extends Container{
 
@@ -34,6 +35,9 @@ public class MithrilArcDynamoContainer extends Container{
                 addSlot(new SlotItemHandler(h, 0, 54, 31));
             });
         }
+    }
+    public MithrilArcDynamoTile getBlockEntity() {
+        return (MithrilArcDynamoTile)tileEntity;
     }
     @Override
     public boolean stillValid(PlayerEntity playerIn) {

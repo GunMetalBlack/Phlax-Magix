@@ -32,6 +32,9 @@ public class CommonProxy {
 
     public void onRenderGameOverlayEvent(RenderGameOverlayEvent.Post event) {}
 
+    public void updateScreenMithrilArcDynamo(){}
+
+
     public void onAttachCapabilitiesEventEntity(final AttachCapabilitiesEvent<Entity> event) {
         if(event.getObject() instanceof PlayerEntity) {
             event.addCapability(new ResourceLocation(PhlaxMod.MODID, "phlax_player_data_holder"), new PhlaxPlayerDataHolderCapabilityProvider());

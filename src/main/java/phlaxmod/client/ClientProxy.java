@@ -40,4 +40,11 @@ public class ClientProxy extends CommonProxy {
         }
     }
 
+    @Override
+    public void updateScreenMithrilArcDynamo(){
+        if (Minecraft.getInstance().screen instanceof MithrilArcDynamoScreen) {
+           // ((MithrilArcDynamoScreen)Minecraft.getInstance().screen);
+        }
+    }
+
 }

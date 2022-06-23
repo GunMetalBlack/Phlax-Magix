@@ -1,9 +1,12 @@
 package phlaxmod.tileentity;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -20,6 +23,7 @@ import phlaxmod.common.block.util.CustomEnergyStorage;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.HashMap;
 
 public class MithrilArcDynamoTile extends TileEntity implements ITickableTileEntity {
 
@@ -27,8 +31,8 @@ public class MithrilArcDynamoTile extends TileEntity implements ITickableTileEnt
     private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
     public final CustomEnergyStorage energyStorage;
 
-    private int capacity = 2000, maxExtract = 100;
-    private int progress, maxProgress = 0;
+    private int capacity = 500000, maxExtract = capacity;
+    private int ticksRemaining = 0, peakTicksRemaining = 0;
     private LazyOptional<CustomEnergyStorage> energy;
     public MithrilArcDynamoTile(TileEntityType<?> p_i48289_1_) {
         super(p_i48289_1_);
@@ -45,26 +49,37 @@ public class MithrilArcDynamoTile extends TileEntity implements ITickableTileEnt
         super.invalidateCaps();
         this.energy.invalidate();
     }
-
-    public int getMaxProgress() {
-        return this.maxProgress;
+    public double getBurnProgress(){
+        if(peakTicksRemaining == 0)return 0;
+        return ticksRemaining/(double)peakTicksRemaining;
     }
-
-    public int getProgress() {
-        return this.progress;
+    public double getEnergyBarProgress(){
+        return energyStorage.getEnergyStored()/(double)energyStorage.getMaxEnergyStored();
     }
     private CustomEnergyStorage createEnergyStorage(){
         return new CustomEnergyStorage(this.capacity,0,this.maxExtract,this);
     }
     @Override
+    public CompoundNBT save(CompoundNBT compound) {
+        super.save(compound);
+        compound.put("inv", itemHandler.serializeNBT());
+        compound.putInt("energy",this.energyStorage.getEnergyStored());
+        compound.putInt("ticks_remaining",this.ticksRemaining);
+        compound.putInt("peak_ticks_remaining",this.peakTicksRemaining);
+        return compound;
+    }
+
+    @Override
     public void load(BlockState state, CompoundNBT nbt) {
-        itemHandler.deserializeNBT(nbt.getCompound("inv"));
-        this.energyStorage.setEnergy(nbt.getInt("Energy"));
         super.load(state, nbt);
+        itemHandler.deserializeNBT(nbt.getCompound("inv"));
+        this.energyStorage.setEnergy(nbt.getInt("energy"));
+        ticksRemaining = nbt.getInt("ticks_remaining");
+        peakTicksRemaining = nbt.getInt("peak_ticks_remaining");
     }
 
     public void outputEnergy() {
-        if (this.energyStorage.getEnergyStored() >= this.maxExtract && this.energyStorage.canExtract()) {
+        if (this.energyStorage.canExtract()) {
             for (final Direction direction : Direction.values()) {
                 final TileEntity be = this.level.getBlockEntity(this.worldPosition.relative(direction));
                 if (be == null) {
@@ -89,30 +104,44 @@ public class MithrilArcDynamoTile extends TileEntity implements ITickableTileEnt
 
     @Override
     public void tick() {
-        if(this.level.isClientSide()){return;}
-
-
-        if (this.energyStorage.getEnergyStored() <= this.energyStorage.getMaxEnergyStored() - 100) {
-            if (!this.itemHandler.getStackInSlot(0).isEmpty() && (getProgress() <= getMaxProgress())) {
-                this.progress++;
-                this.energyStorage.setEnergy(this.energyStorage.getEnergyStored() + getMaxProgress());
-            }if(getMaxProgress() <= getProgress()){
-                this.itemHandler.getStackInSlot(0).shrink(1);
-                this.progress = 0;
-            }
-
+        if(this.level.isClientSide()){
+            System.out.println("Client Dynamo Tick"+ticksRemaining);
+            return;
         }
-        PhlaxMod.logger.info("TickProgress:{} IsClient:{} TickMax:{}", this.progress,this.level.isClientSide,createOutputFromInput());
+
+        if(this.ticksRemaining > 0) {
+            this.ticksRemaining--;
+            this.energyStorage.setEnergy(this.energyStorage.getEnergyStored() + 2000);
+        }else{
+            if (!this.itemHandler.getStackInSlot(0).isEmpty()) {
+                this.ticksRemaining = getMaxProgressForFuelGigachadVersion();
+                this.peakTicksRemaining = ticksRemaining;
+                this.itemHandler.getStackInSlot(0).shrink(1);
+            }
+        }
         outputEnergy();
+        //PhlaxMod.logger.info("TickProgress:{} IsClient:{} TickMax:{} CurrentEnergy{} MaxMachineEnergy {}", this.ticksRemaining, this.level.isClientSide, getMaxProgressForFuelGigachadVersion(),this.energyStorage.getEnergyStored(),this.energyStorage.getMaxEnergyStored());
+        SUpdateTileEntityPacket updatePacket = this.getUpdatePacket();
+        if(updatePacket != null && level != null && level.getServer() != null) {
+            level.getServer().getPlayerList().broadcast(null, getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(),64, level.dimension(), updatePacket);
+        }
     }
-
     @Override
-    public CompoundNBT save(CompoundNBT compound) {
-        compound.put("inv", itemHandler.serializeNBT());
-        compound.putInt("Energy",this.energyStorage.getEnergyStored());
-        return super.save(compound);
+    @Nullable
+    public SUpdateTileEntityPacket getUpdatePacket() {
+        return new SUpdateTileEntityPacket(worldPosition, 1, getUpdateTag());
     }
-
+    @Override
+    public CompoundNBT getUpdateTag() {
+        CompoundNBT tag = super.getUpdateTag();
+        return save(tag);
+    }
+    @Override
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
+        if(level != null && level.isClientSide()) {
+            handleUpdateTag(getBlockState(), pkt.getTag());
+        }
+    }
 
     private ItemStackHandler createHandler(){
         return new ItemStackHandler(1){
@@ -124,7 +153,7 @@ public class MithrilArcDynamoTile extends TileEntity implements ITickableTileEnt
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
                 switch (slot){
-                    case 0: return stack.getItem() == DifReg.OIL_BUCKET.get() || stack.getItem() == DifReg.OIL_ORE_ITEM.get() || stack.getItem() == Items.COAL;
+                    case 0: return stack.getItem().equals(DifReg.OIL_BUCKET.get()) || stack.getItem().equals(DifReg.OIL_ORE_ITEM.get()) || stack.getItem().equals(Items.COAL);
                     default:
                         return false;
                 }
@@ -153,27 +182,21 @@ public class MithrilArcDynamoTile extends TileEntity implements ITickableTileEnt
         if(cap.equals(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)) {
             return handler.cast();
         }
-        return cap == CapabilityEnergy.ENERGY ? this.energy.cast() : super.getCapability(cap, side);
+        return cap.equals(CapabilityEnergy.ENERGY) ? this.energy.cast() : super.getCapability(cap, side);
     }
 
     //Checks If an Item is in the first slot and that item is a mana crystal
-    public int createOutputFromInput() {
-        String itemToBurn = "";
-           if(this.itemHandler.getStackInSlot(0).getItem() == DifReg.OIL_BUCKET.get()){itemToBurn = "oil_bucket";
-           }else if(this.itemHandler.getStackInSlot(0).getItem() == DifReg.OIL_ORE_ITEM.get()){itemToBurn = "oil_ore";
-           }else if(this.itemHandler.getStackInSlot(0).getItem() == Items.COAL){itemToBurn = "coal";
-           }else{
-               itemToBurn = "other";
-           }
-           switch (itemToBurn){
-               case "oil_bucket": return this.maxProgress = 2000;
-               case "oil_ore": return this.maxProgress = 500;
-               case "coal": return this.maxProgress = 200;
-               case "other": return this.maxProgress = 0;
-               default:
-                   return  this.maxProgress = -1;
-           }
+    private static HashMap<Item, Integer> maxProgressForFuels;
+    public int getMaxProgressForFuelGigachadVersion() {
+        if (this.itemHandler.getStackInSlot(0).isEmpty()) return -1;
+        if (maxProgressForFuels == null) {
+            maxProgressForFuels = new HashMap<>();
+            maxProgressForFuels.put(DifReg.OIL_BUCKET.get(), 5000);
+            maxProgressForFuels.put(DifReg.OIL_ORE_ITEM.get(), 1000);
+            maxProgressForFuels.put(Items.COAL, 500);
         }
+        return maxProgressForFuels.get(this.itemHandler.getStackInSlot(0).getItem());
     }
+}
 
 
