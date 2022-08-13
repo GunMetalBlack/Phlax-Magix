@@ -43,22 +43,20 @@ public class ModItems {
     public static final RegistryObject<Item> CITRINE_CONDENSED = ITEMS.register("citrine_condensed",
             () -> new Item(new Item.Properties().tab(PhlaxMod.PHLAX_ITEM_GROUP)));
 
-    public static final RegistryObject<Item> INFUSED_IRON_CONDENSED = ITEMS.register("infused_iron_condensed",
+    //A Mix Of Iron And Gold Condensed
+    public static final RegistryObject<Item> ELECTRUM_ALLOY = ITEMS.register("electrum_alloy",
             () -> new Item(new Item.Properties().tab(PhlaxMod.PHLAX_ITEM_GROUP)));
 
-    public static final RegistryObject<Item> INFUSED_GOLD_CONDENSED = ITEMS.register("infused_gold_condensed",
+    //Blood Nickel Alloy a mix of nickel and redstone
+    public static final RegistryObject<Item> BLOODNICKEL_ALLOY = ITEMS.register("bloodnickel_alloy",
             () -> new Item(new Item.Properties().tab(PhlaxMod.PHLAX_ITEM_GROUP)));
 
-    public static final RegistryObject<Item> INFUSED_NICKEL_CONDENSED = ITEMS.register("infused_nickel_condensed",
+    //Phlaxium alloy a mix of phlax and cithril
+    public static final RegistryObject<Item> PHLAXIUM_ALLOY = ITEMS.register("phlaxium_alloy",
             () -> new Item(new Item.Properties().tab(PhlaxMod.PHLAX_ITEM_GROUP)));
 
-    public static final RegistryObject<Item> INFUSED_REDSTONE_CONDENSED = ITEMS.register("infused_redstone_condensed",
-            () -> new Item(new Item.Properties().tab(PhlaxMod.PHLAX_ITEM_GROUP)));
-
-    public static final RegistryObject<Item> INFUSED_MITHRIL_CONDENSED = ITEMS.register("infused_mithril_condensed",
-            () -> new Item(new Item.Properties().tab(PhlaxMod.PHLAX_ITEM_GROUP)));
-
-    public static final RegistryObject<Item> INFUSED_CITRINE_CONDENSED = ITEMS.register("infused_citrine_condensed",
+   //Cithril alloy a mix of citrine and redstone
+    public static final RegistryObject<Item> CITHRIL_ALLOY = ITEMS.register("cithril_alloy",
             () -> new Item(new Item.Properties().tab(PhlaxMod.PHLAX_ITEM_GROUP)));
 
     public static final RegistryObject<Item> INFUSED_MYSTICAL_MECHANISM = ITEMS.register("infused_mystical_mechanism",

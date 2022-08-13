@@ -2,6 +2,6 @@
     "parent": "item/generated",
        "textures": 
        {
-       "layer0": "phlaxmod:item/infused_mithril_condensed"
+       "layer0": "phlaxmod:item/cithril_alloy"
        }
    }
