@@ -1,0 +1,12 @@
+{
+    "type": "phlaxmod:crystallizer",
+    "ingredients": [
+        {
+            "item": "phlaxmod:citrine_crystal"
+        }
+    ],
+    "output": {
+        "item": "phlaxmod:citrine_charged"
+    },
+    "producttime": "300"
+}

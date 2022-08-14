@@ -15,6 +15,8 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import phlaxmod.common.block.ModBlocks;
+import phlaxmod.tileentity.TileCrystalizer;
+import phlaxmod.tileentity.TileMithrilArcDynamo;
 
 public class ContainerCrystalizer extends Container{
 
@@ -35,6 +37,9 @@ public class ContainerCrystalizer extends Container{
                 addSlot(new SlotItemHandler(h, 1, 103, 31));
             });
         }
+    }
+    public TileCrystalizer getBlockEntity() {
+        return (TileCrystalizer) tileEntity;
     }
     //TODO Add Boolean To show Progress For Power And Current Mana Store Video Time 22:43
     @Override
