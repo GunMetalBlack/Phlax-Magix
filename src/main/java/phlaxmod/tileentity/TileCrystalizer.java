@@ -26,7 +26,7 @@ import java.util.Optional;
 
 public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
 
-    public static final int ENERGY_CONSUMED_PER_ACTIVE_TICK = 1;
+    public static final int ENERGY_CONSUMED_PER_ACTIVE_TICK = 70;
 
     private ItemStackHandler itemHandler = createHandler();
     private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
@@ -35,7 +35,7 @@ public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
 
     private final LazyOptional<CustomEnergyStorage> optionalEnergyStorage;
 
-    private int capacity = 500, maxExtract = capacity, maxRecive = capacity/2;
+    private int capacity = 500, maxExtract = 0, maxReceive = capacity/2;
 
     private int ticksRemaining = 0, peakTicksRemaining = 0;
 
@@ -53,7 +53,7 @@ public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
         return 1 - (ticksRemaining/(double)peakTicksRemaining);
     }
     private CustomEnergyStorage createEnergyStorage(){
-        return new CustomEnergyStorage(this.capacity,this.maxRecive,this.maxExtract,this);
+        return new CustomEnergyStorage(this.capacity,this.maxReceive,this.maxExtract,this);
     }
     public TileCrystalizer(){
         this(ModTileEntities.CRYSTALIZER_TILE.get());
@@ -83,31 +83,16 @@ public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
         return compound;
     }
     //Handles the input and output of power in the machine
-    public void outputEnergy() {
-        if (this.energyStorage.canExtract()) {
-            for (final Direction direction : Direction.values()) {
-                if(this.level == null) continue;
-                final TileEntity blockEntity = this.level.getBlockEntity(this.worldPosition.relative(direction));
-                if (blockEntity == null) continue;
-
-                blockEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).ifPresent(storage -> {
-                    if (blockEntity != this && storage.getEnergyStored() < storage.getMaxEnergyStored()) {
-                        final int toSend = TileCrystalizer.this.energyStorage.extractEnergy(this.maxExtract, false);
-                        final int received = storage.receiveEnergy(toSend,true);
-
-                        TileCrystalizer.this.energyStorage.setEnergy(
-                                TileCrystalizer.this.energyStorage.getEnergyStored() + toSend - received
-                        );
-                    }
-                });
-            }
+    public void tickEnergy() {
+        int amountToReceive = Math.min(Math.max(this.capacity - this.energyStorage.getEnergyStored(),0), maxReceive);
+        TileCrystalizer.this.energyStorage.setEnergy(
+                TileCrystalizer.this.energyStorage.getEnergyStored() + this.energyStorage.receiveEnergy(amountToReceive,false));
         }
-    }
     @Override
     public void tick() {
         // Only run on logical server
         if(this.level.isClientSide()) return;
-        // If machine is waiting...
+        // If machine is waiting... DEAR LORD WHAT HAVE YOU DONE
         if(this.ticksRemaining > 0) {
             // Confirm that input and energy are still present
             if(this.itemHandler.getStackInSlot(0).isEmpty() || energyStorage.getEnergyStored() <= 0){
@@ -118,7 +103,7 @@ public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
             this.ticksRemaining--;
             // Consume energy
             this.energyStorage.setEnergy(this.energyStorage.getEnergyStored() - ENERGY_CONSUMED_PER_ACTIVE_TICK);
-            // If production is done... (This check needs to be nested to make sure that it only fires when the machine is "done" and not just "idle", as ticksRemaining == 0 is ambiguous.)
+            // If production is done... (This check needs to be nested to make sure that it only fires when the machine is "done" and not just "idle", as ticksRemaining == 0 is ambiguous. No U)
             if(this.ticksRemaining == 0) {
                 // Produce output and consume input
                 produceUsingCurrentRecipe();
@@ -133,7 +118,7 @@ public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
             this.peakTicksRemaining = productionTimeForCurrentRecipe;
         }
         // TODO: Why does this thing output energy? Seems like it should just be a receiver...
-        outputEnergy();
+        tickEnergy();
         // PhlaxMod.logger.info("TickProgress:{} IsClient:{} TickMax:{} CurrentEnergy{} MaxMachineEnergy {}", this.ticksRemaining, this.level.isClientSide, getMaxProgressForFuelGigachadVersion(),this.energyStorage.getEnergyStored(),this.energyStorage.getMaxEnergyStored());
 
         // TODO: Only send this if something has actually changed.
