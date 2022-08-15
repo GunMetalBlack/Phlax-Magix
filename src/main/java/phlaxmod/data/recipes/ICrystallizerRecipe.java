@@ -8,7 +8,7 @@ import net.minecraft.util.registry.Registry;
 import phlaxmod.PhlaxMod;
 
 public interface ICrystallizerRecipe extends IRecipe<IInventory> {
-    ResourceLocation TYPE_ID = new ResourceLocation(PhlaxMod.MODID, "crystal");
+    ResourceLocation TYPE_ID = new ResourceLocation(PhlaxMod.MODID, "crystallizer");
 
     @Override
     default IRecipeType<?> getType(){

@@ -22,7 +22,6 @@ public class ModRecipeTypes {
 
     public static void register(IEventBus eventBus) {
         RECIPE_SERIALIZER.register(eventBus);
-
         Registry.register(Registry.RECIPE_TYPE, CrystallizerRecipe.TYPE_ID, CRYSTALLIZER_RECIPE);
     }
 }

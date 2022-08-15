@@ -2,8 +2,6 @@ package phlaxmod.data.recipes;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.mojang.realmsclient.util.JsonUtils;
-import net.minecraft.block.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -26,7 +24,6 @@ public class CrystallizerRecipe implements ICrystallizerRecipe{
     private final ResourceLocation id;
     private final ItemStack output;
     private final NonNullList<Ingredient> recipeItems;
-
     public final int productTime;
     public CrystallizerRecipe(ResourceLocation id, ItemStack output,
                                     NonNullList<Ingredient> recipeItems, int productTime) {
@@ -39,12 +36,7 @@ public class CrystallizerRecipe implements ICrystallizerRecipe{
 
     @Override
     public boolean matches(IInventory pInv, World pLevel) {
-        // Checks for correct focus (Glass Pane)
-        if(recipeItems.get(0).test(pInv.getItem(0))) {
-            return recipeItems.get(1).test(pInv.getItem(1));
-        }
-
-        return false;
+        return recipeItems.get(0).test(pInv.getItem(0));
     }
 
     @Override
@@ -58,7 +50,7 @@ public class CrystallizerRecipe implements ICrystallizerRecipe{
 
     @Override
     public ItemStack assemble(IInventory pInv) {
-        return null;
+        return getResultItem().copy();
     }
 
     @Override
@@ -92,12 +84,12 @@ public class CrystallizerRecipe implements ICrystallizerRecipe{
 
         @Override
         public CrystallizerRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-            ItemStack output = ShapedRecipe.itemFromJson(JSONUtils.convertToJsonObject(json, "output"));
+            ItemStack output = ShapedRecipe.itemFromJson(JSONUtils.getAsJsonObject(json, "output"));
 
-            int productTime = JSONUtils.convertToJsonObject(json,"producttime").getAsInt();
+            int productTime = JSONUtils.getAsInt(json,"producttime");
 
-            JsonArray ingredients = JSONUtils.convertToJsonArray(json, "ingredients");
-            NonNullList<Ingredient> inputs = NonNullList.withSize(2, Ingredient.EMPTY);
+            JsonArray ingredients = JSONUtils.getAsJsonArray(json, "ingredient");
+            NonNullList<Ingredient> inputs = NonNullList.withSize(1, Ingredient.EMPTY);
 
             for (int i = 0; i < inputs.size(); i++) {
                 inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
@@ -109,7 +101,7 @@ public class CrystallizerRecipe implements ICrystallizerRecipe{
         @Nullable
         @Override
         public CrystallizerRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer) {
-            NonNullList<Ingredient> inputs = NonNullList.withSize(2, Ingredient.EMPTY);
+            NonNullList<Ingredient> inputs = NonNullList.withSize(1, Ingredient.EMPTY);
 
             for (int i = 0; i < inputs.size(); i++) {
                 inputs.set(i, Ingredient.fromNetwork(buffer));

@@ -11,8 +11,8 @@ import phlaxmod.container.ContainerCrystalizer;
 import phlaxmod.tileentity.TileCrystalizer;
 
 public class CrystallizerScreen extends ContainerScreen<ContainerCrystalizer> {
-    private final ResourceLocation GUI = new ResourceLocation(PhlaxMod.MODID,
-            "textures/gui/crystallizer_gui.png");
+    private final ResourceLocation GUI = new ResourceLocation(PhlaxMod.MODID, "textures/gui/crystallizer_gui.png");
+    private final int PROGRESS_BAR_MAX_HEIGHT = 17;
     public TileCrystalizer tileEntity;
     public CrystallizerScreen(ContainerCrystalizer pMenu, PlayerInventory pPlayerInventory, ITextComponent pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
@@ -32,9 +32,11 @@ public class CrystallizerScreen extends ContainerScreen<ContainerCrystalizer> {
         this.minecraft.getTextureManager().bind(GUI);
         int i = this.leftPos;
         int j = this.topPos;
-        int productBurnTimeCount = (int)(17 * (1 - this.tileEntity.getProductProgress()));
+        int currentProgressBarHeight = (int)(PROGRESS_BAR_MAX_HEIGHT * this.tileEntity.getProductProgress());
+        // Draw Main Background
         this.blit(pMatrixStack, i, j,0,0, this.getXSize(),this.getYSize());
-        this.blit(pMatrixStack, i+80, j+ 30 + 17 - productBurnTimeCount ,176,30 + 17 - productBurnTimeCount,13,productBurnTimeCount);
+        // Draw Progress Bar
+        this.blit(pMatrixStack, i+80, j+ 30 + PROGRESS_BAR_MAX_HEIGHT - currentProgressBarHeight , 176, 30 + PROGRESS_BAR_MAX_HEIGHT - currentProgressBarHeight, 13, currentProgressBarHeight);
         //ToDo Render Purple Power GUI Time 30:58
     }
 }

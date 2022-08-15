@@ -27,6 +27,7 @@ import phlaxmod.common.block.ModBlocks;
 import phlaxmod.common.entities.ModEntities;
 import phlaxmod.common.item.ModItems;
 import phlaxmod.container.ModContainers;
+import phlaxmod.data.recipes.ModRecipeTypes;
 import phlaxmod.tileentity.ModTileEntities;
 
 @Mod(value = "phlaxmod")
@@ -54,6 +55,7 @@ public class PhlaxMod {
         ModEntities.ENTITIES.register(modEventBus);
         ModMiscellaneousReg.FLUIDS.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
+        ModRecipeTypes.register(modEventBus);
         ModTileEntities.TILE_ENTITES.register(modEventBus);
         // Post-Registration
         ModMiscellaneousReg.addBiomesToBiomeManager();
