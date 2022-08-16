@@ -35,7 +35,7 @@ public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
 
     private final LazyOptional<CustomEnergyStorage> optionalEnergyStorage;
 
-    private int capacity = 500, maxExtract = 0, maxReceive = capacity/2;
+    private int capacity = 500, maxExtract = 0, maxRecive = capacity/2;
 
     private int ticksRemaining = 0, peakTicksRemaining = 0;
 
