@@ -14,7 +14,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
-import phlaxmod.PhlaxMod;
 import phlaxmod.common.block.ModBlocks;
 
 import javax.annotation.Nullable;
@@ -25,13 +24,11 @@ public class CrystallizerRecipe implements ICrystallizerRecipe{
     private final ItemStack output;
     private final NonNullList<Ingredient> recipeItems;
     public final int productTime;
-    public CrystallizerRecipe(ResourceLocation id, ItemStack output,
-                                    NonNullList<Ingredient> recipeItems, int productTime) {
+    public CrystallizerRecipe(ResourceLocation id, ItemStack output, NonNullList<Ingredient> recipeItems, int productTime) {
         this.id = id;
         this.output = output;
         this.recipeItems = recipeItems;
         this.productTime = productTime;
-        PhlaxMod.logger.debug("IS THIS THING MOVEING!!!!");
     }
 
     @Override
@@ -55,12 +52,7 @@ public class CrystallizerRecipe implements ICrystallizerRecipe{
 
     @Override
     public ItemStack getResultItem() {
-        return output;
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return null;
+        return output.copy();
     }
 
     public ItemStack getIcon() {
@@ -79,8 +71,30 @@ public class CrystallizerRecipe implements ICrystallizerRecipe{
         }
     }
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>>
-            implements IRecipeSerializer<CrystallizerRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<CrystallizerRecipe> {
+
+        @Override
+        public void toNetwork(PacketBuffer buffer, CrystallizerRecipe recipe) {
+            buffer.writeItemStack(recipe.getResultItem().copy(), false);
+            buffer.writeInt(recipe.productTime);
+            buffer.writeInt(recipe.getIngredients().size());
+            for (Ingredient ing : recipe.getIngredients()) {
+                ing.toNetwork(buffer);
+            }
+        }
+
+        @Nullable
+        @Override
+        public CrystallizerRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer) {
+            ItemStack output = buffer.readItem();
+            int productTime = buffer.readInt();
+            int ingredientsSize = buffer.readInt();
+            NonNullList<Ingredient> inputs = NonNullList.withSize(ingredientsSize, Ingredient.EMPTY);
+            for (int i = 0; i < inputs.size(); i++) {
+                inputs.set(i, Ingredient.fromNetwork(buffer));
+            }
+            return new CrystallizerRecipe(recipeId, output, inputs, productTime);
+        }
 
         @Override
         public CrystallizerRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
@@ -96,30 +110,6 @@ public class CrystallizerRecipe implements ICrystallizerRecipe{
             }
 
             return new CrystallizerRecipe(recipeId, output, inputs,productTime);
-        }
-
-        @Nullable
-        @Override
-        public CrystallizerRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer) {
-            NonNullList<Ingredient> inputs = NonNullList.withSize(1, Ingredient.EMPTY);
-
-            for (int i = 0; i < inputs.size(); i++) {
-                inputs.set(i, Ingredient.fromNetwork(buffer));
-            }
-
-            ItemStack output = buffer.readItem();
-            int productTime = buffer.readInt();
-            return new CrystallizerRecipe(recipeId, output, inputs,productTime);
-        }
-
-        @Override
-        public void toNetwork(PacketBuffer buffer, CrystallizerRecipe recipe) {
-            buffer.writeInt(recipe.getIngredients().size());
-            for (Ingredient ing : recipe.getIngredients()) {
-                ing.toNetwork(buffer);
-            }
-            buffer.writeItemStack(recipe.getResultItem(), false);
-            buffer.writeInt(recipe.productTime);
         }
     }
 }

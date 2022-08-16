@@ -16,6 +16,11 @@ public interface ICrystallizerRecipe extends IRecipe<IInventory> {
     }
 
     @Override
+    default ResourceLocation getId() {
+        return TYPE_ID;
+    }
+
+    @Override
     default boolean canCraftInDimensions(int width, int height) {
         return true;
     }

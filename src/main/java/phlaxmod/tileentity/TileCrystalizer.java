@@ -13,6 +13,7 @@ import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
@@ -35,7 +36,7 @@ public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
 
     private final LazyOptional<CustomEnergyStorage> optionalEnergyStorage;
 
-    private int capacity = 500, maxExtract = 0, maxRecive = capacity/2;
+    private int capacity = 500, maxExtract = 0, maxReceive = capacity/2;
 
     private int ticksRemaining = 0, peakTicksRemaining = 0;
 
@@ -82,12 +83,33 @@ public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
         compound.putInt("peak_ticks_remaining",this.peakTicksRemaining);
         return compound;
     }
-    //Handles the input and output of power in the machine
+
     public void tickEnergy() {
-        int amountToReceive = Math.min(Math.max(this.capacity - this.energyStorage.getEnergyStored(),0), maxReceive);
-        TileCrystalizer.this.energyStorage.setEnergy(
-                TileCrystalizer.this.energyStorage.getEnergyStored() + this.energyStorage.receiveEnergy(amountToReceive,false));
+        // Null check
+        if(this.level == null) return;
+        // Calculate goal for how much energy to retrieve this tick
+        int amountToTryToReceive = Math.min(Math.max(this.capacity - this.energyStorage.getEnergyStored(), 0), maxReceive);
+        // Iterate through directions to attempt to receive energy from
+        for (final Direction direction : Direction.values()) {
+            // Check if done - can return early
+            if(amountToTryToReceive <= 0) return;
+            // Try retrieve blockentity in current direction
+            final TileEntity blockEntity = this.level.getBlockEntity(this.worldPosition.relative(direction));
+            if (blockEntity == null) continue;
+            // Try retrieve IEnergyStorage from found blockentity
+            IEnergyStorage externalEnergyStorage = blockEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).orElse(null);
+            if (externalEnergyStorage == null) continue;
+            // Extract and receive as much energy as possible up to amountToTryToReceive
+            if(blockEntity != this && externalEnergyStorage.canExtract()) {
+                // Extract and receive
+                int amountReceived = Math.max(externalEnergyStorage.extractEnergy(amountToTryToReceive, false), 0);
+                TileCrystalizer.this.energyStorage.setEnergy(TileCrystalizer.this.energyStorage.getEnergyStored() + amountReceived);
+                // Update Goal
+                amountToTryToReceive -= amountReceived;
+            }
         }
+    }
+
     @Override
     public void tick() {
         // Only run on logical server
@@ -186,7 +208,7 @@ public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
     public Optional<CrystallizerRecipe> getCurrentRecipe() {
         // Construct an "Inventory" that contains only the input ItemStack
         Inventory inv = new Inventory(itemHandler.getSlots());
-        inv.setItem(0, itemHandler.getStackInSlot(0));
+        inv.setItem(0, itemHandler.getStackInSlot(0).copy());
         // Lookup recipe matching inventory
         Optional<CrystallizerRecipe> recipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.CRYSTALLIZER_RECIPE, inv, level);
         // Return result
