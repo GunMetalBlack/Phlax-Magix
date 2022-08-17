@@ -18,8 +18,8 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import phlaxmod.common.util.CustomEnergyStorage;
-import phlaxmod.data.recipes.CrystallizerRecipe;
 import phlaxmod.data.recipes.ModRecipeTypes;
+import phlaxmod.data.recipes.PhlaxModBaseRecipe;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -28,16 +28,15 @@ import java.util.Optional;
 public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
 
     public static final int ENERGY_CONSUMED_PER_ACTIVE_TICK = 70;
+    public static final int ENERGY_CAPACITY = 500;
+    public static final int MAX_ENERGY_EXTRACT_PER_TICK = 0;
+    public static final int MAX_ENERGY_RECEIVE_PER_TICK = ENERGY_CAPACITY / 2;
 
     private ItemStackHandler itemHandler = createHandler();
     private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
-
     public final CustomEnergyStorage energyStorage;
-
     private final LazyOptional<CustomEnergyStorage> optionalEnergyStorage;
-
-    private int capacity = 500, maxExtract = 0, maxReceive = capacity/2;
-
+    // Machine State Parameters
     private int ticksRemaining = 0, peakTicksRemaining = 0;
 
     public TileCrystalizer(TileEntityType<?> p_i48289_1_) {
@@ -45,6 +44,7 @@ public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
         this.energyStorage = createEnergyStorage();
         this.optionalEnergyStorage = LazyOptional.of(() -> this.energyStorage);
     }
+
     public double getProductProgress(){
         // ticksRemaining == 0 is ambiguous between "idle" and "done" - assuming "idle".
         if(ticksRemaining == 0) return 0;
@@ -53,19 +53,21 @@ public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
         // complement of the ratio of ticksRemaining to peakTicksRemaining
         return 1 - (ticksRemaining/(double)peakTicksRemaining);
     }
+
     private CustomEnergyStorage createEnergyStorage(){
-        return new CustomEnergyStorage(this.capacity,this.maxReceive,this.maxExtract,this);
+        return new CustomEnergyStorage(this.ENERGY_CAPACITY,this.MAX_ENERGY_RECEIVE_PER_TICK,this.MAX_ENERGY_EXTRACT_PER_TICK,this);
     }
+
     public TileCrystalizer(){
         this(ModTileEntities.CRYSTALIZER_TILE.get());
     }
-
 
     @Override
     public void invalidateCaps() {
         super.invalidateCaps();
         this.optionalEnergyStorage.invalidate();
     }
+
     @Override
     public void load(BlockState state, CompoundNBT nbt) {
         super.load(state, nbt);
@@ -74,6 +76,7 @@ public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
         ticksRemaining = nbt.getInt("ticks_remaining");
         peakTicksRemaining = nbt.getInt("peak_ticks_remaining");
     }
+
     @Override
     public CompoundNBT save(CompoundNBT compound) {
         super.save(compound);
@@ -88,7 +91,7 @@ public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
         // Null check
         if(this.level == null) return;
         // Calculate goal for how much energy to retrieve this tick
-        int amountToTryToReceive = Math.min(Math.max(this.capacity - this.energyStorage.getEnergyStored(), 0), maxReceive);
+        int amountToTryToReceive = Math.min(Math.max(this.ENERGY_CAPACITY - this.energyStorage.getEnergyStored(), 0), MAX_ENERGY_RECEIVE_PER_TICK);
         // Iterate through directions to attempt to receive energy from
         for (final Direction direction : Direction.values()) {
             // Check if done - can return early
@@ -114,7 +117,7 @@ public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
     public void tick() {
         // Only run on logical server
         if(this.level.isClientSide()) return;
-        // If machine is waiting... DEAR LORD WHAT HAVE YOU DONE
+        // If machine is waiting...
         if(this.ticksRemaining > 0) {
             // Confirm that input and energy are still present
             if(this.itemHandler.getStackInSlot(0).isEmpty() || energyStorage.getEnergyStored() <= 0){
@@ -149,11 +152,13 @@ public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
             level.getServer().getPlayerList().broadcast(null, getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(),64, level.dimension(), updatePacket);
         }
     }
+
     @Override
     @Nullable
     public SUpdateTileEntityPacket getUpdatePacket() {
         return new SUpdateTileEntityPacket(worldPosition, 1, getUpdateTag());
     }
+
     @Override
     public CompoundNBT getUpdateTag() {
         CompoundNBT tag = super.getUpdateTag();
@@ -205,12 +210,12 @@ public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
         return cap.equals(CapabilityEnergy.ENERGY) ? this.optionalEnergyStorage.cast() : super.getCapability(cap, side);
     }
 
-    public Optional<CrystallizerRecipe> getCurrentRecipe() {
+    public Optional<PhlaxModBaseRecipe> getCurrentRecipe() {
         // Construct an "Inventory" that contains only the input ItemStack
         Inventory inv = new Inventory(itemHandler.getSlots());
         inv.setItem(0, itemHandler.getStackInSlot(0).copy());
         // Lookup recipe matching inventory
-        Optional<CrystallizerRecipe> recipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.CRYSTALLIZER_RECIPE, inv, level);
+        Optional<PhlaxModBaseRecipe> recipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.CRYSTALLIZER_RECIPE_TYPE, inv, level);
         // Return result
         return recipe;
     }
@@ -230,8 +235,8 @@ public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
     }
 
     public int getProductionTimeForCurrentRecipe() {
-        CrystallizerRecipe recipe = getCurrentRecipe().orElse(null);
+        PhlaxModBaseRecipe recipe = getCurrentRecipe().orElse(null);
         return recipe == null ? 0 : recipe.productTime;
-   }
+    }
 
 }

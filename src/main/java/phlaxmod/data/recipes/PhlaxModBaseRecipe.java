@@ -4,27 +4,30 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipe;
+import net.minecraft.item.crafting.*;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
-import phlaxmod.common.block.ModBlocks;
 
 import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
-public class CrystallizerRecipe implements ICrystallizerRecipe{
+public class PhlaxModBaseRecipe implements IRecipe<IInventory> {
+
+    Supplier<ItemStack> toastSymbolSupplier;
+    IRecipeSerializer<?> serializer;
 
     private final ResourceLocation id;
     private final ItemStack output;
     private final NonNullList<Ingredient> recipeItems;
     public final int productTime;
-    public CrystallizerRecipe(ResourceLocation id, ItemStack output, NonNullList<Ingredient> recipeItems, int productTime) {
+    public PhlaxModBaseRecipe(Supplier<ItemStack> toastSymbolSupplier, IRecipeSerializer<?> serializer, ResourceLocation id, ItemStack output, NonNullList<Ingredient> recipeItems, int productTime) {
+        this.toastSymbolSupplier = toastSymbolSupplier;
+        this.serializer = serializer;
         this.id = id;
         this.output = output;
         this.recipeItems = recipeItems;
@@ -32,17 +35,33 @@ public class CrystallizerRecipe implements ICrystallizerRecipe{
     }
 
     @Override
-    public boolean matches(IInventory pInv, World pLevel) {
-        return recipeItems.get(0).test(pInv.getItem(0));
+    public IRecipeType<?> getType(){
+        return Registry.RECIPE_TYPE.getOptional(getId()).get();
+    }
+
+    @Override
+    public ResourceLocation getId() {
+        return id;
+    }
+
+    @Override
+    public boolean canCraftInDimensions(int width, int height) {
+        return width * height >= recipeItems.size();
+    }
+
+    @Override
+    public boolean matches(IInventory inventory, World level) {
+        return recipeItems.get(0).test(inventory.getItem(0));
     }
 
     @Override
     public NonNullList<Ingredient> getIngredients() {
         return recipeItems;
     }
+
     @Override
     public ItemStack getToastSymbol() {
-        return new ItemStack(ModBlocks.CRYSTALLIZER.get());
+        return toastSymbolSupplier.get();
     }
 
     @Override
@@ -55,26 +74,38 @@ public class CrystallizerRecipe implements ICrystallizerRecipe{
         return output.copy();
     }
 
-    public ItemStack getIcon() {
-        return new ItemStack(ModBlocks.CRYSTALLIZER.get());
-    }
-
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return ModRecipeTypes.CRYSTALLIZER_SERIALIZER.get();
+        return serializer;
     }
 
-    public static class CrystallizerRecipeType implements IRecipeType<CrystallizerRecipe> {
+    public static class RecipeType implements IRecipeType<PhlaxModBaseRecipe> {
+
+        ResourceLocation id;
+
+        RecipeType(ResourceLocation id) {
+            this.id = id;
+        }
+
         @Override
         public String toString() {
-            return CrystallizerRecipe.TYPE_ID.toString();
+            return id.toString();
         }
+
     }
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<CrystallizerRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<PhlaxModBaseRecipe> {
+
+        private final Supplier<ItemStack> toastSymbolSupplier;
+        private final ResourceLocation recipeTypeId;
+
+        public Serializer(Supplier<ItemStack> toastSymbolSupplier, ResourceLocation recipeTypeId) {
+            this.toastSymbolSupplier = toastSymbolSupplier;
+            this.recipeTypeId = recipeTypeId;
+        }
 
         @Override
-        public void toNetwork(PacketBuffer buffer, CrystallizerRecipe recipe) {
+        public void toNetwork(PacketBuffer buffer, PhlaxModBaseRecipe recipe) {
             buffer.writeItemStack(recipe.getResultItem().copy(), false);
             buffer.writeInt(recipe.productTime);
             buffer.writeInt(recipe.getIngredients().size());
@@ -85,7 +116,7 @@ public class CrystallizerRecipe implements ICrystallizerRecipe{
 
         @Nullable
         @Override
-        public CrystallizerRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer) {
+        public PhlaxModBaseRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer) {
             ItemStack output = buffer.readItem();
             int productTime = buffer.readInt();
             int ingredientsSize = buffer.readInt();
@@ -93,11 +124,11 @@ public class CrystallizerRecipe implements ICrystallizerRecipe{
             for (int i = 0; i < inputs.size(); i++) {
                 inputs.set(i, Ingredient.fromNetwork(buffer));
             }
-            return new CrystallizerRecipe(recipeId, output, inputs, productTime);
+            return new PhlaxModBaseRecipe(toastSymbolSupplier, this, recipeTypeId, output, inputs, productTime);
         }
 
         @Override
-        public CrystallizerRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+        public PhlaxModBaseRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             ItemStack output = ShapedRecipe.itemFromJson(JSONUtils.getAsJsonObject(json, "output"));
 
             int productTime = JSONUtils.getAsInt(json,"producttime");
@@ -109,7 +140,7 @@ public class CrystallizerRecipe implements ICrystallizerRecipe{
                 inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
             }
 
-            return new CrystallizerRecipe(recipeId, output, inputs,productTime);
+            return new PhlaxModBaseRecipe(toastSymbolSupplier, this, recipeTypeId, output, inputs, productTime);
         }
     }
 }
