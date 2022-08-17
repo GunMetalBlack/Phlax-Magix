@@ -1,0 +1,12 @@
+{
+    "type": "phlaxmod:crystallizer",
+    "ingredient": [
+        {
+            "item": "minecraft:iron_ingot"
+        }
+    ],
+    "output": {
+        "item": "phlaxmod:iron_shard"
+    },
+    "producttime": 300
+}

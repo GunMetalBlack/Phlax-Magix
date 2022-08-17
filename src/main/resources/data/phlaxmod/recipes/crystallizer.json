@@ -1,0 +1,25 @@
+{  "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "ppp",
+        "wrw",
+        "w/w"
+    ],
+    "key": {
+        "p": {
+            "item": "phlaxmod:citrine_crystal"
+        },
+        "/": {
+            "item": "minecraft:iron_block"
+        },
+        "r": {
+            "item": "minecraft:redstone"
+        },
+        "w": {
+            "item": "minecraft:oak_log"
+        }
+    },
+    "result": {
+        "item": "phlaxmod:crystallizer",
+        "count": 1
+    }
+}

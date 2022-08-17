@@ -1,0 +1,12 @@
+{
+    "type": "phlaxmod:crystallizer",
+    "ingredient": [
+        {
+            "item": "minecraft:redstone"
+        }
+    ],
+    "output": {
+        "item": "phlaxmod:redstone_shard"
+    },
+    "producttime": 300
+}

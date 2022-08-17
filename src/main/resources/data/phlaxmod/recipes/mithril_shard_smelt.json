@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:smelting",
+    "ingredient": {
+        "item": "phlaxmod:mithril_shard"
+    },
+    "result": {
+        "item": "phalxmod:mithril_ingot",
+        "count": 2
+    },
+    "experience": 0.5,
+    "cookingtime": 200
+}

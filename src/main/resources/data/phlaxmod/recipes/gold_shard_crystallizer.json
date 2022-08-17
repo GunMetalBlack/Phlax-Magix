@@ -1,0 +1,12 @@
+{
+    "type": "phlaxmod:crystallizer",
+    "ingredient": [
+        {
+            "item": "minecraft:gold_ingot"
+        }
+    ],
+    "output": {
+        "item": "phlaxmod:gold_shard"
+    },
+    "producttime": 300
+}

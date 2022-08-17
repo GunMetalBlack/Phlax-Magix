@@ -1,0 +1,12 @@
+{
+    "type": "phlaxmod:crystallizer",
+    "ingredient": [
+        {
+            "item": "phlaxmod:mithril_ingot"
+        }
+    ],
+    "output": {
+        "item": "phlaxmod:mithril_shard"
+    },
+    "producttime": 300
+}

@@ -1,0 +1,25 @@
+{  "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "ppp",
+        "/r/",
+        "///"
+    ],
+    "key": {
+        "p": {
+            "item": "phlaxmod:mithril_ingot"
+        },
+        "/": {
+            "item": "minecraft:iron_block"
+        },
+        "r": {
+            "item": "phlaxmod:nickel_ingot"
+        },
+        "w": {
+            "item": "minecraft:oak_log"
+        }
+    },
+    "result": {
+        "item": "phlaxmod:mithril_arc_dynamo",
+        "count": 1
+    }
+}

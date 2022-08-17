@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:smelting",
+    "ingredient": {
+        "item": "phlaxmod:phalx_shard"
+    },
+    "result": {
+        "item": "phlaxmod:raw_phlax_flux",
+        "count": 2
+    },
+    "experience": 0.5,
+    "cookingtime": 200
+}

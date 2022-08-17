@@ -1,0 +1,12 @@
+{
+    "type": "phlaxmod:crystallizer",
+    "ingredient": [
+        {
+            "item": "phlaxmod:nickel_ingot"
+        }
+    ],
+    "output": {
+        "item": "phlaxmod:nickel_shard"
+    },
+    "producttime": 300
+}

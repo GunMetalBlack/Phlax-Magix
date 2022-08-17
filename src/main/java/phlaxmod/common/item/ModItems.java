@@ -88,6 +88,24 @@ public class ModItems {
     public static final RegistryObject<Item> NICKEL_CONDENSED = ITEMS.register("nickel_condensed",
             () -> new Item(new Item.Properties().tab(PhlaxMod.PHLAX_ITEM_GROUP)));
 
+    public static final RegistryObject<Item> NICKEL_SHARD = ITEMS.register("nickel_shard",
+            () -> new Item(new Item.Properties().tab(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> GOLD_SHARD = ITEMS.register("gold_shard",
+            () -> new Item(new Item.Properties().tab(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> IRON_SHARD = ITEMS.register("iron_shard",
+            () -> new Item(new Item.Properties().tab(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> MITHRIL_SHARD = ITEMS.register("mithril_shard",
+            () -> new Item(new Item.Properties().tab(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> REDSTONE_SHARD = ITEMS.register("redstone_shard",
+            () -> new Item(new Item.Properties().tab(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+    public static final RegistryObject<Item> PHLAX_SHARD = ITEMS.register("phlax_shard",
+            () -> new Item(new Item.Properties().tab(PhlaxMod.PHLAX_ITEM_GROUP)));
+
     public static final RegistryObject<Item> NICKEL_INGOT = ITEMS.register("nickel_ingot",
             () -> new Item(new Item.Properties().tab(PhlaxMod.PHLAX_ITEM_GROUP)));
 
