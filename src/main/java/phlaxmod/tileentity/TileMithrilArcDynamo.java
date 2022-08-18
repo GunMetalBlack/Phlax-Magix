@@ -90,10 +90,7 @@ public class TileMithrilArcDynamo extends TileEntity implements ITickableTileEnt
                     if (be != this && storage.getEnergyStored() < storage.getMaxEnergyStored()) {
                         final int toSend = TileMithrilArcDynamo.this.energyStorage.extractEnergy(this.maxExtract,
                                 false);
-                        PhlaxMod.logger.info("Send: {}", toSend);
                         final int received = storage.receiveEnergy(toSend, false);
-                        PhlaxMod.logger.info("Final Received: {}", received);
-
                         TileMithrilArcDynamo.this.energyStorage.setEnergy(
                                 TileMithrilArcDynamo.this.energyStorage.getEnergyStored() + toSend - received);
                     }

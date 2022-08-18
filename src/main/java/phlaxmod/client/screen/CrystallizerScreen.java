@@ -8,12 +8,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import phlaxmod.PhlaxMod;
 import phlaxmod.container.ContainerCrystalizer;
-import phlaxmod.tileentity.TileCrystalizer;
+import phlaxmod.tileentity.TileMachine;
 
 public class CrystallizerScreen extends ContainerScreen<ContainerCrystalizer> {
     private final ResourceLocation GUI = new ResourceLocation(PhlaxMod.MODID, "textures/gui/crystallizer_gui.png");
     private final int PROGRESS_BAR_MAX_HEIGHT = 17;
-    public TileCrystalizer tileEntity;
+    public TileMachine tileEntity;
     public CrystallizerScreen(ContainerCrystalizer pMenu, PlayerInventory pPlayerInventory, ITextComponent pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
         this.tileEntity = pMenu.getBlockEntity();
@@ -32,7 +32,7 @@ public class CrystallizerScreen extends ContainerScreen<ContainerCrystalizer> {
         this.minecraft.getTextureManager().bind(GUI);
         int i = this.leftPos;
         int j = this.topPos;
-        int currentProgressBarHeight = (int)(PROGRESS_BAR_MAX_HEIGHT * this.tileEntity.getProductProgress());
+        int currentProgressBarHeight = (int)(PROGRESS_BAR_MAX_HEIGHT * this.tileEntity.guiBarLookUpTable.get("productProgress").get());
         // Draw Main Background
         this.blit(pMatrixStack, i, j,0,0, this.getXSize(),this.getYSize());
         // Draw Progress Bar

@@ -3,6 +3,7 @@ package phlaxmod.tileentity;
 import net.minecraft.block.BlockState;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
@@ -23,45 +24,43 @@ import phlaxmod.data.recipes.PhlaxModBaseRecipe;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.HashMap;
 import java.util.Optional;
+import java.util.function.Supplier;
 
-public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
+public class TileMachine extends TileEntity implements ITickableTileEntity {
 
-    public static final int ENERGY_CONSUMED_PER_ACTIVE_TICK = 70;
-    public static final int ENERGY_CAPACITY = 500;
-    public static final int MAX_ENERGY_EXTRACT_PER_TICK = 0;
-    public static final int MAX_ENERGY_RECEIVE_PER_TICK = ENERGY_CAPACITY / 2;
-
-    private ItemStackHandler itemHandler = createHandler();
-    private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
+    public final int ENERGY_CONSUMED_PER_ACTIVE_TICK;
+    public final int ENERGY_CAPACITY;
+    public final int MAX_ENERGY_EXTRACT_PER_TICK;
+    public final int MAX_ENERGY_RECEIVE_PER_TICK;
+    private final ItemStackHandler itemHandler;
+    private final LazyOptional<IItemHandler> handler;
     public final CustomEnergyStorage energyStorage;
     private final LazyOptional<CustomEnergyStorage> optionalEnergyStorage;
     // Machine State Parameters
-    private int ticksRemaining = 0, peakTicksRemaining = 0;
+    public int ticksRemaining = 0, peakTicksRemaining = 0;
 
-    public TileCrystalizer(TileEntityType<?> p_i48289_1_) {
-        super(p_i48289_1_);
+    public HashMap<String, Supplier<Double>> guiBarLookUpTable = new HashMap<>();
+    public IRecipeType<PhlaxModBaseRecipe> recipeType;
+
+    public TileMachine(TileEntityType<?> tileEntityType, int energyConsumedPerActiveTick, int energyCapacity, int maxEnergyExtractPerTick, int maxEnergyReceivePerTick, int itemSlotCount, int itemSlotLimit, IRecipeType<PhlaxModBaseRecipe> recipeType) {
+        super(tileEntityType);
+        this.ENERGY_CONSUMED_PER_ACTIVE_TICK = energyConsumedPerActiveTick;
+        this.ENERGY_CAPACITY = energyCapacity;
+        this.MAX_ENERGY_EXTRACT_PER_TICK = maxEnergyExtractPerTick;
+        this.MAX_ENERGY_RECEIVE_PER_TICK = maxEnergyReceivePerTick;
         this.energyStorage = createEnergyStorage();
         this.optionalEnergyStorage = LazyOptional.of(() -> this.energyStorage);
+        this.itemHandler = createHandler(itemSlotCount,itemSlotLimit);
+        this.handler = LazyOptional.of(() -> itemHandler);
+        this.recipeType = recipeType;
     }
 
-    public double getProductProgress(){
-        // ticksRemaining == 0 is ambiguous between "idle" and "done" - assuming "idle".
-        if(ticksRemaining == 0) return 0;
-        // prevent dividing by zero
-        if(peakTicksRemaining == 0) return 0;
-        // complement of the ratio of ticksRemaining to peakTicksRemaining
-        return 1 - (ticksRemaining/(double)peakTicksRemaining);
-    }
 
     private CustomEnergyStorage createEnergyStorage(){
         return new CustomEnergyStorage(this.ENERGY_CAPACITY,this.MAX_ENERGY_RECEIVE_PER_TICK,this.MAX_ENERGY_EXTRACT_PER_TICK,this);
     }
-
-    public TileCrystalizer(){
-        this(ModTileEntities.CRYSTALIZER_TILE.get());
-    }
-
     @Override
     public void invalidateCaps() {
         super.invalidateCaps();
@@ -87,7 +86,7 @@ public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
         return compound;
     }
 
-    public void tickEnergy() {
+    public void tickEnergyReceive() {
         // Null check
         if(this.level == null) return;
         // Calculate goal for how much energy to retrieve this tick
@@ -106,7 +105,7 @@ public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
             if(blockEntity != this && externalEnergyStorage.canExtract()) {
                 // Extract and receive
                 int amountReceived = Math.max(externalEnergyStorage.extractEnergy(amountToTryToReceive, false), 0);
-                TileCrystalizer.this.energyStorage.setEnergy(TileCrystalizer.this.energyStorage.getEnergyStored() + amountReceived);
+                TileMachine.this.energyStorage.setEnergy(TileMachine.this.energyStorage.getEnergyStored() + amountReceived);
                 // Update Goal
                 amountToTryToReceive -= amountReceived;
             }
@@ -115,6 +114,14 @@ public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
 
     @Override
     public void tick() {
+        // TODO: Only send this if something has actually changed.
+        SUpdateTileEntityPacket updatePacket = this.getUpdatePacket();
+        if(updatePacket != null && level != null && level.getServer() != null) {
+            level.getServer().getPlayerList().broadcast(null, getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(),64, level.dimension(), updatePacket);
+        }
+    }
+
+    public void tickProduce() {
         // Only run on logical server
         if(this.level.isClientSide()) return;
         // If machine is waiting...
@@ -142,15 +149,8 @@ public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
             this.ticksRemaining = productionTimeForCurrentRecipe;
             this.peakTicksRemaining = productionTimeForCurrentRecipe;
         }
-        // TODO: Why does this thing output energy? Seems like it should just be a receiver...
-        tickEnergy();
         // PhlaxMod.logger.info("TickProgress:{} IsClient:{} TickMax:{} CurrentEnergy{} MaxMachineEnergy {}", this.ticksRemaining, this.level.isClientSide, getMaxProgressForFuelGigachadVersion(),this.energyStorage.getEnergyStored(),this.energyStorage.getMaxEnergyStored());
 
-        // TODO: Only send this if something has actually changed.
-        SUpdateTileEntityPacket updatePacket = this.getUpdatePacket();
-        if(updatePacket != null && level != null && level.getServer() != null) {
-            level.getServer().getPlayerList().broadcast(null, getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(),64, level.dimension(), updatePacket);
-        }
     }
 
     @Override
@@ -172,8 +172,8 @@ public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
         }
     }
 
-    private ItemStackHandler createHandler(){
-        return new ItemStackHandler(2){
+    private ItemStackHandler createHandler(int slotCount,int slotLimit){
+        return new ItemStackHandler(slotCount){
             @Override
             protected void onContentsChanged(int slot) {
                 setChanged();
@@ -186,7 +186,7 @@ public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
             //How many Items of that type can be placed in container
             @Override
             public int getSlotLimit(int slot) {
-                return 64;
+                return slotLimit;
             }
 
             @Nonnull
@@ -215,7 +215,7 @@ public class TileCrystalizer extends TileEntity implements ITickableTileEntity {
         Inventory inv = new Inventory(itemHandler.getSlots());
         inv.setItem(0, itemHandler.getStackInSlot(0).copy());
         // Lookup recipe matching inventory
-        Optional<PhlaxModBaseRecipe> recipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.CRYSTALLIZER_RECIPE_TYPE, inv, level);
+        Optional<PhlaxModBaseRecipe> recipe = level.getRecipeManager().getRecipeFor(recipeType, inv, level);
         // Return result
         return recipe;
     }
