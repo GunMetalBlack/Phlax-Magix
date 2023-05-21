@@ -30,6 +30,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> CRYSTALLIZER = BLOCKS.register("crystallizer", BlockCrystallizer::new);
 
     public static final RegistryObject<Block> MITHRIL_ARC_DYNAMO = BLOCKS.register("mithril_arc_dynamo", BlockMithrilArcDynamo::new);
+    public static final RegistryObject<Block> ARCANE_CONDENSER = BLOCKS.register("arcane_condenser", BlockArcaneCondenser::new);
 
     public static final RegistryObject<Block> MITHRIL_ORE = BLOCKS.register("mithril_ore", () -> new Block(AbstractBlock.Properties.of(Material.METAL, MaterialColor.COLOR_BLACK).strength(12).sound(SoundType.ANCIENT_DEBRIS).requiresCorrectToolForDrops().harvestTool(ToolType.PICKAXE).harvestLevel(3)));
 

@@ -74,6 +74,10 @@ public class ModItems {
     public static final RegistryObject<Item> MITHRIL_ARC_DYNAMO = ITEMS.register("mithril_arc_dynamo",
             () -> new BlockItem(ModBlocks.MITHRIL_ARC_DYNAMO.get(), new Item.Properties().tab(PhlaxMod.PHLAX_ITEM_GROUP)));
 
+    public static final RegistryObject<Item> ARCANE_CONDENSER = ITEMS.register("arcane_condenser",
+            () -> new BlockItem(ModBlocks.ARCANE_CONDENSER.get(), new Item.Properties().tab(PhlaxMod.PHLAX_ITEM_GROUP)));
+
+
     public static final RegistryObject<Item> MITHRIL_CONDENSED = ITEMS.register("mithril_condensed",
             () -> new Item(new Item.Properties().tab(PhlaxMod.PHLAX_ITEM_GROUP)));
 
@@ -145,7 +149,7 @@ public class ModItems {
     public static final RegistryObject<ItemPhlaxWand> PHLAX_WAND = ITEMS.register("phlax_wand",
             () -> new ItemPhlaxWand(new Item.Properties().tab(PhlaxMod.PHLAX_ITEM_GROUP)));
 
-    public static final RegistryObject<ItemUnstableFluxFood> RAW_PHLAX_FLUX = ITEMS.register("raw_phlax_flux", () -> new ItemUnstableFluxFood(ModBlocks.PHLAX_FLUXCROP.get(), new Item.Properties()
+    public static final RegistryObject<ItemRawPhlaxFood> RAW_PHLAX_FLUX = ITEMS.register("raw_phlax_flux", () -> new ItemRawPhlaxFood(ModBlocks.PHLAX_FLUXCROP.get(), new Item.Properties()
             .tab(PhlaxMod.PHLAX_ITEM_GROUP).food(new Food.Builder().alwaysEat().nutrition(1).build())));
 
     public static final RegistryObject<Item> REDSTONE_CONDENSED = ITEMS.register("redstone_condensed",

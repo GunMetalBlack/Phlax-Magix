@@ -1,4 +1,4 @@
-package phlaxmod.data.recipes;
+package phlaxmod.container.data.recipes;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -24,6 +24,11 @@ public class ModRecipeTypes {
     // Recipe Types (Registered through Vanilla)
     public static IRecipeType<PhlaxModBaseRecipe> CRYSTALLIZER_RECIPE_TYPE = new PhlaxModBaseRecipe.RecipeType(CRYSTALLIZER_RECIPE_ID);
 
+    public static final ResourceLocation ARCANE_CONDENSER_RECIPE_ID = new ResourceLocation(PhlaxMod.MODID, "arcane_condenser");
+
+    public static IRecipeType<PhlaxModBaseRecipe> ARCANE_CONDENSER_RECIPE_TYPE = new PhlaxModBaseRecipe.RecipeType(ARCANE_CONDENSER_RECIPE_ID);
+
+    public static final RegistryObject<PhlaxModBaseRecipe.Serializer> ARCANE_CONDENSER_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register(ARCANE_CONDENSER_RECIPE_ID.getPath(), () -> new PhlaxModBaseRecipe.Serializer(() -> new ItemStack(ModBlocks.ARCANE_CONDENSER.get()), ARCANE_CONDENSER_RECIPE_ID));
     // Called from Mod Constructor
     public static void register(IEventBus eventBus) {
         RECIPE_SERIALIZERS.register(eventBus);

@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "phlaxmod:block/arcane_condenser",
+      "y": 0
+    },
+    "facing=east": {
+      "model": "phlaxmod:block/arcane_condenser",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "phlaxmod:block/arcane_condenser",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "phlaxmod:block/arcane_condenser",
+      "y": 270
+    }
+  }
+}

@@ -1,4 +1,4 @@
-package phlaxmod.data.recipes;
+package phlaxmod.container.data.recipes;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

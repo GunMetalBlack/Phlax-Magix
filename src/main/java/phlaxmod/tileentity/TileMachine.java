@@ -19,8 +19,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import phlaxmod.common.util.CustomEnergyStorage;
-import phlaxmod.data.recipes.ModRecipeTypes;
-import phlaxmod.data.recipes.PhlaxModBaseRecipe;
+import phlaxmod.container.data.recipes.PhlaxModBaseRecipe;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

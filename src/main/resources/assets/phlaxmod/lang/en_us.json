@@ -57,7 +57,7 @@
   "item.phlaxmod.phlax_condensed": "Condensed Phlax",
 
   "itemGroup.phlaxmod": "Phlax Magix",
-
+  "phlaxmod.message.wand.mana_warn": "You do not have enough mana to cast this spell!",
   "screen.tutorialmod.crystallizer": "Mana Crystallizer",
   "screen.tutorialmod.mithril_arc_dynamo": "Mithril Arc Dynamo"
 }

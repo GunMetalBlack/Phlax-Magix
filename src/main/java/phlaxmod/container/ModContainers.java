@@ -29,6 +29,14 @@ public class ModContainers {
                 World world = inv.player.getCommandSenderWorld();
                 return new ContainerCrystalizer(windowId, world, pos, inv, inv.player);
             })));
+
+    public static final RegistryObject<ContainerType<ContainerArcaneCondenser>> ARCANE_CONDENSER_CONTAINER
+            = CONTAINERS.register("arcane_condenser_container",
+            () -> IForgeContainerType.create(((windowId, inv, data) -> {
+                BlockPos pos = data.readBlockPos();
+                World world = inv.player.getCommandSenderWorld();
+                return new ContainerArcaneCondenser(windowId, world, pos, inv, inv.player);
+            })));
     public static final RegistryObject<ContainerType<ContainerMithrilArcDynamo>> MITHRIL_ARC_DYNAMO_CONTAINER
             = CONTAINERS.register("mithril_arc_dynamo_container",
             () -> IForgeContainerType.create(((windowId, inv, data) -> {

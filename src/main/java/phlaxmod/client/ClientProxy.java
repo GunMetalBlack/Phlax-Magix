@@ -15,7 +15,7 @@ import phlaxmod.common.CommonProxy;
 import phlaxmod.common.block.ModBlocks;
 import phlaxmod.common.capability.PhlaxModCapabilities;
 import phlaxmod.common.capability.phlaxplayerdataholder.IPhlaxPlayerDataHolderCapability;
-import phlaxmod.common.entities.EntityPhlaxWand;
+import phlaxmod.common.entities.EntityMagicOrb;
 import phlaxmod.common.entities.ModEntities;
 import phlaxmod.container.ModContainers;
 
@@ -30,7 +30,7 @@ public class ClientProxy extends CommonProxy {
             ScreenManager.register(ModContainers.CRYSTALIZER_CONTAINER.get(), CrystallizerScreen::new);
             ScreenManager.register(ModContainers.MITHRIL_ARC_DYNAMO_CONTAINER.get(), MithrilArcDynamoScreen::new);
                 });
-        RenderingRegistry.registerEntityRenderingHandler(ModEntities.PHLAX_PROJECTILE.get(), (rendererManager) -> new SpriteRenderer<EntityPhlaxWand>(rendererManager, event.getMinecraftSupplier().get().getItemRenderer()));
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.PHLAX_PROJECTILE.get(), (rendererManager) -> new SpriteRenderer<EntityMagicOrb>(rendererManager, event.getMinecraftSupplier().get().getItemRenderer()));
     }
 
     @Override
@@ -40,7 +40,7 @@ public class ClientProxy extends CommonProxy {
             if(playerData == null){
                 return;
             }
-            Minecraft.getInstance().font.draw(event.getMatrixStack(), new StringTextComponent("Mana: " + playerData.getMana()), 12, 12, playerData.getMana() <= 10 ? 16321548 : 14467071);
+            Minecraft.getInstance().font.draw(event.getMatrixStack(), new StringTextComponent("Mana: " + playerData.getManaClient()), 12, 12, playerData.getManaClient() <= 10 ? 16321548 : 14467071);
         }
     }
 

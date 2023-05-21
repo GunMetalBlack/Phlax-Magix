@@ -37,6 +37,5 @@ public class CrystallizerScreen extends ContainerScreen<ContainerCrystalizer> {
         this.blit(pMatrixStack, i, j,0,0, this.getXSize(),this.getYSize());
         // Draw Progress Bar
         this.blit(pMatrixStack, i+80, j+ 30 + PROGRESS_BAR_MAX_HEIGHT - currentProgressBarHeight , 176, 30 + PROGRESS_BAR_MAX_HEIGHT - currentProgressBarHeight, 13, currentProgressBarHeight);
-        //ToDo Render Purple Power GUI Time 30:58
     }
 }

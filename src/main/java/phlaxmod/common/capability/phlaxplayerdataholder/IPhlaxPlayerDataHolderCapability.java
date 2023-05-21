@@ -14,6 +14,8 @@ public interface IPhlaxPlayerDataHolderCapability {
     ArrayList<Spell> getLearnedSpells();
     void setMana(float Mana);
     float getMana();
+    float getManaClient();
+    void setManaClient(float manaClient);
     void removeMana(float mana);
     void addMana(float mana);
     void setManaRegenRate(float manaRegenRate);
@@ -22,4 +24,5 @@ public interface IPhlaxPlayerDataHolderCapability {
     boolean shouldRegenMana();
     void setMaxMana(float maxMana);
     float getMaxMana();
+    Spell getCurrentSpell();
 }

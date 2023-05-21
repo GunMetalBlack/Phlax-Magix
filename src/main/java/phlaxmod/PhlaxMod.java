@@ -27,7 +27,7 @@ import phlaxmod.common.block.ModBlocks;
 import phlaxmod.common.entities.ModEntities;
 import phlaxmod.common.item.ModItems;
 import phlaxmod.container.ModContainers;
-import phlaxmod.data.recipes.ModRecipeTypes;
+import phlaxmod.container.data.recipes.ModRecipeTypes;
 import phlaxmod.tileentity.ModTileEntities;
 
 @Mod(value = "phlaxmod")

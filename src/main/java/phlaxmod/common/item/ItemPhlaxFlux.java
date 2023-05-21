@@ -19,7 +19,7 @@ public class ItemPhlaxFlux extends Item {
 			IPhlaxPlayerDataHolderCapability playerData = entityLiving.getCapability(PhlaxModCapabilities.PLAYER_DATA_HOLDER_CAPABILITY).orElse(null);
 			if(playerData != null){
 				playerData.setShouldRegenMana(true);
-				playerData.setManaRegenRate(10);
+				playerData.setManaRegenRate(30);
 			}
 			return super.finishUsingItem(stack, worldIn, entityLiving);
 		}

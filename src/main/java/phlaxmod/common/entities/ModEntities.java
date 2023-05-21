@@ -10,9 +10,9 @@ public class ModEntities {
 
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, "phlaxmod");
 
-    public static final RegistryObject<EntityType<EntityPhlaxWand>> PHLAX_PROJECTILE = ENTITIES.register(
+    public static final RegistryObject<EntityType<EntityMagicOrb>> PHLAX_PROJECTILE = ENTITIES.register(
             "phlax_projectile",
-            () -> EntityType.Builder.<EntityPhlaxWand>of(EntityPhlaxWand::new, EntityClassification.MISC)
+            () -> EntityType.Builder.<EntityMagicOrb>of(EntityMagicOrb::new, EntityClassification.MISC)
                     .sized(0.25f, 0.25f).build("phlax_projectile"));
 
 }

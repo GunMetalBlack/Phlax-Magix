@@ -56,7 +56,7 @@ public class SPacketPhlaxPlayerDataUpdate {
         int spellCount = buffer.readInt();
         ArrayList<Spell> spells = new ArrayList<>(spellCount);
         for(int i = 0; i < spellCount; ++i) {
-            spells.add(Spell.spells.get(buffer.readUtf()).get());
+            spells.add(Spell.getSpellByName(buffer.readUtf()));
         }
         return new SPacketPhlaxPlayerDataUpdate(
                 spells,

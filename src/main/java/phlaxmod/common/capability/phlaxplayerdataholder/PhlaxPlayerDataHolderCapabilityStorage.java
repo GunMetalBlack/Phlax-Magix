@@ -49,7 +49,7 @@ public class PhlaxPlayerDataHolderCapabilityStorage implements Capability.IStora
 
         ListNBT learnedSpells = nbt.getList("learnedSpells", 8);
         for(int i = 0; i < learnedSpells.size(); ++i) {
-            instance.learnSpell(Spell.spells.get(((StringNBT)learnedSpells.get(i)).getAsString()).get());
+            instance.learnSpell(Spell.getSpellByName(((StringNBT)learnedSpells.get(i)).getAsString()));
         }
 
         instance.setMana(nbt.getFloat("mana"));

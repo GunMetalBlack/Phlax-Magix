@@ -11,6 +11,7 @@ public class PhlaxPlayerDataHolderCapability implements IPhlaxPlayerDataHolderCa
 
     public ArrayList<Spell> learnedSpells = new ArrayList<>();
     public float mana = 100f;
+    public float manaClient = 0f;
     public float maxMana = 100f;
     public float manaRegenRate = 5;
     public boolean shouldRegenMana = false;
@@ -65,7 +66,16 @@ public class PhlaxPlayerDataHolderCapability implements IPhlaxPlayerDataHolderCa
     public void addMana(float mana) {
         setMana(getMana() + mana);
     }
-
+    @Override
+    public float getManaClient(){
+        return manaClient;
+    }
+    @Override
+    public void setManaClient(float manaClient){
+        //No networking IF CLIENT WASN'T CLEAR ENOUGH
+        //Used to create count effect on Mana UI Text
+        this.manaClient = manaClient;
+    }
     @Override
     public void setManaRegenRate(float manaRegenRate) {
         this.manaRegenRate = manaRegenRate;
@@ -75,6 +85,11 @@ public class PhlaxPlayerDataHolderCapability implements IPhlaxPlayerDataHolderCa
     @Override
     public float getManaRegenRate() {
         return manaRegenRate;
+    }
+
+    @Override
+    public Spell getCurrentSpell() {
+        return Spell.STRIKE;
     }
 
     @Override

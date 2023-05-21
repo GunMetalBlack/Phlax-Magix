@@ -84,6 +84,15 @@ public class CommonProxy {
             else {
                 PhlaxMod.logger.warn("Ticking Player with null Phlax Player Data!");
             }
+        }else{
+            IPhlaxPlayerDataHolderCapability playerData = event.player.getCapability(PhlaxModCapabilities.PLAYER_DATA_HOLDER_CAPABILITY).orElse(null);
+            if(playerData != null) {
+                if(playerData.getMana() > playerData.getManaClient()){
+                    playerData.setManaClient(playerData.getManaClient() + 1);
+                }else if(playerData.getMana() < playerData.getManaClient()){
+                    playerData.setManaClient(playerData.getManaClient() - 1);
+                }
+            }
         }
     }
 
