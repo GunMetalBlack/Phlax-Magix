@@ -82,9 +82,16 @@ public class PhlaxPlayerDataHolderCapability implements IPhlaxPlayerDataHolderCa
         this.isDirty = true;
     }
 
+
     @Override
     public float getManaRegenRate() {
         return manaRegenRate;
+    }
+
+    @Override
+    public void setCurrentSpell(Spell CurrentSpell)
+    {
+
     }
 
     @Override

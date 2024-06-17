@@ -58,7 +58,8 @@ public class EntityMagicOrb extends ThrowableEntity implements IRendersAsItem {
             IPhlaxPlayerDataHolderCapability playerData = this.player.getCapability(PhlaxModCapabilities.PLAYER_DATA_HOLDER_CAPABILITY).orElse(null);
             if(playerData.getCurrentSpell() == Spell.SMALL_EXPLOSIVE)
             {
-                level.explode(player, getX(), getY(), getZ(), 20, Mode.DESTROY);
+
+                playerData.getCurrentSpell().startSpell(level,player,getX(), getY(), getZ());
             }
             else if(playerData.getCurrentSpell() == Spell.STRIKE)
             {
