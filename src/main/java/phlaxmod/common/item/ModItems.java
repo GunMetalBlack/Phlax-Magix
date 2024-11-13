@@ -155,6 +155,9 @@ public class ModItems {
     public static final RegistryObject<Item> REDSTONE_CONDENSED = ITEMS.register("redstone_condensed",
             () -> new Item(new Item.Properties().tab(PhlaxMod.PHLAX_ITEM_GROUP)));
 
+    public static final RegistryObject<ItemOrbSpellSelector> ORB_SPELL_SELECTOR = ITEMS.register("orb_spell_selector",
+            () -> new ItemOrbSpellSelector(new Item.Properties().tab(PhlaxMod.PHLAX_ITEM_GROUP)));
+
     public static final RegistryObject<ItemPhlaxFlux> REFINED_PHLAX_FLUX = ITEMS.register("refined_phlax_flux",
             () -> new ItemPhlaxFlux(new Item.Properties()
                     .tab(PhlaxMod.PHLAX_ITEM_GROUP).food(new Food.Builder().alwaysEat().nutrition(5).build())));

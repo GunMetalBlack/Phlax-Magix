@@ -24,6 +24,6 @@ public interface IPhlaxPlayerDataHolderCapability {
     boolean shouldRegenMana();
     void setMaxMana(float maxMana);
     float getMaxMana();
-    void setCurrentSpell();
     Spell getCurrentSpell();
+    void setCurrentSpell(Spell CurrentSpell);
 }

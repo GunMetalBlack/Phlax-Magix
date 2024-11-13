@@ -38,12 +38,12 @@ public enum Spell {
 
     public static Spell getSpellByName(String name) {
         for(Spell spell : Spell.values()) {
-            if(spell.name == name) return spell;
+            if(spell.name.equals(name)) return spell;
         }
         return null;
     }
 
-    private Spell(String name, int manaCost, int damage, boolean isProjectile) {
+     Spell(String name, int manaCost, int damage, boolean isProjectile) {
         this.name = name;
         this.manaCost = manaCost;
         this.isProjectile = isProjectile;
@@ -52,7 +52,7 @@ public enum Spell {
 
     public Spell next() {
         int newOrdinal = ordinal() + 1;
-        if(values().length<= newOrdinal) {
+        if(values().length <= newOrdinal) {
             newOrdinal = 0;
         }
         return values()[newOrdinal];

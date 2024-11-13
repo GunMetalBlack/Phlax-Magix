@@ -15,9 +15,16 @@ public class PhlaxPlayerDataHolderCapability implements IPhlaxPlayerDataHolderCa
     public float maxMana = 100f;
     public float manaRegenRate = 5;
     public boolean shouldRegenMana = false;
-
     private boolean isDirty = false;
-
+    private Spell CurrentSpell;
+    public PhlaxPlayerDataHolderCapability()
+    {
+        for(Spell spell : Spell.values())
+        {
+            learnedSpells.add(spell);
+        }
+        this.CurrentSpell = learnedSpells.get(0);
+    }
     @Override
     public void tick(Consumer<SPacketPhlaxPlayerDataUpdate> packetSendFunction) {
         if(shouldRegenMana()) {
@@ -91,12 +98,12 @@ public class PhlaxPlayerDataHolderCapability implements IPhlaxPlayerDataHolderCa
     @Override
     public void setCurrentSpell(Spell CurrentSpell)
     {
-
+        this.CurrentSpell = CurrentSpell;
     }
 
     @Override
     public Spell getCurrentSpell() {
-        return Spell.STRIKE;
+        return this.CurrentSpell;
     }
 
     @Override
@@ -120,6 +127,7 @@ public class PhlaxPlayerDataHolderCapability implements IPhlaxPlayerDataHolderCa
     public float getMaxMana() {
         return maxMana;
     }
+
 
     public static void register() {
         CapabilityManager.INSTANCE.register(IPhlaxPlayerDataHolderCapability.class, new PhlaxPlayerDataHolderCapabilityStorage(), PhlaxPlayerDataHolderCapability::new);
